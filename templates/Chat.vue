@@ -363,9 +363,13 @@ async function sendMessage() {
 .chat-window {
   min-width: 300px;
   min-height: 300px;
-  background: #f3f3f3;
-  border: 2px solid #bdbdbd;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  background: #c3c3c3;
+  border-top: solid rgb(250, 250, 250) 2px;
+  border-left: solid rgb(250, 250, 250) 2px;
+  border-right: solid rgb(90, 90, 90) 1.5px;
+  border-bottom: solid rgb(90, 90, 90) 1.5px;
+  box-shadow: 1.5px 1.5px black;
+  outline: rgb(222, 222, 222) 1px solid;
 }
 .fullscreen {
   width: 100% !important;
