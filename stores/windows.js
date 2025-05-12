@@ -100,11 +100,11 @@ export const useWindowsStore = defineStore("windows", {
         // imagePreview: file.src
       },
       {
-        windowId: "NOSSAFLEXWindow",
+        windowId: "GUARDIANANGELWindow",
         windowState: "close",
-        displayName: "NOSSAFLEX",
+        displayName: "Guardian Angel",
         windowComponent: "window",
-        windowContent: "nossaflex",
+        windowContent: "guardianangel",
         windowContentPadding: {
           top: null,
           right: null,
@@ -114,8 +114,8 @@ export const useWindowsStore = defineStore("windows", {
         position: "absolute",
         positionX: "6vw",
         positionY: "12vh",
-        iconImage: "noss.webp",
-        altText: "NOSSAFLEX App",
+        iconImage: "guardian.png",
+        altText: "Guardian Angel Project",
         fullscreen: false,
         showInAppGrid: true,
         showInNavbar: true,
@@ -204,6 +204,27 @@ export const useWindowsStore = defineStore("windows", {
         showInAppGrid: true,
         showInNavbar: true,
       },
+      {
+        windowId: "ChatWindow",
+        windowState: "close",
+        displayName: "Chat",
+        windowComponent: "chat",
+        windowContent: "",
+        windowContentPadding: {
+          top: "0",
+          right: "0",
+          bottom: "0",
+          left: "0",
+        },
+        position: "absolute",
+        positionX: "8vw",
+        positionY: "12vh",
+        iconImage: "chat.png",
+        altText: "Chat",
+        fullscreen: false,
+        showInAppGrid: false,
+        showInNavbar: true,
+      },
     ],
   }),
 
@@ -218,108 +239,108 @@ export const useWindowsStore = defineStore("windows", {
   },
 
   actions: {
-        getWindowById(windowId) {
-            return this.windows.find((window) => window.windowId === windowId)
-        },
+    getWindowById(windowId) {
+      return this.windows.find((window) => window.windowId === windowId);
+    },
 
-        getWindowFullscreen(windowId) {
-            return this.windows.find((window) => window.windowId === windowId).fullscreen
-        },
+    getWindowFullscreen(windowId) {
+      return this.windows.find((window) => window.windowId === windowId)
+        .fullscreen;
+    },
 
-        getActiveWindow() {
-            return this.activeWindow
-        },
+    getActiveWindow() {
+      return this.activeWindow;
+    },
 
-        setActiveWindow(windowId) {
-            this.activeWindow = windowId
-        },
+    setActiveWindow(windowId) {
+      this.activeWindow = windowId;
+    },
 
-        setFullscreen(payload) {
-            const getArrItem = () => {
-                return this.windows.find(
-                    (windows) => windows.windowId === payload.windowId
-                );
-            }
-            const window = getArrItem();
-            window.fullscreen = payload.fullscreen;
-        },
+    setFullscreen(payload) {
+      const getArrItem = () => {
+        return this.windows.find(
+          (windows) => windows.windowId === payload.windowId
+        );
+      };
+      const window = getArrItem();
+      window.fullscreen = payload.fullscreen;
+    },
 
-        zIndexIncrement(windowId) {
-            this.zIndex++
-            if (document.getElementById(windowId)) {
-                document.getElementById(windowId).style.zIndex = this.zIndex
-            }
-        },
+    zIndexIncrement(windowId) {
+      this.zIndex++;
+      if (document.getElementById(windowId)) {
+        document.getElementById(windowId).style.zIndex = this.zIndex;
+      }
+    },
 
-        // Push Active Window
-        pushActiveWindow(window) {
-            this.activeWindows.push(window)
-        },
+    // Push Active Window
+    pushActiveWindow(window) {
+      this.activeWindows.push(window);
+    },
 
-        // Pop Active Window
-        popActiveWindow(window) {
-            const windowIndex = this.activeWindows.indexOf(window)
-            if (windowIndex !== -1) {
-                this.activeWindows.splice(windowIndex, 1)
-            }
-        },
+    // Pop Active Window
+    popActiveWindow(window) {
+      const windowIndex = this.activeWindows.indexOf(window);
+      if (windowIndex !== -1) {
+        this.activeWindows.splice(windowIndex, 1);
+      }
+    },
 
-        pushNewWindow(window) {
-            this.windows.push(window)
-        },
+    pushNewWindow(window) {
+      this.windows.push(window);
+    },
 
-        setPhotoFolderContent(payload) {
-            this.photoFolderContent = payload
-        },
+    setPhotoFolderContent(payload) {
+      this.photoFolderContent = payload;
+    },
 
-        setWindowState(payload) {
-            // payload = {'windowState': 'open', 'windowId': 'WindowOne'}
+    setWindowState(payload) {
+      // payload = {'windowState': 'open', 'windowId': 'WindowOne'}
 
-            const getArrItem = () => {
-                return this.windows.find(
-                    (windows) => windows.windowId === payload.windowId
-                );
-            }
+      const getArrItem = () => {
+        return this.windows.find(
+          (windows) => windows.windowId === payload.windowId
+        );
+      };
 
-            const window = getArrItem();
+      const window = getArrItem();
 
-            let preventAppendingOpenWindow = false;
-            if (window.windowState == "open" || window.windowState == "minimize") {
-                preventAppendingOpenWindow = true;
-            }
+      let preventAppendingOpenWindow = false;
+      if (window.windowState == "open" || window.windowState == "minimize") {
+        preventAppendingOpenWindow = true;
+      }
 
-            if (payload.windowState == "open") {
-                window.windowState = payload.windowState;
-                setTimeout(() => {
-                    this.zIndexIncrement(payload.windowId);
-                }, 0);
-                setTimeout(() => {
-                    this.setActiveWindow(payload.windowId);
-                }, 0);
-                if (preventAppendingOpenWindow == false) {
-                    this.pushActiveWindow(window);
-                }
-            } else if (payload.windowState == "close") {
-                setTimeout(() => {
-                    window.windowState = payload.windowState;
-                }, 0);
-                setTimeout(() => {
-                    this.popActiveWindow(window);
-                }, 0)
-                setTimeout(() => {
-                    this.setActiveWindow("nil");
-                }, 0)
-            } else if (payload.windowState == "minimize") {
-                setTimeout(() => {
-                    window.windowState = payload.windowState;
-                }, 0)
-                setTimeout(() => {
-                    this.setActiveWindow("nil");
-                }, 0)
-                
-            } else {
-                console.log("Error: windowState not found or invalid");
-            }
-        },
-    }
+      if (payload.windowState == "open") {
+        window.windowState = payload.windowState;
+        setTimeout(() => {
+          this.zIndexIncrement(payload.windowId);
+        }, 0);
+        setTimeout(() => {
+          this.setActiveWindow(payload.windowId);
+        }, 0);
+        if (preventAppendingOpenWindow == false) {
+          this.pushActiveWindow(window);
+        }
+      } else if (payload.windowState == "close") {
+        setTimeout(() => {
+          window.windowState = payload.windowState;
+        }, 0);
+        setTimeout(() => {
+          this.popActiveWindow(window);
+        }, 0);
+        setTimeout(() => {
+          this.setActiveWindow("nil");
+        }, 0);
+      } else if (payload.windowState == "minimize") {
+        setTimeout(() => {
+          window.windowState = payload.windowState;
+        }, 0);
+        setTimeout(() => {
+          this.setActiveWindow("nil");
+        }, 0);
+      } else {
+        console.log("Error: windowState not found or invalid");
+      }
+    },
+  },
 });

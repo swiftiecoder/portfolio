@@ -75,11 +75,17 @@ onBeforeMount(() => {
     </div>
     </div>
     <div class="spacer"></div>
+    <div alt="chat" class="chat-navbar">
+      <button class="navbar-item" @click="openWindow('ChatWindow')">
+        <img class="icon-image" :src="getImagePath('chat.png')" alt="Chat" />
+        <p>Chat</p>
+      </button>
+    </div>
     <div alt="time" class="time">
-        <img src="../assets/speakers.png" class="icon-image" />
-        <time>
-            {{ time }}
-        </time>
+      <img src="../assets/speakers.png" class="icon-image" />
+      <time>
+        {{ time }}
+      </time>
     </div>
 </nav>
 </template>
@@ -252,6 +258,12 @@ onBeforeMount(() => {
     align-items: center;
     flex-direction: row;
     font-size: 0.6em;
+}
+
+.chat-navbar {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
 }
 
 @media only screen and (max-width: 700px) {
