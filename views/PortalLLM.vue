@@ -10,7 +10,11 @@
       <img class="w-auto h-5 rounded-none text-xs" alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white" />
       <img class="w-auto h-5 rounded-none text-xs" alt="Node.js" src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white" />
       <img class="w-auto h-5 rounded-none text-xs" alt="MongoDB" src="https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white" />
-      <img class="w-auto h-5 rounded-none text-xs" alt="Langchain" src="https://img.shields.io/badge/-Langchain-000000?logo=data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZmZmIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHoiLz48L3N2Zz4=&logoColor=white" />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="LangChain"
+        src="https://img.shields.io/badge/-LangChain-000000?logo=langchain&logoColor=white"
+      />
       <img class="w-auto h-5 rounded-none text-xs" alt="Azure" src="https://img.shields.io/badge/-Azure-0078D4?logo=microsoftazure&logoColor=white" />
       <img class="w-auto h-5 rounded-none text-xs" alt="Pinecone" src="https://img.shields.io/badge/-Pinecone-5FD3F3?logo=pinecone&logoColor=white" />
       <img class="w-auto h-5 rounded-none text-xs" alt="Telegram" src="https://img.shields.io/badge/-Telegram-26A5E4?logo=telegram&logoColor=white" />
