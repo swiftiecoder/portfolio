@@ -251,8 +251,10 @@ async function getAssistantResponse(userMessage) {
     }
 
     const assistantMessages = await openai.beta.threads.messages.list(threadId.value);
-    const lastMessage = assistantMessages.data.reverse().find(m => m.role === 'assistant');
-    return lastMessage?.content?.[0]?.text?.value || 'No response from assistant.';
+    const latestAssistantMsg = assistantMessages.data
+      .filter(m => m.role === 'assistant')
+      .sort((a, b) => b.created_at - a.created_at)[0];
+    return latestAssistantMsg?.content?.[0]?.text?.value || 'No response from assistant.';
   } catch (error) {
     return 'Error contacting assistant. Please check the console for details.';
   }
