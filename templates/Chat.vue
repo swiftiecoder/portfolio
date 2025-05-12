@@ -143,7 +143,7 @@ const initializeChat = async () => {
     openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
     const thread = await openai.beta.threads.create();
     threadId.value = thread.id;
-    messages.value.push({ from: 'bot', text: "I'm not available at the moment, my OpenAI assistant can help you know whatever you want about me." });
+    messages.value.push({ from: 'bot', text: "I'm not available at the moment, but my OpenAI assistant can help you know whatever you want about me." });
   } catch (e) {
     messages.value.push({ from: 'bot', text: 'Failed to initialize chat. Please try again later.' });
   }
@@ -254,7 +254,9 @@ async function getAssistantResponse(userMessage) {
     const latestAssistantMsg = assistantMessages.data
       .filter(m => m.role === 'assistant')
       .sort((a, b) => b.created_at - a.created_at)[0];
-    return latestAssistantMsg?.content?.[0]?.text?.value || 'No response from assistant.';
+    let responseText = latestAssistantMsg?.content?.[0]?.text?.value || 'No response from assistant.';
+    responseText = responseText.replace(/【.*?†source】/g, '');
+    return responseText;
   } catch (error) {
     return 'Error contacting assistant.';
   }

@@ -1,7 +1,7 @@
 <template>
 <div>
     <img class="w-full h-auto" src="@/assets/Biography/self.jpg" />
-    <h2 class="font-bold text-2xl py-5">Shaharyar Ahsan (Sherry)</h2>
+    <h2 class="font-bold text-2xl py-5">Shaharyar Ahsan</h2>
     <h4 class="text-gray-600 font-medium text-xs" style="padding-bottom: 10px">
         B.S. Computer Science, Lahore University of Management Sciences (LUMS) • Teaching Assistant • Research Assistant • Aspiring Software Engineer (Graduating Summer 2025)
     </h4>
