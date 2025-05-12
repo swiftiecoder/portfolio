@@ -1,21 +1,19 @@
 <script setup>
-import {
-    useWindowsStore
-} from '@/stores/windows'
+import { useWindowsStore } from '@/stores/windows'
 const windowsStore = useWindowsStore()
 </script>
 
 <template>
 <div style="display: flex; height: 100%; flex-direction: column">
     <nav class="download-bar">
-        <a href="/files/don_chia_resume.pdf" class="download" style="z-index: 10" download target="_blank">
+        <a href="/files/shaharyar_acad_cv.pdf" class="download" style="z-index: 10" download target="_blank">
             <span style="display: flex" class="border">
                 <img src="@/assets/Resume/download.png" class="icon-image" />
                 <p style="margin-top: 2px">Download</p>
             </span>
         </a>
 
-        <a href="/files/don_chia_resume.pdf" class="download" style="z-index: 10" target="_blank">
+        <a href="/files/shaharyar_acad_cv.pdf" class="download" style="z-index: 10" target="_blank">
             <span style="display: flex" class="border">
                 <img src="@/assets/Resume/open.png" class="icon-image" />
                 <p style="margin-top: 2px">Open In New Tab</p>
@@ -23,14 +21,12 @@ const windowsStore = useWindowsStore()
         </a>
     </nav>
     <div class="frame" style="z-index: 99">
-        <iframe class="frame" src="https://drive.google.com/file/d/1CjNVGFHFV3v0cv3Vn6HK9Yxhj7v9ut4M/preview"></iframe>
-        <span v-if="windowsStore.activeWindow != 'ResumeWindow'" style="bottom: 0; left: 0; width: 100%; height: 95%; position: absolute" class="overlay"></span>
+        <iframe class="frame" src="https://drive.google.com/file/d/1muCo7KqGoW0P79PycxHxKc0Q4yPGssxf/preview"></iframe>
+        <span v-if="windowsStore.activeWindow != 'CVWindow'" style="bottom: 0; left: 0; width: 100%; height: 95%; position: absolute" class="overlay"></span>
     </div>
 </div>
 </template>
 
-  
-  
 <style scoped>
 .download {
     vertical-align: middle;
@@ -91,5 +87,7 @@ const windowsStore = useWindowsStore()
 .frame {
     width: 100%;
     height: 97.5%;
+    overflow: auto;
 }
 </style>
+

@@ -3,8 +3,8 @@ import interact from 'interactjs';
 import {
     onMounted,
     ref,
-    defineProps,
-    computed
+    computed,
+    watch
 } from 'vue';
 import {
     useWindowsStore
@@ -49,20 +49,32 @@ const tempPosition = ref({
 const windowsStore = useWindowsStore()
 const mailStore = useMailStore()
 const window = ref({})
+const effectiveTop = ref("0px");
+
 const ComponentName = props.nameOfWindow
 const w = ref(400)
 const h = ref(400)
 
-const style = computed(() => ({
-    height: `${h.value}px`,
-    width: `${w.value}px`,
-    transform: `translate(${position.value.x}px, ${position.value.y}px)`,
-    "--content-padding-left": props.content_padding_left || "15%",
-    "--content-padding-right": props.content_padding_right || "15%",
-    "--content-padding-top": props.content_padding_top || "5%",
-    "--content-padding-bottom": props.content_padding_bottom || "5%",
-    "--fullscreen": windowsStore.getFullscreenWindowHeight, 
-}));
+const style = computed(() => {
+    const baseStyles = {
+        height: `${h.value}px`,
+        width: `${w.value}px`,
+        transform: `translate(${position.value.x}px, ${position.value.y}px)`,
+        "--content-padding-left": props.content_padding_left || "15%",
+        "--content-padding-right": props.content_padding_right || "15%",
+        "--content-padding-top": props.content_padding_top || "5%",
+        "--content-padding-bottom": props.content_padding_bottom || "5%",
+        "--fullscreen": windowsStore.getFullscreenWindowHeight,
+    };
+
+    if (window.value && window.value.positionX) {
+        baseStyles.left = window.value.positionX;
+        baseStyles.top = effectiveTop.value;
+    } else {
+        baseStyles.left = '0px';
+    }
+    return baseStyles;
+});
 
 const setActiveWindow = () => {
     windowsStore.setActiveWindow(window.value.windowId)
@@ -171,6 +183,27 @@ let isDragging = false;
 
 onMounted(() => {
     window.value = windowsStore.getWindowById(ComponentName)
+
+    if (window.value) {
+        effectiveTop.value = window.value.positionY;
+
+        watch(() => window.value.windowState, (newState, oldState) => {
+            if (!window.value) return;
+
+            if (newState === 'open') {
+                if (oldState === 'close') {
+                    effectiveTop.value = `calc(${window.value.positionY} + 10px)`;
+                } else {
+                    effectiveTop.value = window.value.positionY;
+                }
+            } else if (newState === 'close') {
+                effectiveTop.value = window.value.positionY;
+            }
+        });
+    } else {
+        console.error("Mail.vue: Window data not found for component:", ComponentName);
+    }
+
     const draggableWindow = interact("#" + window.value.windowId)
     draggableWindow
         .draggable({
@@ -178,7 +211,6 @@ onMounted(() => {
                 move(event) {
                     position.value.x += event.dx
                     position.value.y += event.dy
-                    // event.target.style.transform = `translate(${position.value.x}px, ${position.value.y}px)`
                 }
             },
             modifiers: [
@@ -195,7 +227,6 @@ onMounted(() => {
         .on('dragmove', () => {
             if (isDragging) {
                 setActiveWindow();
-                // windowsStore.zIndexIncrement(window.value.windowId);
                 isDragging = false;
             }
         })
@@ -242,7 +273,7 @@ onMounted(() => {
             'minimize': window.fullscreen == 'minimize',
         }" @click="setActiveWindow" @dragstart="setActiveWindow" @click.native="setActiveWindow">
     <iframe name="hidden_iframe" id="hidden_iframe" style="display: none"></iframe>
-    <form @submit="sendEmail" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdRBqHB0Z6GOjwE3jniX8-fHfJK-WcyzNTmkPFg4fg2SYPwpA/formResponse" class="window-style" id="container" target="hidden_iframe">
+    <form @submit="sendEmail" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScBcWd8cZmJr0U79ce6x9xkHIHwaDMn-wSFDgWMiOTDJn-dCA/formResponse" class="window-style" id="container" target="hidden_iframe">
         <div id="top-bar" class="top-bar-window" :class="
             windowsStore.activeWindow == window.windowId
                 ? 'top-bar'
@@ -295,21 +326,21 @@ onMounted(() => {
                 <hr />
                 <div class="subject-container">
                     <p style="margin: 8px">To:</p>
-                    <div class="receipient">Don</div>
+                    <div class="receipient">Sherry</div>
                 </div>
                 <hr />
                 <div class="subject-container">
                     <p style="margin: 8px">Subject:</p>
-                    <input name="entry.609946071" class="subject" v-model="mailSubject" v-on:input="onChangeMailSubject" type="text" required="true" />
+                    <input name="entry.2952688" class="subject" v-model="mailSubject" v-on:input="onChangeMailSubject" type="text" required="true" />
                 </div>
                 <hr />
                 <div class="from-container" style="margin-bottom: 2px">
                     <p style="margin: 8px">From:</p>
-                    <input name="entry.367924729" class="subject" v-model="mailSender" v-on:input="onChangeMailSender" type="email" required="true" />
+                    <input name="entry.1156392602" class="subject" v-model="mailSender" v-on:input="onChangeMailSender" type="email" required="true" />
                 </div>
             </div>
 
-            <textarea name="entry.863594021" v-model="mailContent" v-on:input="onChangeMailContent" required="true"></textarea>
+            <textarea name="entry.1643496139" v-model="mailContent" v-on:input="onChangeMailContent" required="true"></textarea>
         </div>
     </form>
 </div>

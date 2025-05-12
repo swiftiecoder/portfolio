@@ -1,161 +1,100 @@
 <template>
 <div>
     <img class="w-full h-auto" src="@/assets/Biography/self.jpg" />
-    <h2 class="font-bold text-2xl py-5">Don Chia (谢祺恩)</h2>
+    <h2 class="font-bold text-2xl py-5">Shaharyar Ahsan (Sherry)</h2>
     <h4 class="text-gray-600 font-medium text-xs" style="padding-bottom: 10px">
-        Software Engineer @ MINDEF Signals Cloud and Digital Office • NOSSAFLEX • Fundigo Co. • Current Inc. •  Apple WWDC 2021 & 2022 SSC Scholar
+        B.S. Computer Science, Lahore University of Management Sciences (LUMS) • Teaching Assistant • Research Assistant • Aspiring Software Engineer (Graduating Summer 2025)
     </h4>
-    <h4 class="text-gray-600 font-medium text-xs">Singapore 📍</h4>
+    <h4 class="text-gray-600 font-medium text-xs">Lahore, Pakistan 📍</h4>
     <div class="flex flex-wrap mt-5 gap-2 items-center">
-        <img class="w-auto h-5 rounded-none text-xs" alt="Swift" src="https://img.shields.io/badge/-Swift-orange" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="Python" src="https://img.shields.io/badge/-Python-blue" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="JavaScript" src="https://img.shields.io/badge/-Javascript-yellow" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="SQL" src="https://img.shields.io/badge/-SQL-lightgrey" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="Git" src="https://img.shields.io/badge/-Git-critical" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="HTML/CSS" src="https://img.shields.io/badge/-HTML%2FCSS-yellowgreen" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="SwiftUI" src="https://img.shields.io/badge/-SwiftUI-3e8bc3" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="React Native" src="https://img.shields.io/badge/-React Native-blue" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="Vue" src="https://img.shields.io/badge/-VueJS-61b083" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="Flask" src="https://img.shields.io/badge/-Flask-406893" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="MongoDB" src="https://img.shields.io/badge/-MongoDB-4ca158" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="SQLite" src="https://img.shields.io/badge/-SQLite-64a2c9" />
-        <img class="w-auto h-5 rounded-none text-xs" alt="Figma" src="https://img.shields.io/badge/-Figma-8c5aee" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Python" src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="R" src="https://img.shields.io/badge/-R-276DC3?logo=r&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Java" src="https://img.shields.io/badge/-Java-007396?logo=java&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="JavaScript" src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="C" src="https://img.shields.io/badge/-C-A8B9CC?logo=c&logoColor=black" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="C++" src="https://img.shields.io/badge/-C++-00599C?logo=cplusplus&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="HTML5" src="https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="CSS3" src="https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="LaTeX" src="https://img.shields.io/badge/-LaTeX-408080?logo=latex&logoColor=white" />
+
+        <!-- <img class="w-auto h-5 rounded-none text-xs" alt="Flutter" src="https://img.shields.io/badge/-Flutter-02569B?logo=flutter&logoColor=white" /> -->
+        <img class="w-auto h-5 rounded-none text-xs" alt="MERN Stack" src="https://img.shields.io/badge/-MERN-47A248?style=flat&logo=mongodb&logoColor=white" /> <img class="w-auto h-5 rounded-none text-xs" alt="React" src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black" /> <img class="w-auto h-5 rounded-none text-xs" alt="Node.js" src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white" /> <img class="w-auto h-5 rounded-none text-xs" alt="SQL" src="https://img.shields.io/badge/-SQL-4479A1?logo=postgresql&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="MongoDB" src="https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Pandas" src="https://img.shields.io/badge/-Pandas-150458?logo=pandas&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Matplotlib" src="https://img.shields.io/badge/-Matplotlib-000000?logo=matplotlib&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="NLTK" src="https://img.shields.io/badge/-NLTK-3E4D30?logo=nltk&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Sci-Kit Learn" src="https://img.shields.io/badge/-Scikit--learn-F7931E?logo=scikit-learn&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Hugging Face" src="https://img.shields.io/badge/-Hugging%20Face-FFD21C?logo=hugging%20face&logoColor=black" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="MATLAB" src="https://img.shields.io/badge/-MATLAB-0076A8?logo=matlab&logoColor=white" />
+
+        <img class="w-auto h-5 rounded-none text-xs" alt="Figma" src="https://img.shields.io/badge/-Figma-F24E1E?logo=figma&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Lucidchart" src="https://img.shields.io/badge/-Lucidchart-2196F3?logo=lucidchart&logoColor=white" />
+
+
+        <img class="w-auto h-5 rounded-none text-xs" alt="GitHub" src="https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Git" src="https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white" />
+        <img class="w-auto h-5 rounded-none text-xs" alt="Agile" src="https://img.shields.io/badge/-Agile-0C7BC1?logo=agile&logoColor=white" />
+
     </div>
     <div class="pt-7">
         <h3 class="underline font-bold text-md pb-1">About Me</h3>
         <p class="font-thin text-sm pb-2.5">
-            I’m a {{ new Date().getFullYear() - 2003 }} year old software engineer who’s a React Native and Vue.JS engineer by day but a native iOS developer by night. Crafting impactful software that serves my community and people around me is my passion.
+            I am Shaharyar Ahsan (Sherry), a final-year Computer Science student at LUMS (Lahore University of Management Sciences), passionate about data science, machine learning, and NLP—especially computational hermeneutics and linguistic analysis for social impact. I am driven by a desire to build impactful, accessible technology and to contribute to research and open-source communities.
         </p>
+    </div>
+    <div class="pt-7">
+        <h3 class="underline font-bold text-md pb-1">Academic Achievements</h3>
         <p class="font-thin text-sm pb-2.5">
-            I thrive on staying updated with the latest design trends and development frameworks across all platforms. While my heart lies in native app design and development, I also excel in cross-platform app and web development, which keeps the bills paid.
-        </p>
-        <p class="font-thin text-sm pb-2.5">
-            At 17, I co-founded NOSSAFLEX with developers from Australia and the US. Since then, it has garnered attention, being featured on local television, Apple’s annual Entrepreneur Camp, and earning a nomination from Apple’s regional team for their annual design awards.
-        </p>
-        <p class="font-thin text-sm pb-2.5">
-            Having collaborated with diverse companies worldwide, from e-commerce to art and design industries, I've honed the ability to manage multiple projects simultaneously across various time zones.
-        </p>
-        <p class="font-thin text-sm pb-2.5">
-            In my spare time, I indulge in scrolling through analog camera listings or admiring my collection, although shooting has taken a backseat due to my various work commitments.
+            Strong academic record with a GPA of 3.80/4.0 (Major GPA: 3.89/4.0). Recipient of multiple Dean's Honor List awards and Merit Scholarship at LUMS.
         </p>
     </div>
     <div class="pt-7">
         <h3 class="underline font-bold text-md pb-1">Employment History</h3>
     </div>
     <div class="pt-7">
-        <h3 class="pb-1"><b>NOSSAFLEX (2020 - Present)</b></h3>
-        <h6 class="text-gray-600 font-medium text-xs">Co-Founder, iOS Engineer</h6>
+        <h3 class="pb-1"><b>Teaching Assistant - Lahore University of Management Sciences (LUMS)</b></h3>
+        <h6 class="text-gray-600 font-medium text-xs">Sept 2023 - Dec 2023 | CS 100 & SS 100</h6>
+        <h6 class="text-gray-600 font-medium text-xs">Sept 2024 - Dec 2024 | MGMT 348</h6>
         <p class="font-thin text-sm pb-2.5">
-            Four years ago, NOSSAFLEX was conceived as a joint venture project between myself, Josh, our designer from Melbourne, and Diego, our lead developer from Virginia. It aims to digitalize the analog photographer's workflow with a series of tools in the form of an iOS application. The app has since undergone multiple redesigns and has been featured on Channel 8 (Singapore), Apple's Entrepreneur Camp website, and was also recently submitted by Apple South Asia team for consideration in the Apple Design Awards.
+            Assisted in creating and grading lab tasks, invigilated exams, held office hours, and provided feedback for students in Computer Science, Humanities, and Business courses. Led project groups, taught research and citation skills, and supported course logistics and grading.
         </p>
     </div>
-
     <div class="pt-7">
-        <h3 class="pb-1"><b>MINDEF Signals Cloud & Digital Office (2023 - Present)</b></h3>
-        <h6 class="text-gray-600 font-medium text-sm">Core Team, Lead Engineer</h6>
+        <h3 class="pb-1"><b>Research Assistant - Lahore University of Management Sciences (LUMS)</b></h3>
+        <h6 class="text-gray-600 font-medium text-xs">Jan 2024 - May 2024 | Center for Speech & Language Technologies<br>June 2024 - May 2025 | Embedded Systems & Networks Labs (SysNet/EmNets)</h6>
         <p class="font-thin text-sm pb-2.5">
-            At Signal's Cloud & Digital Office (CADO), I served as the team's Lead Engineer and Designer. My role involves leading the development of application and software by applying my expertise in React Native and Vue.JS. Building robust solutions, tailored to the evolving need of the military.
+            Worked on AI-driven healthcare and NLP for low-resource languages. Built prototypes, designed tech stacks, integrated APIs, led teams, and contributed to research on biomedical NLP, prompt engineering, and evaluation metrics.
         </p>
     </div>
-
-    <div class="pt-7">
-        <h3 class="pb-1"><b>Fundigo Co. (2022 - Present)</b></h3>
-        <h6 class="text-gray-600 font-medium text-xs">Core Team, Frontend Engineer & UI/UX Designer</h6>
-        <p class="font-thin text-sm pb-2.5">
-            Utilised Vue.js and Tailwind CSS to construct an e-commerce portal for merchants. Leveraged skills and experience in Figma to design a cross-platform application by applying Material 3 design. The application has since been deployed and is currently in use by merchants.
-        </p>
-    </div>
-
-    <div class="pt-7">
-        <h3 class="pb-1"><b>Current Inc. (2023 - 2024)</b></h3>
-        <h6 class="text-gray-600 font-medium text-xs">Core Team, iOS Engineer</h6>
-        <p class="font-thin text-sm pb-2.5">
-            Developed a mobile application for a startup based in California that provides a platform for users to look for EV chargers. The application was built using Apple's SwiftUI framework and was designed to be user-friendly and intuitive.
-        </p>
-    </div>
-
     <div class="pt-7">
         <h3 class="underline font-bold text-md pb-1">Projects & Achievements</h3>
+        <ul class="list-disc pl-5 font-thin text-sm pb-2.5 ml-4">
+            <li class="mb-1">Hook, Time and Singer: Sentiment and linguistic analysis of 7 decades of GRAMMY-nominated songs using Python and ML.</li>
+            <li class="mb-1">Portal-LLM: Character-based vicarious learning via chatbots and RAG pipelines for education.</li>
+            <li class="mb-1">Zaamin: Secure HR portal with encryption, RBAC, and audit logging.</li>
+            <li class="mb-1">Tabular Regression: ML experiments on the Blue Book for Bulldozers dataset.</li>
+            <li class="mb-1">Heart Disease Classification: Data science project with multiple models and blog publication.</li>
+            <li class="mb-1">On Geoblocking: Policy research and case study on digital access and content distribution.</li>
+            <!-- <li class="mb-1">Misc: LMS, Auction App (MERN), UNIX Shell & File System in C, Telegram bots, open source bug fixes.</li> -->
+        </ul>
     </div>
-
-    <div class="pt-7">
-
-        <div class="">
-            <h3 class="pb-1"><b>Apple Design Awards 2024</b></h3>
-            <h6 class="text-gray-600 font-medium text-xs">Shortlisted Regionally</h6>
-            <p class="font-thin text-sm pb-2.5">
-                Analog was shortlisted by Apple South Asia Developer Relations team and submitted to Apple Cupertino HQ for consideration in Apple’s annual Design Award. Apple’s South Asia DR team praised Analog for its adherence to Apple’s Human Interaction guidelines while adding a unique UI spin to the application’s design
-
-            </p>
-        </div>
-
-        <div class="pt-7">
-            <h3 class="pb-1"><b>Apple Entrepreneur Camp 2023</b></h3>
-            <h6 class="text-gray-600 font-medium text-xs">Accepted</h6>
-            <p class="font-thin text-sm pb-2.5">
-                Analog was accepted into Apple’s Entrepreneur Camp 2023, an international programme designed to support developers providing access to Apple Engineers and Leaders to accelerate the growth of their app-driven businesses.
-            </p>
-        </div>
-        
-        <div class="pt-7">
-            <h3 class="pb-1"><b>SAF Innovation Award 2023 - OMNIA Application by Signals Cloud & Digital Office</b></h3>
-            <h6 class="text-gray-600 font-medium text-xs">Awarded</h6>
-            <p class="font-thin text-sm pb-2.5">
-                OMNIA web application was awarded SAF’s Innovation Award in 2023, it successfully served its purpose as a management app for Exercise Forging Sabre held in Idaho, USA.
-            </p>
-        </div>
-
-        <div class="pt-7">
-            <h3 class="pb-1"><b>Apple WWDC Scholar 2022</b></h3>
-            <h6 class="text-gray-600 font-medium text-xs">Awarded</h6>
-            <p class="font-thin text-sm pb-2.5">
-                Yet another successful attempt at Apple's international coding
-                competition. By making use of SwiftUI once more, I created a short app
-                experience that explores recursive art patterns and abstract art. With
-                the help of generative art, I was able to create a unique experience
-                that most people would have rarely come across.
-            </p>
-            <p class="font-thin text-sm pb-2.5">
-                Check out my submission
-                <a style="color: #ff5733" href="https://github.com/DonChiaQE/ReGen">here</a>!
-            </p>
-            <p class="font-thin text-sm pb-2.5">
-                As this news has only just recently reached me, I will be updating this
-                section once more when I have receive more news from Apple HQ.
-            </p>
-        </div>
-
-        <div class="pt-7">
-            <h3 class="pb-1"><b>Apple WWDC Scholar 2021</b></h3>
-            <h6 class="text-gray-600 font-medium text-xs">Awarded</h6>
-            <p class="font-thin text-sm pb-2.5">
-                My second try at Apple's international coding competition was finally a
-                successful one. Making use of my prowess with web development, I decided
-                to create a Swift Playground project that taught users how to make use
-                of HTML and CSS to create a simple website.
-            </p>
-            <p class="font-thin text-sm pb-2.5">
-                Making use of Apple's SwiftUI framework as well as the nifty WKWebView
-                API, I managed to create a working editor that would allow users to
-                meddle with HTML and CSS. I proceeded to create a playground book
-                project around that idea and came up with a tutorial sequence for the
-                user to follow.
-            </p>
-            <p class="font-thin text-sm pb-2.5">
-                Check out my submission
-                <a style="color: #ff5733" href="https://github.com/DonChiaQE/WWDC2021">here</a>!
-            </p>
-            <p class="font-thin text-sm pb-2.5">
-                And check out my interview with the local news outlet regarding
-                NOSSAFLEX and my WWDC experience
-                <a style="color: #ff5733" href="https://www.youtube.com/watch?v=RwtzXxSSJAc">right here</a>!
-            </p>
-        </div>
-    </div>
-
     <div class="pt-7">
         <h3 class="pb-1"><b>Résumé</b></h3>
-        <a style="color: #ff5733" href="/files/don_chia_resume.pdf" class="font-thin text-sm pb-2.5">Check out my résumé here.</a>
+        <a style="color:rgb(174, 48, 19); display: block;" href="/files/shaharyar_resume.pdf" class="font-thin text-sm pb-2.5" target="_blank" rel="noopener">Check out my Résumé here.</a>
+        <a style="color:rgb(174, 48, 19); display: block;" href="/files/shaharyar_acad_cv.pdf" class="font-thin text-sm pb-2.5" target="_blank" rel="noopener">Check out my Academic CV here.</a>
     </div>
 </div>
 </template>
+
+<style scoped>
+ul {
+  list-style-type: "* ";
+  padding-left: 0.5rem !important;
+}
+
+ul li {
+  display: list-item !important;
+  list-style-type: "* ";
+}
+</style>

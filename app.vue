@@ -12,6 +12,7 @@ import Wwdc2022 from './views/Wwdc2022.vue'
 import Wwdc2023 from './views/Wwdc2023.vue'
 import ImagePreviewWindow from './templates/ImagePreviewWindow.vue'
 import StartMenu from './templates/StartMenu.vue'
+import AcademicCV from './views/AcademicCV.vue'
 import {
     useWindowsStore
 } from './stores/windows'
@@ -28,6 +29,7 @@ const windowComponents = [
 const slotViews = [
   { name: 'bio', comp: Bio },
   { name: 'resume', comp: Resume },
+  { name: 'academic-cv', comp: AcademicCV },
   { name: 'nossaflex', comp: Nossaflex },
   { name: 'wwdc2021', comp: Wwdc2021 },
   { name: 'wwdc2022', comp: Wwdc2022 },
