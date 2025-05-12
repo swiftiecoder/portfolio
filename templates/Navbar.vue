@@ -257,7 +257,7 @@ onBeforeMount(() => {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    font-size: 0.6em;
+    font-size: 0.7em;
 }
 
 .chat-navbar {

@@ -1,7 +1,9 @@
 <script setup>
 import interact from 'interactjs';
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, watch, nextTick } from 'vue';
 import { useWindowsStore } from '@/stores/windows';
+import.meta.env;
+import OpenAI from 'openai';
 
 const props = defineProps({
   windowId: String,
@@ -39,7 +41,7 @@ const h = ref(400);
 const style = computed(() => ({
   height: `${h.value}px`,
   width: `${w.value}px`,
-  transform: `translate(${position.value.x}px, ${position.value.y}px)` ,
+  transform: `translate(${position.value.x}px, ${position.value.y}px)`,
   '--content-padding-left': props.content_padding_left || '15%',
   '--content-padding-right': props.content_padding_right || '15%',
   '--content-padding-top': props.content_padding_top || '5%',
@@ -106,8 +108,51 @@ const getImagePath = (iconImage) => {
 
 let isDragging = false;
 
-onMounted(() => {
+// Chat logic
+const input = ref('');
+const messages = ref([]);
+const threadId = ref(null);
+let openai = null;
+
+const chatMessagesRef = ref(null);
+
+function scrollToBottom() {
+  nextTick(() => {
+    const el = chatMessagesRef.value;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  });
+}
+
+// Auto-scroll to bottom when messages change
+watch(messages, () => {
+  scrollToBottom();
+});
+
+const initializeChat = async () => {
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  const assistantId = import.meta.env.VITE_OPENAI_ASSISTANT_ID;
+
+  if (!apiKey || !assistantId) {
+    messages.value.push({ from: 'bot', text: 'OpenAI API Key or Assistant ID is missing. Chat is disabled.' });
+    return;
+  }
+
+  try {
+    openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
+    const thread = await openai.beta.threads.create();
+    threadId.value = thread.id;
+    messages.value.push({ from: 'bot', text: "I'm not available at the moment, my OpenAI assistant can help you know whatever you want about me." });
+  } catch (e) {
+    messages.value.push({ from: 'bot', text: 'Failed to initialize chat. Please try again later.' });
+  }
+};
+
+onMounted(async () => {
   window.value = windowsStore.getWindowById(ComponentName);
+  await initializeChat(); // Initialize chat and create thread
+
   const draggableWindow = interact('#' + window.value.windowId);
   draggableWindow
     .draggable({
@@ -170,14 +215,70 @@ onMounted(() => {
     });
 });
 
-// Chat logic
-const input = ref('');
-const messages = ref([]);
-function sendMessage() {
-  if (input.value.trim() !== '') {
+async function getAssistantResponse(userMessage) {
+  if (!openai || !threadId.value) {
+    return 'Chat not initialized. Please wait or try refreshing.';
+  }
+  const assistantId = import.meta.env.VITE_OPENAI_ASSISTANT_ID;
+
+  try {
+    await openai.beta.threads.messages.create(threadId.value, {
+      role: 'user',
+      content: userMessage,
+    });
+
+    const run = await openai.beta.threads.runs.create(threadId.value, {
+      assistant_id: assistantId,
+    });
+
+    let status = run.status;
+    let runId = run.id;
+    let retries = 0;
+    const maxRetries = 30; // Approx 30 seconds timeout
+
+    while (status !== 'completed' && status !== 'failed' && status !== 'cancelled') {
+      if (retries >= maxRetries) {
+        return "The assistant is taking a while to respond. Please try sending your message again.";
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const check = await openai.beta.threads.runs.retrieve(threadId.value, runId);
+      status = check.status;
+      retries++;
+    }
+
+    if (status !== 'completed') {
+      return 'Run did not complete. Status: ' + status;
+    }
+
+    const assistantMessages = await openai.beta.threads.messages.list(threadId.value);
+    const lastMessage = assistantMessages.data.reverse().find(m => m.role === 'assistant');
+    return lastMessage?.content?.[0]?.text?.value || 'No response from assistant.';
+  } catch (error) {
+    return 'Error contacting assistant. Please check the console for details.';
+  }
+}
+
+async function sendMessage() {
+  if (input.value.trim() !== '' && threadId.value) {
     messages.value.push({ from: 'user', text: input.value });
-    messages.value.push({ from: 'bot', text: 'hello' });
+    const userInput = input.value;
     input.value = '';
+    scrollToBottom();
+    // DEBUG shortcut
+    if (userInput.trim().toUpperCase() === 'DEBUG') {
+      messages.value.push({ from: 'bot', text: 'hello' });
+      scrollToBottom();
+      return;
+    }
+    messages.value.push({ from: 'bot', text: 'Thinking...' });
+    scrollToBottom();
+    const botReply = await getAssistantResponse(userInput);
+    messages.value[messages.value.length - 1].text = botReply;
+    messages.value = [...messages.value]; // Force watcher to trigger for auto-scroll
+    scrollToBottom();
+  } else if (!threadId.value) {
+    messages.value.push({ from: 'bot', text: 'Chat is not ready yet, please wait a moment.'});
+    scrollToBottom();
   }
 }
 </script>
@@ -226,7 +327,7 @@ function sendMessage() {
         </div>
     </div>
     <div class="content chat-content">
-      <div class="chat-messages">
+      <div class="chat-messages" ref="chatMessagesRef">
         <div v-for="(msg, idx) in messages" :key="idx" :class="['chat-msg', msg.from]">
           {{ msg.text }}
         </div>
@@ -264,10 +365,12 @@ function sendMessage() {
 }
 .fullscreen {
   width: 100% !important;
-  height: var(--fullscreen) !important;
+  height: calc(var(--fullscreen) - 35px) !important; /* Subtract navbar height */
   margin: 0;
   transition: all 0.5s ease;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 .content.chat-content {
   flex-grow: 1;
@@ -279,6 +382,7 @@ function sendMessage() {
   display: flex;
   flex-direction: column;
   background: transparent; /* Remove chat's own background */
+  min-height: 0;
 }
 .top-bar {
   background: rgb(0, 0, 124);
@@ -328,6 +432,7 @@ function sendMessage() {
   font-size: 14px;
   border-radius: 0 0 0 0;
   box-shadow: none;
+  min-height: 0;
 }
 .chat-msg {
   margin-bottom: 8px;
@@ -354,6 +459,8 @@ function sendMessage() {
   background: #f4f4f4;
   padding: 8px 8px 8px 8px;
   border-radius: 0 0 6px 6px;
+  z-index: 2;
+  position: relative;
 }
 .chat-input {
   flex: 1;
