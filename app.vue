@@ -7,13 +7,13 @@ import AppGrid from './templates/AppGrid.vue'
 import Bio from './views/Bio.vue'
 import Resume from './views/Resume.vue'
 import GuardianAngel from './views/GuardianAngel.vue'
-import Wwdc2021 from './views/Wwdc2021.vue'
-import Wwdc2022 from './views/Wwdc2022.vue'
-import Wwdc2023 from './views/Wwdc2023.vue'
 import Chat from './templates/Chat.vue'
 import ImagePreviewWindow from './templates/ImagePreviewWindow.vue'
 import StartMenu from './templates/StartMenu.vue'
 import AcademicCV from './views/AcademicCV.vue'
+import PortalLLM from './views/PortalLLM.vue'
+import MyDoctor from './views/My Doctor.vue'
+import HTS from './views/HTS.vue'
 import {
     useWindowsStore
 } from './stores/windows'
@@ -33,9 +33,9 @@ const slotViews = [
   { name: 'resume', comp: Resume },
   { name: 'academic-cv', comp: AcademicCV },
   { name: 'guardianangel', comp: GuardianAngel },
-  { name: 'wwdc2021', comp: Wwdc2021 },
-  { name: 'wwdc2022', comp: Wwdc2022 },
-  { name: 'wwdc2023', comp: Wwdc2023 }
+  { name: 'portal-llm', comp: PortalLLM },
+  { name: 'my-doctor', comp: MyDoctor },
+  { name: 'hts', comp: HTS }
 ]
 
 const windowCheck = (windowId) => {

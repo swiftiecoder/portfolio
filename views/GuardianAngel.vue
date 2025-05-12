@@ -1,144 +1,222 @@
 <template>
-<div>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase One: The Beginning</b></h3>
-        <p class="paragraph">
-            NOSSAFLEX began as two separate entities initially—an idea that simmered in my mind as an EXIF data logger app for the Apple Watch. Sketches of the original app exist in images, created using Apple's Storyboarding system. Initially, it didn't make much sense to me, but when I uploaded it onto online platforms like Reddit, the concept took off and became an instant hit.
-        </p>
+  <div class="px-1 md:px-4 lg:px-8 pt-4 pb-4">
+    <img
+      class="w-full h-auto mb-4"
+      src="@/assets/GuardianAngel/watch_image.jpg"
+      alt="Guardian Angel Watch Prototype"
+    />
+    <h2 class="font-bold text-2xl py-5">
+      Guardian Angel: Building a Low-Cost Health Monitoring System
+    </h2>
+    <h4 class="text-gray-600 font-medium text-xs pb-2">
+      Research Project • Embedded Systems • AI for Health • LUMS
+    </h4>
+    <div class="flex flex-wrap mt-5 gap-2 items-center">
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="ESP32"
+        src="https://img.shields.io/badge/-ESP32-3C3C3C?logo=espressif&logoColor=white"
+      />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="C"
+        src="https://img.shields.io/badge/-C-A8B9CC?logo=c&logoColor=black"
+      />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="Java"
+        src="https://img.shields.io/badge/-Java-007396?logo=java&logoColor=white"
+      />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="Node.js"
+        src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white"
+      />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="OpenAI"
+        src="https://img.shields.io/badge/-OpenAI-412991?logo=openai&logoColor=white"
+      />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="LangChain"
+        src="https://img.shields.io/badge/-LangChain-000000?logo=langchain&logoColor=white"
+      />
+      <img
+        class="w-auto h-5 rounded-none text-xs"
+        alt="Android"
+        src="https://img.shields.io/badge/-Android-3DDC84?logo=android&logoColor=white"
+      />
+    <img
+      class="w-auto h-5 rounded-none text-xs"
+      alt="WhatsApp"
+      src="https://img.shields.io/badge/-WhatsApp-25D366?logo=whatsapp&logoColor=white"
+    />
     </div>
-    <img src="@/assets/Nossaflex/watch.webp" class="images" />
-    <h6 class="subtitle">Initial Idea</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Two: LUCE</b></h3>
-        <p class="paragraph">
-            Within my Reddit post, I included a request for assistance. Having just learned how to create storyboards in Swift, I was honestly afraid of disappointing my newfound audience. I asked anyone with experience in Swift to step forward and offer their help. By a stroke of luck, I encountered Diego. Diego, a skilled Lead Engineer with years of experience in iOS development, was more than willing to assist with the development.
-        </p>
-        <p class="paragraph">
-            I was relieved to have found assistance for the app, especially when I discovered that an editor from The Phoblographer had contacted me regarding the Reddit post. Fortunately, Diego came to my aid and swiftly mocked up some ideas for the app (pun intended). You can find The Phoblographer article
-            <a class="underline text-blue-700" href="https://www.thephoblographer.com/2020/03/09/luce-an-app-that-could-help-analog-photographers-log-exif-data/">here</a>. Pretty neat eh?
-        </p>
+    <div class="pt-7">
+      <h3 class="underline font-bold text-md pb-1">Project Overview</h3>
+      <p class="font-thin text-sm pb-2.5">
+        Guardian Angel is a research project I worked on as a Research Assistant
+        at the Embedded Systems & Networks Labs (SysNet/EmNets), LUMS. The goal
+        was to democratize healthcare and wellness by developing an affordable
+        smartwatch and backend system that could overcome economic and
+        linguistic barriers, especially in resource-constrained settings.
+      </p>
     </div>
-    <img src="@/assets/Nossaflex/luce.webp" class="images-full" />
-    <h6 class="subtitle">LUCE</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Three: Merger</b></h3>
-        <p class="paragraph">
-            Development was underway, but in April, a fan reached out to us about another app out there that seemed quite similar to ours—NOSSAFLEX. This piqued our interest, prompting us to swiftly establish contact. It turned out that our ideas were strikingly similar. Enter Josh, the mastermind behind NOSSAFLEX—a naming system that assigned meaning to a slew of otherwise meaningless EXIF strings. In this system, NO stood for shot number, SS for shutter speed, A for aperture, FL for focal length, and EX for exposure.
-        </p>
-        <p class="paragraph">
-            We enthusiastically embraced Josh's concept and delved into discussions about the app's layout. Eventually, we settled on using SwiftUI with Firebase as its database. Josh wasted no time in sketching up some mockups, and we dove right into the development process.
-        </p>
+    <div class="pt-7">
+      <img
+        class="w-full h-auto mb-2"
+        src="@/assets/GuardianAngel/app-signup.jpg"
+        alt="Guardian Angel App Signup Screen"
+      />
+      <h6 class="text-gray-600 font-medium text-xs text-center pb-2">
+        Guardian Angel App Signup Screen
+      </h6>
     </div>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Four: Neumorphism</b></h3>
-        <p class="paragraph">
-            The initial version of the app embraced a UI trend called neumorphism, which emerged as a revival of skeuomorphism, advocated by users on dribbble.com. Skeuomorphism, reminiscent of the pre-iOS 9 era, featured designs that mimicked real-world objects, such as book apps resembling shelves, calculators mirroring their physical counterparts, and notepads replicating actual notepads.
-        </p>
-        <p class="paragraph">
-            Neumorphism, on the other hand, reimagined skeuomorphism with a modern twist, incorporating soft shadows, muted whites, and buttons with inner shadows, evoking the sensation of pressing a rubber button. While initially appealing, this design trend eventually became a glaring eyesore and posed accessibility challenges. The excessive shadows detracted from usability over time.
-        </p>
-        <p class="paragraph">
-            Fortunately, during the beta phase, we swiftly abandoned this design approach in favor of a simpler and more user-friendly interface.
-        </p>
+    <div class="pt-7">
+      <h3 class="underline font-bold text-md pb-1">
+        What I Learned & Skills Applied
+      </h3>
+      <ul class="list-disc pl-5 font-thin text-sm pb-2.5 ml-4">
+        <li class="mb-1">
+          Designed and implemented a small-scale prototype using an ESP-32 and
+          off-the-shelf sensors for initial proof-of-concept.
+        </li>
+        <li class="mb-1">
+          Learned about GATT Bluetooth protocols and used BLE modules to
+          transmit data efficiently, saving energy on the device.
+        </li>
+        <li class="mb-1">
+          Helped write C code for the microcontroller and selected sensors for
+          the final PCB version of the watch.
+        </li>
+        <li class="mb-1">
+          Sourced lightweight libraries for a space-constrained MCU, including
+          fixing a critical oximeter bug by replacing a library.
+        </li>
+        <li class="mb-1">
+          Led a team of three, managed the project budget, and coordinated with
+          research supervisors to keep progress on track.
+        </li>
+        <li class="mb-1">
+          Developed an Android app in Java for data collection, intermediate
+          processing (structuring into JSON), and secure transmission to the
+          inference server.
+        </li>
+        <li class="mb-1">
+          Used the Telegram Web API and Gemini's free plan to build an early
+          chatbot prototype, which earned the highest grade in the course.
+        </li>
+        <li class="mb-1">
+          Rebuilt the project in the EmNets lab, designing the tech stack to
+          meet research goals for affordability and intuitiveness.
+        </li>
+        <li class="mb-1">
+          Wrote and deployed an inference server in Node.js, using OpenAI and
+          LangChain JS, and implemented in-context learning mechanisms like RAG
+          and chain-of-thought prompting.
+        </li>
+        <li class="mb-1">
+          Added function-calling capabilities to the server with custom tools,
+          cron jobs, and prompt engineering for optimal results.
+        </li>
+      </ul>
     </div>
-    <img src="@/assets/Nossaflex/neumorphism.webp" class="images-full" />
-    <h6 class="subtitle">Why neumorphism is a bad idea</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Five: Sketchbook</b></h3>
-        <p class="paragraph">
-            We then opted for a much friendlier design reminiscent of a notebook. Featuring grid paper and highlighted text, along with a warm yellow tint to evoke a sketchbook feel, the app exuded a welcoming atmosphere. Recognizing the need for a makeover, I sprang into action, swiftly converting all old components into the cleaner and sleeker design. Josh contributed further by creating Lottie animations that played whenever users booted up the app, while meticulously drawing out patents of various camera equipment and accessories.
-        </p>
-        <p class="paragraph">
-            Meanwhile, Diego worked tirelessly to ensure the timely release of our much-anticipated feature, the light meter. By the end of December, the app was finally completed, with the final rounds of beta testing coming to a close.
-        </p>
+    <div class="pt-7">
+      <h3 class="underline font-bold text-md pb-1">Impact & Reflection</h3>
+      <p class="font-thin text-sm pb-2.5">
+        Working on Guardian Angel taught me how to bridge embedded hardware,
+        mobile development, and AI-driven backend systems. I learned to
+        prioritize user needs, especially for those with low digital literacy,
+        and to design for real-world constraints like cost and power. The
+        project also gave me hands-on experience in team leadership, technical
+        troubleshooting, and deploying solutions that can make a tangible
+        difference in healthcare accessibility.
+      </p>
     </div>
-    <img src="@/assets/Nossaflex/notebook.webp" class="images-full" />
-    <h6 class="subtitle">Sketchbook Design</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Six: App Store Launch</b></h3>
-        <p class="paragraph">
-            The app was officially launched on February 5th, 2021, after more than a year of development. It immediately captivated the community, receiving widespread support from Reddit, YouTube, and Facebook forums alike. Users from across the globe eagerly signed up for the app, resulting in over a thousand users within the first week alone. Thousands of pieces of data were logged daily by users, and we were delighted to witness consistent daily usage of our app.
-        </p>
-    </div>
-    <img src="@/assets/Nossaflex/appstore.webp" class="images-full" />
-    <h6 class="subtitle">We're live!</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Seven: Apple WWDC and Apple's Design Evangelist</b></h3>
-        <p class="paragraph">
-            With our app finally launched, it was a well-received hit by the community. However, we were far from satisfied with the product. In an attempt to improve the app, we reached out to Apple's Design Evangelist, who provided us with valuable feedback. We quickly came to realize that our app's sketchbook style UI with custom navigation and components was not in line with Apple's design guidelines.
-        </p>
-        <p class="paragraph">
-            We were advised to adhere to Apple's Human Interface Guidelines, which would ensure that our app was more user-friendly and accessible. We were also encouraged to adopt a more conventional design approach, which would make our app more intuitive and easier to use.
-        </p>
-        <p class="paragraph">
-            Josh got to work immediately, redesigning the app to align with Apple's guidelines. The new design featured a more conventional layout, with standard navigation and components that were consistent with Apple's design language. The app was also updated to include new features and improvements, making it more user-friendly and accessible.
-        </p>
-    </div>
-    <img src="@/assets/Nossaflex/nossaflex_screenshot_1.webp" class="images-full" />
-    <h6 class="subtitle">V3 of NOSSAFLEX</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Eight: Apple Entrepreneur Camp</b></h3>
-        <p class="paragraph">
-            Our third version was released in September 2023, and we were invited to participate in Apple's Entrepreneur Camp. The camp was a fantastic opportunity for us to learn from Apple's experts and receive valuable feedback on our app. We were able to connect with other entrepreneurs and developers, share our experiences, and gain insights into the latest trends in app development.
-        </p>
-        <p class="paragraph">
-            The camp was a great success, and we returned home with a wealth of knowledge and new ideas for our app. We continued to work on NOSSAFLEX, incorporating the feedback we received and making improvements to the app. We were excited to see how our app would evolve and grow in the future.
-        </p>
-    </div>
-    <img src="@/assets/Nossaflex/apple_camp.webp" class="images-full" />
-    <h6 class="subtitle">NOSSAFLEX at Apple Entrepreneur Camp</h6>
-    <div class="inner-content">
-        <h3 class="heading"><b>Phase Nine: Shortlisted for Apple Design Awards and Beyond</b></h3>
-        <p class="paragraph">
-            NOSSAFLEX was recognized by Apple's South Asia DR team and was shortlisted to be considered for Apple's Design Awards in 2024. We were thrilled to be recognized by Apple and were excited to see how our app would be received by the wider community. We continued to work on NOSSAFLEX, incorporating new features and improvements to make the app even better.
-        </p>
-    </div>
-    <br />
-    <a href="https://www.nossaflex.io" style="color: #ff5733">NOSSAFLEX</a>
-</div>
+  </div>
 </template>
 
-  
-  
 <style scoped>
-.hero {
-    width: 100%;
-    background-position: center center;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    border: 1px solid rgb(0, 0, 0, 0.1);
+.flex {
+  display: flex;
 }
-
-.images {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
+.flex-wrap {
+  flex-wrap: wrap;
 }
-
-.images-full {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+.gap-2 {
+  gap: 0.5rem;
 }
-
-.subtitle {
-    font-size: 12px;
-    color: gray;
-    text-align: center;
+.items-center {
+  align-items: center;
 }
-
-.heading {
-    padding-bottom: 5px;
+.mt-5 {
+  margin-top: 1.25rem;
 }
-
-.inner-content {
-    padding-top: 30px;
-    padding-bottom: 30px;
+.pt-7 {
+  padding-top: 1.75rem;
 }
-
-h6,
-h3 {
-    margin: 0;
-    padding: 0;
+.font-bold {
+  font-weight: bold;
+}
+.text-2xl {
+  font-size: 1.5rem;
+}
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+.text-gray-600 {
+  color: #4b5563;
+}
+.font-medium {
+  font-weight: 500;
+}
+.text-xs {
+  font-size: 0.75rem;
+}
+.underline {
+  text-decoration: underline;
+}
+.text-md {
+  font-size: 1rem;
+}
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+.font-thin {
+  font-weight: 300;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.pb-2.5 {
+  padding-bottom: 0.625rem;
+}
+.list-disc {
+  list-style-type: disc;
+}
+.pl-5 {
+  padding-left: 1.25rem;
+}
+.ml-4 {
+  margin-left: 1rem;
+}
+ul {
+  list-style-type: "* ";
+  padding-left: 0.5rem !important;
+}
+ul li {
+  display: list-item !important;
+  list-style-type: "* ";
+}
+.text-center {
+  text-align: center;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 </style>
