@@ -256,7 +256,7 @@ async function getAssistantResponse(userMessage) {
       .sort((a, b) => b.created_at - a.created_at)[0];
     return latestAssistantMsg?.content?.[0]?.text?.value || 'No response from assistant.';
   } catch (error) {
-    return 'Error contacting assistant. Please check the console for details.';
+    return 'Error contacting assistant.';
   }
 }
 
