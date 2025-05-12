@@ -14,6 +14,8 @@ import AcademicCV from './views/AcademicCV.vue'
 import PortalLLM from './views/PortalLLM.vue'
 import MyDoctor from './views/My Doctor.vue'
 import HTS from './views/HTS.vue'
+import LoadingScreen from './templates/LoadingScreen.vue'
+import { ref, onMounted } from 'vue';
 import {
     useWindowsStore
 } from './stores/windows'
@@ -59,6 +61,8 @@ const openWindow = (windowId) => {
   windowsStore.setWindowState(payload)
 }
 
+const showLoading = ref(true);
+
 onMounted(() => {
   let navbar = document.getElementById("navbar");
   let navbarHeight = navbar.clientHeight;
@@ -71,42 +75,48 @@ onMounted(() => {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
   openWindow('BiographyWindow')
+  setTimeout(() => {
+    showLoading.value = false;
+  }, 2000); // Show loading for 2 seconds
 })
 
 </script>
 
 <template>
   <div id="app">
-    <div class="screen" id="screen" @click="deinitWindows">
-      <div 
-        v-for="window in windows" 
-        :key="window.key" 
-        :aria-label="window.displayName"
-      >
-          <component 
-            :is="windowComponents.find(comp => comp.name === window.windowComponent).comp"
-            :nameOfWindow="window.windowId" 
-            :content_padding_bottom="window.windowContentPadding['bottom']" 
-            :content_padding_left="window.windowContentPadding['left']" 
-            :content_padding_right="window.windowContentPadding['right']" 
-            :content_padding_top="window.windowContentPadding['top']" 
-            :id="window.windowId" 
-            :style="{
-                    position: window.position,
-                    left: window.positionX,
-                    top: window.positionY,
-                  }" 
-            :folderContent="window.folderContent" 
-            :folderSize="window.folderSize" 
-            v-if="windowCheck(window.windowId)" 
-          >
-          <template v-slot:content>
-            <component :is="slotViews.find(comp => comp.name === window.windowContent).comp"></component>
-          </template>
-          </component>
-        </div>
-        <AppGrid />
-    </div>
+    <LoadingScreen v-if="showLoading" />
+    <transition name="screen-fade" appear>
+      <div class="screen" id="screen" @click="deinitWindows" v-show="!showLoading">
+        <div 
+          v-for="window in windows" 
+          :key="window.key" 
+          :aria-label="window.displayName"
+        >
+            <component 
+              :is="windowComponents.find(comp => comp.name === window.windowComponent).comp"
+              :nameOfWindow="window.windowId" 
+              :content_padding_bottom="window.windowContentPadding['bottom']" 
+              :content_padding_left="window.windowContentPadding['left']" 
+              :content_padding_right="window.windowContentPadding['right']" 
+              :content_padding_top="window.windowContentPadding['top']" 
+              :id="window.windowId" 
+              :style="{
+                      position: window.position,
+                      left: window.positionX,
+                      top: window.positionY,
+                    }" 
+              :folderContent="window.folderContent" 
+              :folderSize="window.folderSize" 
+              v-if="windowCheck(window.windowId)" 
+            >
+            <template v-slot:content>
+              <component :is="slotViews.find(comp => comp.name === window.windowContent).comp"></component>
+            </template>
+            </component>
+          </div>
+          <AppGrid />
+      </div>
+    </transition>
     <StartMenu
       v-if="windowsStore.activeWindow == 'Menu'"
       style="position: absolute; z-index: 9999; left: 0; bottom: 36px"
@@ -184,5 +194,16 @@ h6 {
   display: block;
   top: 0 !important;
   right: 0 !important;
+}
+
+/* Screen fade-in transition */
+.screen-fade-enter-active, .screen-fade-leave-active {
+  transition: opacity 1s ease;
+}
+.screen-fade-enter-from, .screen-fade-leave-to {
+  opacity: 0;
+}
+.screen-fade-enter-to, .screen-fade-leave-from {
+  opacity: 1;
 }
 </style>
