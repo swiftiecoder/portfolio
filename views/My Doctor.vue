@@ -15,7 +15,7 @@
     <div class="pt-7">
       <h3 class="underline font-bold text-md pb-1">About Khpaltabib</h3>
       <p class="font-thin text-sm pb-2.5">
-        Khpaltabib means 'My Doctor' in Pashto. is an AI-powered medical chatbot designed to provide accessible healthcare advice, especially for people who might not have easy access to doctors or clinics, and in their own language (like Pashto). My role was to build a high-quality dataset and train a state-of-the-art AI model to act like a helpful medical professional. I worked on this project as a Research Intern at the Center for Speech and Language Technologies (CSaLT) at LUMS.
+        Khpaltabib means 'My Doctor' in Pashto. It is an AI-powered medical chatbot designed to provide accessible healthcare advice, especially for people who might not have easy access to doctors or clinics, and in their own language (like Pashto). My role was to build a high-quality dataset and train a state-of-the-art AI model to act like a helpful medical professional. I worked on this project as a Research Intern at the Center for Speech and Language Technologies (CSaLT) at LUMS.
       </p>
     </div>
     <div class="pt-7">
