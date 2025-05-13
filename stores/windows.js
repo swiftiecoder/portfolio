@@ -114,7 +114,7 @@ export const useWindowsStore = defineStore("windows", {
         position: "absolute",
         positionX: "6vw",
         positionY: "12vh",
-        iconImage: "health.png",
+        iconImage: "watch.png",
         altText: "Guardian Angel Project",
         fullscreen: false,
         showInAppGrid: true,
