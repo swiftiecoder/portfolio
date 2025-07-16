@@ -40,7 +40,7 @@
     <div class="pt-7">
         <h3 class="underline font-bold text-md pb-1">About Me</h3>
         <p class="font-thin text-sm pb-2.5">
-            I am Shaharyar Ahsan (Sherry), a BS Computer Science graduate from LUMS (Lahore University of Management Sciences), passionate about data science, machine learning, and NLP—especially computational hermeneutics and linguistic analysis for social impact. I am driven by a desire to build impactful, accessible technology and to contribute to research and open-source communities.
+            I am Shaharyar Ahsan (Sherry), a BS Computer Science graduate from LUMS (Lahore University of Management Sciences), passionate about data science, machine learning, and NLP—especially computational hermeneutics and linguistic analysis for social impact. I'm currently working as a Developer Advocate at Educative. I am driven by a desire to build impactful, accessible technology and to contribute to research and open-source communities.
         </p>
     </div>
     <div class="pt-7">
