@@ -1,6 +1,6 @@
 <template>
 <div>
-    <img class="w-full h-auto" src="@/assets/Biography/self.jpg" />
+    <img class="w-full h-auto" src="@/assets/Biography/self2.png" />
     <h2 class="font-bold text-2xl py-5">Shaharyar Ahsan</h2>
     <h4 class="text-gray-600 font-medium text-xs" style="padding-bottom: 10px">
         B.S. Computer Science, Lahore University of Management Sciences (LUMS) • Teaching Assistant • Research Assistant • Aspiring Software Engineer (Graduating Summer 2025)
@@ -40,13 +40,13 @@
     <div class="pt-7">
         <h3 class="underline font-bold text-md pb-1">About Me</h3>
         <p class="font-thin text-sm pb-2.5">
-            I am Shaharyar Ahsan (Sherry), a final-year Computer Science student at LUMS (Lahore University of Management Sciences), passionate about data science, machine learning, and NLP—especially computational hermeneutics and linguistic analysis for social impact. I am driven by a desire to build impactful, accessible technology and to contribute to research and open-source communities.
+            I am Shaharyar Ahsan (Sherry), a BS Computer Science graduate from LUMS (Lahore University of Management Sciences), passionate about data science, machine learning, and NLP—especially computational hermeneutics and linguistic analysis for social impact. I am driven by a desire to build impactful, accessible technology and to contribute to research and open-source communities.
         </p>
     </div>
     <div class="pt-7">
         <h3 class="underline font-bold text-md pb-1">Academic Achievements</h3>
         <p class="font-thin text-sm pb-2.5">
-            Strong academic record with a GPA of 3.80/4.0 (Major GPA: 3.89/4.0). Recipient of multiple Dean's Honor List awards and Merit Scholarship at LUMS.
+            Strong academic record with a GPA of 3.80/4.0 (Major GPA: 3.87/4.0). Recipient of multiple Dean's Honor List awards and Merit Scholarship at LUMS.
         </p>
     </div>
     <div class="pt-7">

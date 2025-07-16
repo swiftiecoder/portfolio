@@ -21,7 +21,7 @@ const windowsStore = useWindowsStore()
         </a>
     </nav>
     <div class="frame" style="z-index: 99">
-        <iframe class="frame" src="https://drive.google.com/file/d/1muCo7KqGoW0P79PycxHxKc0Q4yPGssxf/preview"></iframe>
+        <iframe class="frame" src="https://drive.google.com/file/d/1kzgckl4NRGCQ5Lp7s8XVgSfnhoGrqQss/preview"></iframe>
         <span v-if="windowsStore.activeWindow != 'CVWindow'" style="bottom: 0; left: 0; width: 100%; height: 95%; position: absolute" class="overlay"></span>
     </div>
 </div>
