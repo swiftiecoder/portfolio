@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, markRaw, onMounted } from 'vue'
+import { shallowRef, markRaw, onMounted, onBeforeUnmount } from 'vue'
 import * as THREE from 'three'
 
 import DeskScene from '../components/DeskScene.vue'
@@ -25,11 +25,25 @@ const posterTex = shallowRef(null)
 const shadowTex = shallowRef(null)
 const hardwoodTex = shallowRef(null)
 
+let animationFrameId
+const animateShadows = (timestamp) => {
+  if (shadowTex.value) {
+    const elapsed = timestamp * 0.001 // Convert ms to seconds
+    shadowTex.value.offset.x = Math.sin(elapsed * 0.7) * 0.02
+    shadowTex.value.offset.y = Math.cos(elapsed * 0.5) * 0.015
+  }
+  animationFrameId = requestAnimationFrame(animateShadows)
+}
+
 onMounted(() => {
   const loader = new THREE.TextureLoader()
   rugTex.value = loader.load('/persian_rug.png')
   posterTex.value = loader.load('/vintage_poster.png')
-  shadowTex.value = loader.load('/tree_shadow.png')
+  
+  const st = loader.load('/tree_shadow.png')
+  st.wrapS = THREE.RepeatWrapping
+  st.wrapT = THREE.RepeatWrapping
+  shadowTex.value = st
   
   // Process hardwood floor with correct scaling wrap
   const hw = loader.load('/hardwood_floor.png')
@@ -39,6 +53,13 @@ onMounted(() => {
   hw.wrapT = 1000 // RepeatWrapping
   hw.repeat.set(4, 4)
   hardwoodTex.value = hw
+
+  // Start animation loop
+  animationFrameId = requestAnimationFrame(animateShadows)
+})
+
+onBeforeUnmount(() => {
+  cancelAnimationFrame(animationFrameId)
 })
 
 const projectComponents = {
@@ -145,7 +166,7 @@ const unmountOverlay = () => {
          <TresGroup>
             <TresMesh v-for="i in 20" :key="`blind-${i}`" :position="[0, 3.8 - (i * 0.38), 0.1]" :rotation="[0.5, 0, 0]" cast-shadow>
                <TresBoxGeometry :args="[11.8, 0.15, 0.05]" />
-               <TresMeshStandardMaterial color="#FFF5EE" emissive="#FFF1D0" :emissiveIntensity="0.4" roughness="0.5" />
+               <TresMeshStandardMaterial color="#2d3748" emissive="#1a202c" :emissiveIntensity="0.2" roughness="0.8" />
             </TresMesh>
          </TresGroup>
 

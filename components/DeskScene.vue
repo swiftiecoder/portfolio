@@ -1,4 +1,42 @@
 <script setup>
+import * as THREE from 'three';
+
+const spots = [];
+const numSpots = 15;
+const minDist = 0.35; // Minimum distance to prevent unrealistic clumping
+const r = 1.01; 
+
+const dummy = new THREE.Object3D();
+
+let attempts = 0;
+while (spots.length < numSpots && attempts < 300) {
+  attempts++;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.random() * (Math.PI / 2.3);
+  
+  const x = r * Math.sin(phi) * Math.cos(theta);
+  const y = r * Math.cos(phi);
+  const z = r * Math.sin(phi) * Math.sin(theta);
+  
+  // Reject if too close to an existing spot
+  const tooClose = spots.some(spot => {
+    const dx = spot.position[0] - x;
+    const dy = spot.position[1] - y;
+    const dz = spot.position[2] - z;
+    return Math.sqrt(dx*dx + dy*dy + dz*dz) < minDist;
+  });
+  
+  if (!tooClose) {
+    dummy.position.set(x, y, z);
+    dummy.lookAt(0, 0, 0);
+    
+    spots.push({
+      position: [x, y, z],
+      rotation: [dummy.rotation.x, dummy.rotation.y, dummy.rotation.z],
+      radius: 0.06 + Math.random() * 0.10 // Slightly varied sizes
+    });
+  }
+}
 </script>
 
 <template>
@@ -34,36 +72,47 @@
     <!-- Desk Ambient Light -->
     <TresAmbientLight :intensity="0.8" color="#ffffff" />
     
-    <!-- Desk Lamp Setup (Adjusted for Light Mode) -->
-    <TresGroup :position="[-3.5, -0.3, -2]">
-      <!-- Lamp base -->
-      <TresMesh :position="[0, 0.1, 0]" cast-shadow>
-         <TresCylinderGeometry :args="[0.5, 0.5, 0.1, 32]" />
-         <TresMeshStandardMaterial color="#e5e5e5" metalness="0.2" roughness="0.5" />
+    <!-- Literal Mushroom Desk Lamp -->
+    <TresGroup :position="[-3.5, -0.2, -2]">
+      <!-- Mushroom Stalk (Taller) -->
+      <TresMesh :position="[0, 0.75, 0]" cast-shadow>
+         <TresCylinderGeometry :args="[0.12, 0.25, 1.5, 32]" />
+         <TresMeshStandardMaterial color="#fdfaee" roughness="0.9" />
       </TresMesh>
       
-      <!-- Lamp neck / stand -->
-      <TresMesh :position="[0.2, 1, 0]" :rotation="[0, 0, -0.2]" cast-shadow>
-        <TresCylinderGeometry :args="[0.05, 0.05, 2, 8]" />
-        <TresMeshStandardMaterial color="#cccccc" metalness="0.5" />
-      </TresMesh>
+      <!-- Mushroom Cap -->
+      <TresGroup :position="[0, 1.5, 0]">
+         <TresMesh cast-shadow>
+           <TresSphereGeometry :args="[1.0, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
+           <TresMeshStandardMaterial color="#d32f2f" emissive="#e53935" :emissiveIntensity="0.6" roughness="0.5" />
+         </TresMesh>
+         
+         <!-- Mushroom Spots (Randomly placed flat circles) -->
+         <TresMesh 
+           v-for="(spot, index) in spots" 
+           :key="`spot-${index}`"
+           :position="spot.position"
+           :rotation="spot.rotation"
+         >
+           <TresCircleGeometry :args="[spot.radius, 16]" />
+           <TresMeshBasicMaterial color="#ffffff" :side="2" />
+         </TresMesh>
+         
+         <!-- Soft under-glow for the cap -->
+         <TresMesh :rotation="[Math.PI / 2, 0, 0]">
+            <TresCircleGeometry :args="[1.0, 32]" />
+            <TresMeshStandardMaterial color="#ffcdd2" emissive="#ffcdd2" :emissiveIntensity="0.8" />
+         </TresMesh>
+      </TresGroup>
       
-      <!-- Lamp bulb casing -->
-      <TresMesh :position="[0.6, 2, 0]" :rotation="[0, 0, -1]" cast-shadow>
-        <TresSphereGeometry :args="[0.4, 16, 16, 0, Math.PI]" />
-        <TresMeshStandardMaterial color="#f8f9fa" metalness="0.1" roughness="0.3" />
-      </TresMesh>
-      
-      <!-- Lamp Light Source -->
-      <TresSpotLight 
-        :position="[0.6, 1.8, 0]" 
-        :angle="Math.PI / 4" 
-        :penumbra="0.3" 
-        :intensity="10" 
-        :distance="15"
+      <!-- Mushroom Light Source (Intensified) -->
+      <TresPointLight 
+        :position="[0, 1.0, 0]" 
+        :intensity="20" 
+        :distance="18"
         cast-shadow 
-        color="#ffffff"
-        :decay="2"
+        color="#ffcdd2"
+        :decay="1.5"
       />
     </TresGroup>
 

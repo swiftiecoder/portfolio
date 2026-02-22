@@ -57,8 +57,8 @@
         <TresMeshStandardMaterial color="#D87A5D" roughness="0.9" />
       </TresMesh>
       <!-- Pot Soil -->
-      <TresMesh :position="[0, 0.79, 0]" receive-shadow>
-        <TresCylinderGeometry :args="[0.48, 0.48, 0.02, 32]" />
+      <TresMesh :position="[0, 0.795, 0]" receive-shadow>
+        <TresCylinderGeometry :args="[0.47, 0.47, 0.02, 32]" />
         <TresMeshStandardMaterial color="#2B1B17" roughness="1.0" />
       </TresMesh>
       <!-- Plant Leaves (Abstracted as a cluster of overlapping green spheres/ellipsoids) -->
