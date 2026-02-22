@@ -198,19 +198,20 @@ const unmountOverlay = () => {
       <VinylPlayer :position="[-3, 0, -1]" />
       <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
 
-      <!-- HTML Overlay for Selected Project -->
-      <Html v-if="activeProject" transform :position="[0, 3, 0]" wrapper-class="project-modal-wrapper" center>
-        <div class="project-modal">
-          <div class="modal-header">
-            <button class="close-btn" @click="unmountOverlay">✕ Close</button>
-          </div>
-          <div class="modal-content">
-             <component :is="activeProject" />
-          </div>
-        </div>
-      </Html>
-
+      <!-- HTML Overlay logic moved to 2D space outside TresCanvas -->
     </TresCanvas>
+
+    <!-- 2D Screen Space Overlay for Selected Project -->
+    <div v-if="activeProject" class="project-modal-overlay" @click.self="unmountOverlay">
+      <div class="project-modal">
+        <div class="modal-header">
+          <button class="close-btn" @click="unmountOverlay">✕ Close</button>
+        </div>
+        <div class="modal-content">
+           <component :is="activeProject" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -227,8 +228,19 @@ const unmountOverlay = () => {
   left: 0;
 }
 
-:deep(.project-modal-wrapper) {
-  pointer-events: auto !important;
+.project-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
 }
 
 .project-modal {

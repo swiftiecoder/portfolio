@@ -91,5 +91,6 @@ const windowsStore = useWindowsStore()
 .frame {
     width: 100%;
     height: 97.5%;
+    position: relative;
 }
 </style>

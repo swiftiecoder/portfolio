@@ -88,6 +88,7 @@ const windowsStore = useWindowsStore()
     width: 100%;
     height: 97.5%;
     overflow: auto;
+    position: relative;
 }
 </style>
 
