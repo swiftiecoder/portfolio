@@ -9,7 +9,7 @@ import TarotDeck from '../components/TarotDeck.vue'
 import StrewnPages from '../components/StrewnPages.vue'
 
 // Nuxt auto-imports TresCanvas via @tresjs/nuxt
-import { OrbitControls, Html } from '@tresjs/cientos'
+import { OrbitControls, Html, GLTFModel } from '@tresjs/cientos'
 
 // Import all existing views
 import AcademicCV from '../views/AcademicCV.vue'
@@ -195,8 +195,11 @@ const unmountOverlay = () => {
       <!-- Legs are handled in DeskScene, but we might need to add them there if not present. Assuming DeskScene has just surface for now, we will add leg stubs in DeskScene later -->
       
       <DeskScene />
-      <DeskDecorations />
-      <VinylPlayer :position="[-3, 0, -1]" />
+      <DeskDecorations @itemClick="handleCardClick" />
+      <!-- <VinylPlayer :position="[-3, 0, -1]" /> -->
+      <Suspense>
+          <GLTFModel path="/files/sony_headphone_model.glb" draco cast-shadow receive-shadow :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1" />
+      </Suspense>
       <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
       <StrewnPages @pageClick="handleCardClick" />
 

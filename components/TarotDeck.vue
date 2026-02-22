@@ -9,7 +9,7 @@ const emits = defineEmits(['cardClick'])
 const cardData = [
   { id: 'HTS', title: 'HTS', image: '/tarot/00-TheFool.png' },
   { id: 'PortalLLM', title: 'PortalLLM', image: '/tarot/05-TheHierophant.png' },
-  { id: 'GuardianAngel', title: 'Guardian Angel', image: '/tarot/06-TheLovers.png' },
+  { id: 'GuardianAngel', title: 'Guardian Angel', image: '/tarot/19-TheSun.png' },
   { id: 'MyDoctor', title: 'My Doctor', image: '/tarot/14-Temperance.png' }
 ]
 
@@ -72,7 +72,7 @@ const startAnimationLoop = () => {
         setTimeout(() => {
           flippedCardIndex.value = null
         }, 300)
-      }, 2000)
+      }, 0)
     }
     
     animationFrameId = requestAnimationFrame(animate)

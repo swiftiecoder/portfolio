@@ -1,6 +1,11 @@
 <script setup>
 import { shallowRef, ref, onMounted } from 'vue'
 import * as THREE from 'three'
+import { GLTFModel, Html } from '@tresjs/cientos'
+
+const emits = defineEmits(['itemClick'])
+
+const hoveredCat = shallowRef(false)
 
 // Generate two rings of 3D petals for sunflower heads
 const outerCount = 14
@@ -261,5 +266,55 @@ onMounted(() => {
        </TresMesh>
     </TresGroup>
 
+    <!-- Additional Desk Decor from GLB -->
+    <TresGroup>
+      <Suspense>
+        <TresGroup
+          @pointer-enter="hoveredCat = true"
+          @pointer-leave="hoveredCat = false"
+          @click="emits('itemClick', 'Bio')"
+        >
+          <GLTFModel path="/files/sushi_cat_plush.glb" draco cast-shadow receive-shadow :position="[2.5, 0.4, -2]" :rotation="[0, -1.2, 0]" :scale="1.8" />
+          
+          <Html 
+            v-if="hoveredCat" 
+            transform 
+            :position="[2.5, 1.2, -2]" 
+            center 
+            wrapper-class="page-tooltip"
+          >
+            <div class="page-label">
+               About Me
+            </div>
+          </Html>
+        </TresGroup>
+      </Suspense>
+      <Suspense>
+        <GLTFModel path="/files/nikon_camera.glb" draco cast-shadow receive-shadow :position="[-2.5, 0, -2]" :rotation="[0, 0.2, 0]" :scale="5.0" />
+      </Suspense>
+    </TresGroup>
+
   </TresGroup>
 </template>
+
+<style scoped>
+:deep(.page-tooltip) {
+  pointer-events: none;
+}
+.page-label {
+  background: rgba(245, 245, 236, 0.95);
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 2px;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  border: 1px solid #CCC;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  animation: floatUp 0.2s ease-out forwards;
+}
+@keyframes floatUp {
+  0% { transform: translateY(5px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+</style>
