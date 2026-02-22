@@ -6,6 +6,7 @@ import DeskScene from '../components/DeskScene.vue'
 import DeskDecorations from '../components/DeskDecorations.vue'
 import VinylPlayer from '../components/VinylPlayer.vue'
 import TarotDeck from '../components/TarotDeck.vue'
+import StrewnPages from '../components/StrewnPages.vue'
 
 // Nuxt auto-imports TresCanvas via @tresjs/nuxt
 import { OrbitControls, Html } from '@tresjs/cientos'
@@ -197,6 +198,7 @@ const unmountOverlay = () => {
       <DeskDecorations />
       <VinylPlayer :position="[-3, 0, -1]" />
       <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
+      <StrewnPages @pageClick="handleCardClick" />
 
       <!-- HTML Overlay logic moved to 2D space outside TresCanvas -->
     </TresCanvas>
@@ -234,34 +236,39 @@ const unmountOverlay = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  /* Simple darkened backdrop with blur */
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   pointer-events: auto;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .project-modal {
-  background: #EED8C0;
-  border-radius: 12px;
+  /* Crisp, warm academic paper light theme */
+  background: #FDFBF7;
+  border-radius: 8px;
   width: 900px;
   max-width: 90vw;
   height: 600px;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-  font-family: 'MS Sans Serif', ui-sans-serif, system-ui, sans-serif;
-  color: #111;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  font-family: 'Georgia', serif;
+  color: #333333;
   overflow: hidden;
-  border: 4px solid #C4A484;
+  border: 1px solid #E5E0D8;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-header {
-  padding: 1rem;
-  background: #C4A484;
+  padding: 1.2rem 2rem;
+  background: #F4F1EA;
+  border-bottom: 1px solid #E5E0D8;
   display: flex;
   justify-content: flex-end;
 }
@@ -269,21 +276,54 @@ const unmountOverlay = () => {
 .modal-content {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
-  background: #FDF6E3;
+  padding: 2.5rem 3rem;
+  background: transparent;
+  line-height: 1.6;
+}
+
+/* Elegant scrollbar */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: #D8D2C9;
+  border-radius: 3px;
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #BDB6AB;
 }
 
 .close-btn {
-  padding: 0.5rem 1rem;
-  background: #4A2F3D;
-  color: #fff;
-  border: none;
-  font-weight: bold;
+  padding: 0.4rem 1rem;
+  background: transparent;
+  color: #555555;
+  border: 1px solid #CCCCCC;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
 }
+
 .close-btn:hover {
-  background: #73485E;
+  background: #FFFFFF;
+  color: #111111;
+  border-color: #999999;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

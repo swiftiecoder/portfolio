@@ -1,4 +1,7 @@
 <script setup>
+import { shallowRef, ref, onMounted } from 'vue'
+import * as THREE from 'three'
+
 // Generate two rings of 3D petals for sunflower heads
 const outerCount = 14
 const innerCount = 14
@@ -36,45 +39,57 @@ const makeFlower = (outerR, innerR, petalLen, innerPetalLen) => {
 const flower1 = makeFlower(0.22, 0.15, 0.2, 0.14)
 const flower2 = makeFlower(0.18, 0.12, 0.17, 0.12)
 const flower3 = makeFlower(0.15, 0.10, 0.14, 0.10)
+
+// Textures for Books
+const katabasisTex = shallowRef(null)
+const achillesTex = shallowRef(null)
+const katabasisMaterials = shallowRef([])
+const achillesMaterials = shallowRef([])
+
+onMounted(() => {
+  const loader = new THREE.TextureLoader()
+  
+  const loadBookTexture = (path) => {
+    const tex = loader.load(path)
+    tex.colorSpace = THREE.SRGBColorSpace
+    
+    // Create an array of 6 materials for the BoxGeometry
+    // [right, left, top, bottom, front, back]
+    // Textures typically go on top (2) and bottom (3)
+    const spineMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9 })
+    const coverMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.7 })
+    const pagesMat = new THREE.MeshStandardMaterial({ color: '#f5f5dc', roughness: 1.0 })
+    
+    return [
+      pagesMat, // Right
+      spineMat, // Left (the side facing the front-left edge)
+      coverMat, // Top (cover)
+      coverMat, // Bottom (back cover)
+      pagesMat, // Front 
+      pagesMat  // Back
+    ]
+  }
+  
+  // Very dark mystical grey/black for Katabasis
+  katabasisMaterials.value = loadBookTexture('/files/katabasis.png')
+  
+  // Deep elegant blue for Achilles
+  achillesMaterials.value = loadBookTexture('/files/achilles.png')
+})
 </script>
 
 <template>
   <TresGroup>
-    <!-- Coffee Cup -->
-    <TresGroup :position="[1, -0.2, -2]">
-      <!-- Cup base -->
-      <TresMesh :position="[0, 0.25, 0]" cast-shadow>
-        <TresCylinderGeometry :args="[0.2, 0.15, 0.5, 32]" />
-        <TresMeshStandardMaterial color="#EAEAEA" roughness="0.2" />
+    <!-- Stack of Books (Moved to front-left corner to make room for CV pages) -->
+    <TresGroup :position="[-3.5, -0.2, 1.5]" :rotation="[0, 0.5, 0]">
+      <!-- Bottom book: Katabasis (Thicker) -->
+      <TresMesh v-if="katabasisMaterials.length" :position="[0, 0.15, 0]" :rotation="[0, -0.1, 0]" cast-shadow :material="katabasisMaterials">
+        <TresBoxGeometry :args="[1.2, 0.3, 1.8]" />
       </TresMesh>
-      <!-- Coffee inside -->
-      <TresMesh :position="[0, 0.49, 0]">
-        <TresCylinderGeometry :args="[0.18, 0.18, 0.01, 32]" />
-        <TresMeshStandardMaterial color="#3E2723" roughness="0.9" />
-      </TresMesh>
-      <!-- Cup handle -->
-      <TresMesh :position="[0.2, 0.25, 0]" :rotation="[0, 0, -0.2]" cast-shadow>
-        <TresTorusGeometry :args="[0.1, 0.03, 16, 32]" />
-        <TresMeshStandardMaterial color="#EAEAEA" roughness="0.2" />
-      </TresMesh>
-    </TresGroup>
-
-    <!-- Stack of Books -->
-    <TresGroup :position="[-1.5, -0.2, 1.5]" :rotation="[0, 0.4, 0]">
-      <!-- Bottom book -->
-      <TresMesh :position="[0, 0.08, 0]" cast-shadow>
-        <TresBoxGeometry :args="[1.2, 0.15, 1.6]" />
-        <TresMeshStandardMaterial color="#2d3748" roughness="0.8" />
-      </TresMesh>
-      <!-- Middle book -->
-      <TresMesh :position="[0.05, 0.22, -0.05]" :rotation="[0, -0.2, 0]" cast-shadow>
-        <TresBoxGeometry :args="[1.1, 0.12, 1.5]" />
-        <TresMeshStandardMaterial color="#742a2a" roughness="0.7" />
-      </TresMesh>
-      <!-- Top book -->
-      <TresMesh :position="[-0.02, 0.33, 0.02]" :rotation="[0, 0.1, 0]" cast-shadow>
-        <TresBoxGeometry :args="[1.0, 0.1, 1.4]" />
-        <TresMeshStandardMaterial color="#276749" roughness="0.7" />
+      
+      <!-- Top book: The Song of Achilles -->
+      <TresMesh v-if="achillesMaterials.length" :position="[0.05, 0.4, 0.05]" :rotation="[0, 0.15, 0]" cast-shadow :material="achillesMaterials">
+        <TresBoxGeometry :args="[1.1, 0.25, 1.6]" />
       </TresMesh>
     </TresGroup>
     
