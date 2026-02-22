@@ -16,9 +16,7 @@
   max-height: 100vh !important;
 }
 
-.window {
-  
-}
+.window {}
 
 @media only screen and (max-width: 600px) {
   .window-style {

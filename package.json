@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "@tresjs/cientos": "^5.4.0",
+    "@tresjs/core": "^5.5.0",
+    "@tresjs/nuxt": "^5.3.0",
     "interactjs": "^1.10.27",
     "moment": "^2.30.1",
     "nuxt": "^3.11.2",
     "openai": "^4.98.0",
     "pinia": "^2.1.7",
+    "three": "^0.183.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
