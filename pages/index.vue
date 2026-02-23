@@ -284,26 +284,60 @@ const projectComponents = {
       </div>
     </div>
 
-    <!-- Discover Mode UI (2D Legend Prototype) -->
+    <!-- Discover Mode UI (Fantastical & Rustic Theme) -->
     <div class="discover-ui">
       <button 
         class="discover-toggle" 
         :class="{ active: isDiscoverMode }" 
         @click="isDiscoverMode = !isDiscoverMode"
       >
-        <span class="icon">✨</span> Discover
+        <span class="icon" v-if="!isDiscoverMode">🗝</span>
+        <span class="icon" v-else>✧</span>
+        <span class="text">{{ isDiscoverMode ? 'Conceal' : 'Unveil' }}</span>
       </button>
       
-      <Transition name="slide-fade">
+      <Transition name="float-fade">
         <div v-if="isDiscoverMode" class="legend-panel">
-          <h3>Legend</h3>
-          <ul>
-            <li><span class="emoji">📚</span> <strong>Books:</strong> About Me</li>
-            <li><span class="emoji">🎴</span> <strong>Tarot Cards:</strong> Projects</li>
-            <li><span class="emoji">📌</span> <strong>Noticeboard:</strong> Updates</li>
-            <li><span class="emoji">📄</span> <strong>Papers:</strong> Resume & CV</li>
-            <li><span class="emoji">📇</span> <strong>Cards:</strong> Social Links</li>
-          </ul>
+          <div class="panel-inner">
+            <h3>Desk Secrets</h3>
+            <ul>
+              <li>
+                <div class="legend-icon">📚</div>
+                <div class="legend-text">
+                  <span class="legend-title">Tomes</span>
+                  <span class="legend-desc">About Me</span>
+                </div>
+              </li>
+              <li>
+                <div class="legend-icon">🎴</div>
+                <div class="legend-text">
+                  <span class="legend-title">Tarot Deck</span>
+                  <span class="legend-desc">Projects</span>
+                </div>
+              </li>
+              <li>
+                <div class="legend-icon">📌</div>
+                <div class="legend-text">
+                  <span class="legend-title">Noticeboard</span>
+                  <span class="legend-desc">Updates</span>
+                </div>
+              </li>
+              <li>
+                <div class="legend-icon">📄</div>
+                <div class="legend-text">
+                  <span class="legend-title">Parchment</span>
+                  <span class="legend-desc">Resume & CV</span>
+                </div>
+              </li>
+              <li>
+                <div class="legend-icon">📇</div>
+                <div class="legend-text">
+                  <span class="legend-title">Calling Cards</span>
+                  <span class="legend-desc">Social Links</span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </Transition>
     </div>
@@ -311,6 +345,8 @@ const projectComponents = {
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap');
+
 .canvas-container {
   width: 100vw;
   height: 100vh;
@@ -493,67 +529,99 @@ const projectComponents = {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Discover UI Styles */
+/* Discover UI Styles - Fantastical & Rustic Theme */
 .discover-ui {
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  bottom: 40px;
+  right: 40px;
   z-index: 50;
   display: flex;
-  flex-direction: column-reverse; /* Reverses so the panel expands upwards from the button */
+  flex-direction: column-reverse; /* Expands upwards */
   align-items: flex-end;
-  gap: 15px;
+  gap: 16px;
 }
 
 .discover-toggle {
-  background: rgba(253, 251, 247, 0.85);
-  backdrop-filter: blur(10px);
-  border: 1px solid #E5E0D8;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-family: 'Georgia', serif;
-  font-size: 1.05rem;
-  color: #555;
+  background: radial-gradient(circle at center, #3d3024 0%, #201811 100%);
+  border: 1px solid #7a6146;
+  padding: 10px 22px;
+  border-radius: 40px; /* Pill shape amulet */
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #e3d3bd;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .discover-toggle:hover {
-  background: #fff;
-  color: #111;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 15px rgba(122, 97, 70, 0.3);
+  border-color: #a38562;
+  color: #fff4e6;
 }
 
 .discover-toggle.active {
-  background: #333;
-  color: #fff;
-  border-color: #333;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  background: #e3d3bd;
+  color: #201811;
+  border-color: #201811;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.discover-toggle .icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+}
+.discover-toggle.active .icon {
+  filter: none;
 }
 
 .legend-panel {
-  background: rgba(253, 251, 247, 0.95);
-  backdrop-filter: blur(12px);
-  border: 1px solid #E5E0D8;
-  border-radius: 12px;
-  padding: 20px;
-  width: 240px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  color: #333;
+  background: #eae0d0;
+  background-image: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23noise)" opacity="0.04"/%3E%3C/svg%3E');
+  border: 1px solid #5c4633;
+  padding: 6px;
+  width: 200px;
+  border-radius: 110px 110px 16px 16px; /* Apothecary Arch */
+  box-shadow: 8px 12px 25px rgba(32, 24, 17, 0.25), inset 0 0 30px rgba(100, 75, 50, 0.1);
+  transform-origin: bottom center;
+}
+
+/* Inner dashed border */
+.panel-inner {
+  border: 1px dashed #a38d72;
+  border-radius: 104px 104px 10px 10px;
+  padding: 36px 16px 24px 16px;
+  background: transparent;
 }
 
 .legend-panel h3 {
-  margin: 0 0 15px 0;
-  font-family: 'Georgia', serif;
-  font-size: 1.2rem;
-  color: #111;
-  border-bottom: 1px solid #E5E0D8;
-  padding-bottom: 10px;
+  margin: 0 0 20px 0;
+  font-family: 'IM Fell English', serif;
+  font-size: 1.3rem;
+  color: #2a1f16;
+  text-align: center;
+  border-bottom: 1px solid #c9b49a;
+  padding-bottom: 16px;
+  position: relative;
+  line-height: 1.1;
+}
+
+.legend-panel h3::after {
+  content: '✦';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #eae0d0; /* Match panel base */
+  padding: 0 8px;
+  font-size: 0.8rem;
+  color: #8c7052;
 }
 
 .legend-panel ul {
@@ -562,27 +630,73 @@ const projectComponents = {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .legend-panel li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-}
-
-.legend-panel .emoji {
-  font-size: 1.2rem;
-}
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.slide-fade-enter-from,
-.slide-fade-leave-to {
+  gap: 12px;
   opacity: 0;
-  transform: translateY(20px) scale(0.95); /* Slide from bottom instead of top */
+  animation: floatUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(10px);
+}
+
+.legend-panel li:nth-child(1) { animation-delay: 0.1s; }
+.legend-panel li:nth-child(2) { animation-delay: 0.2s; }
+.legend-panel li:nth-child(3) { animation-delay: 0.3s; }
+.legend-panel li:nth-child(4) { animation-delay: 0.4s; }
+.legend-panel li:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes floatUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.legend-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(181, 155, 124, 0.2);
+  border: 1px solid #c9b49a;
+  border-radius: 50%;
+  font-size: 1rem;
+  flex-shrink: 0;
+  filter: sepia(0.4) saturate(0.8);
+}
+
+.legend-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.legend-title {
+  font-family: 'IM Fell English', serif;
+  font-size: 1rem;
+  color: #2a1f16;
+  font-weight: 600;
+}
+
+.legend-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: #6d5c4f;
+  font-style: italic;
+}
+
+/* Transition for the panel */
+.float-fade-enter-active,
+.float-fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.float-fade-enter-from,
+.float-fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
 }
 </style>
