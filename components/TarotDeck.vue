@@ -7,10 +7,10 @@ const emits = defineEmits(['cardClick'])
 
 // 4 Projects mapped to provided images
 const cardData = [
-  { id: 'HTS', title: 'HTS', image: '/tarot/00-TheFool.png' },
-  { id: 'PortalLLM', title: 'PortalLLM', image: '/tarot/05-TheHierophant.png' },
-  { id: 'GuardianAngel', title: 'Guardian Angel', image: '/tarot/19-TheSun.png' },
-  { id: 'MyDoctor', title: 'My Doctor', image: '/tarot/14-Temperance.png' }
+  { id: 'HTS', title: 'HTS', image: '/tarot/00-TheFool.webp' },
+  { id: 'PortalLLM', title: 'PortalLLM', image: '/tarot/05-TheHierophant.webp' },
+  { id: 'GuardianAngel', title: 'Guardian Angel', image: '/tarot/19-TheSun.webp' },
+  { id: 'MyDoctor', title: 'My Doctor', image: '/tarot/14-Temperance.webp' }
 ]
 
 const randomOffsets = cardData.map(() => ({
@@ -18,6 +18,28 @@ const randomOffsets = cardData.map(() => ({
   z: (Math.random() - 0.5) * 0.3,
   rot: (Math.random() - 0.5) * 0.3
 }))
+
+const tooltipPos = [0, 0.5, 0]
+const tooltipRot = [-Math.PI/2, 0, 0]
+
+const cardRefs = shallowRef([])
+
+// Layout math for an arc spread
+const spreadRadius = 1.8 // Reduced radius so cards group closer together
+const spreadAngle = Math.PI / 3 // Tighter angle so edges don't fall off the desk
+
+// Precalculate base transforms so we don't recalculate math.sin every frame
+const baseTransforms = cardData.map((_, index) => {
+  const t = cardData.length > 1 ? index / (cardData.length - 1) : 0.5
+  const angle = -spreadAngle/2 + (t * spreadAngle)
+  const mess = randomOffsets[index]
+  
+  return {
+    x: Math.sin(angle) * spreadRadius + mess.x,
+    z: (1 - Math.cos(angle)) * spreadRadius - 1.2 + mess.z,
+    rotY: -angle + mess.rot
+  }
+})
 
 const cardBackTex = shallowRef(null)
 const cardFaceTextures = shallowRef([])
@@ -36,7 +58,7 @@ const edgeMaterial = new THREE.MeshStandardMaterial({ color: '#D4AF37', metalnes
 onMounted(() => {
   const loader = new THREE.TextureLoader()
   
-  cardBackTex.value = loader.load('/tarot/CardBacks.png')
+  cardBackTex.value = loader.load('/tarot/CardBacks.webp')
   cardBackTex.value.colorSpace = THREE.SRGBColorSpace
   
   const loadedFaces = []
@@ -53,17 +75,64 @@ onMounted(() => {
 
 const startAnimationLoop = () => {
   const animate = () => {
-    // Smoothly interpolate flip progress (increased ease factor for faster animation)
+    // Smoothly interpolate flip progress
     const diff = targetFlipProgress - flipProgress.value
-    flipProgress.value += diff * 0.25 
+    if (Math.abs(diff) > 0.001) {
+      flipProgress.value += diff * 0.25 
+    } else {
+      flipProgress.value = targetFlipProgress
+    }
+    
+    // Update meshes directly for performance instead of through Vue template bindings
+    if (cardRefs.value && cardRefs.value.length > 0) {
+      cardRefs.value.forEach((mesh, index) => {
+        if (!mesh) return
+        
+        const base = baseTransforms[index]
+        const isHovered = hoveredCardIndex.value === index
+        const isFlipped = flippedCardIndex.value === index
+        
+        let x = base.x
+        let y = 0.02 + (index * 0.01) // Slight stacking overlap
+        let z = base.z
+        
+        // Base rotation starts face-down (bottom edge faces +Z/Viewer)
+        let rotX = Math.PI 
+        let rotY = base.rotY
+        let rotZ = 0
+        
+        if (isHovered && !isFlipped && flippedCardIndex.value === null) {
+          y += 0.2 // Levitate
+          z += 0.1 // Pull forward
+        }
+        
+        if (isFlipped) {
+          // When flipping, move it up significantly and forward to the camera
+          y += 1.5 * flipProgress.value
+          z += 3 * flipProgress.value // Positive Z is toward the camera (viewer)
+          x *= (1 - flipProgress.value) // Center it horizontally as it flips
+          
+          // Flatten out Y rotation to perfectly face camera
+          rotY *= (1 - flipProgress.value)
+          
+          // Rotate X toward the screen
+          const targetRotX = Math.PI / 3
+          rotX = Math.PI - ((Math.PI - targetRotX) * flipProgress.value) 
+        }
+        
+        // Directly apply to THREE.js objects
+        mesh.position.set(x, y, z)
+        mesh.rotation.set(rotX, rotY, rotZ)
+      })
+    }
     
     // If flip is basically done and we were flipping open
-    if (targetFlipProgress === 1 && diff < 0.01 && flippedCardIndex.value !== null) {
+    if (targetFlipProgress === 1 && Math.abs(diff) < 0.01 && flippedCardIndex.value !== null) {
       // Prevent re-triggering this block while we wait
       const currentIndex = flippedCardIndex.value
       targetFlipProgress = 1.01 // Slight offset so diff < 0.01 is false on next frame
       
-      // Wait 2 seconds before opening modal and putting card back
+      // Wait before opening modal and putting card back
       setTimeout(() => {
         emits('cardClick', cardData[currentIndex].id)
         
@@ -72,7 +141,7 @@ const startAnimationLoop = () => {
         setTimeout(() => {
           flippedCardIndex.value = null
         }, 300)
-      }, 0)
+      }, 500)
     }
     
     animationFrameId = requestAnimationFrame(animate)
@@ -91,59 +160,8 @@ const handleCardClick = (index) => {
   targetFlipProgress = 1
 }
 
-// Layout math for an arc spread
-const spreadRadius = 1.8 // Reduced radius so cards group closer together
-const spreadAngle = Math.PI / 3 // Tighter angle so edges don't fall off the desk
-const getCardPosition = (index, isHovered, isFlipped) => {
-  const t = cardData.length > 1 ? index / (cardData.length - 1) : 0.5
-  const angle = -spreadAngle/2 + (t * spreadAngle)
-  const mess = randomOffsets[index]
-  
-  let x = Math.sin(angle) * spreadRadius + mess.x
-  // Invert Z to arc upward (away from the user on the screen) AND shift deeper into the desk
-  // Adjusted offset since radius changes the depth
-  let z = (1 - Math.cos(angle)) * spreadRadius - 1.2 + mess.z 
-  
-  let y = 0.02 + (index * 0.01) // Slight stacking overlap
-  
-  if (isHovered && !isFlipped && flippedCardIndex.value === null) {
-    y += 0.2 // Levitate
-    z += 0.1 // Pull forward
-  }
-  
-  if (isFlipped) {
-    // When flipping, move it up significantly and forward to the camera
-    y += 1.5 * flipProgress.value
-    z += 3 * flipProgress.value // Positive Z is toward the camera (viewer)
-    x *= (1 - flipProgress.value) // Center it horizontally as it flips
-  }
-  
-  return [x, y, z]
-}
+// Layout and Rotations are now handled in the render loop for performance
 
-const getCardRotation = (index, isFlipped) => {
-  const t = cardData.length > 1 ? index / (cardData.length - 1) : 0.5
-  const angle = -spreadAngle/2 + (t * spreadAngle)
-  const mess = randomOffsets[index]
-  
-  // Base rotation adjusted for the upward arc + messiness
-  let rotY = -angle + mess.rot
-  // rotX = Math.PI starts the card face-down (bottom edge faces +Z/Viewer)
-  let rotX = Math.PI 
-  let rotZ = 0
-  
-  if (isFlipped) {
-     // Flatten out Y rotation to perfectly face camera
-     rotY *= (1 - flipProgress.value)
-     
-     // Rotate X toward the screen (decreasing from Math.PI)
-     // Target ~Math.PI/3 (60 degrees) so it tilts perfectly toward the camera looking down
-     const targetRotX = Math.PI / 3
-     rotX = Math.PI - ((Math.PI - targetRotX) * flipProgress.value) 
-  }
-  
-  return [rotX, rotY, rotZ]
-}
 </script>
 
 <template>
@@ -152,8 +170,8 @@ const getCardRotation = (index, isFlipped) => {
       <TresMesh 
         v-for="(card, index) in cardData" 
         :key="card.id"
-        :position="getCardPosition(index, hoveredCardIndex === index, flippedCardIndex === index)"
-        :rotation="getCardRotation(index, flippedCardIndex === index)"
+        ref="cardRefs"
+
         cast-shadow 
         receive-shadow
         @pointer-enter="hoveredCardIndex = index"
@@ -178,8 +196,8 @@ const getCardRotation = (index, isFlipped) => {
         <Html 
           v-if="hoveredCardIndex === index && flippedCardIndex === null" 
           transform 
-          :position="[0, 0.5, 0]" 
-          :rotation="[-Math.PI/2, 0, 0]"
+          :position="tooltipPos" 
+          :rotation="tooltipRot"
           center 
           wrapper-class="tarot-tooltip"
         >

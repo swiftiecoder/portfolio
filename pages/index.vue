@@ -7,6 +7,8 @@ import DeskDecorations from '../components/DeskDecorations.vue'
 import VinylPlayer from '../components/VinylPlayer.vue'
 import TarotDeck from '../components/TarotDeck.vue'
 import StrewnPages from '../components/StrewnPages.vue'
+import WallPosters from '../components/WallPosters.vue'
+import Noticeboard from '../components/Noticeboard.vue'
 
 // Nuxt auto-imports TresCanvas via @tresjs/nuxt
 import { OrbitControls, Html, GLTFModel } from '@tresjs/cientos'
@@ -19,12 +21,13 @@ import HTS from '../views/HTS.vue'
 import MyDoctor from '../views/My Doctor.vue'
 import PortalLLM from '../views/PortalLLM.vue'
 import Resume from '../views/Resume.vue'
+import NoticeboardUpdates from '../views/NoticeboardUpdates.vue'
 
 // Load generated textures client-side to prevent Nuxt SSR crashes
 const rugTex = shallowRef(null)
-const posterTex = shallowRef(null)
 const shadowTex = shallowRef(null)
 const hardwoodTex = shallowRef(null)
+const lumsFlagTex = shallowRef(null)
 
 let animationFrameId
 const animateShadows = (timestamp) => {
@@ -36,18 +39,83 @@ const animateShadows = (timestamp) => {
   animationFrameId = requestAnimationFrame(animateShadows)
 }
 
-onMounted(() => {
-  const loader = new THREE.TextureLoader()
-  rugTex.value = loader.load('/persian_rug.png')
-  posterTex.value = loader.load('/vintage_poster.png')
+const activeProject = shallowRef(null)
+const activeProjectName = shallowRef('')
+
+// Loading State
+const isLoading = shallowRef(true)
+const loadingProgress = shallowRef(0)
+const isAssetsLoaded = shallowRef(false)
+const isShadersCompiled = shallowRef(false)
+
+const handleCardClick = (projectId) => {
+  activeProjectName.value = projectId
+  activeProject.value = projectComponents[projectId]
+}
+
+const unmountOverlay = () => {
+  activeProject.value = null
+  activeProjectName.value = ''
+}
+
+// Function to check if everything is ready to hide the loading screen
+const checkReadyState = () => {
+  if (isAssetsLoaded.value && isShadersCompiled.value) {
+    // Add a slight delay for aesthetic smoothness
+    setTimeout(() => {
+      isLoading.value = false
+    }, 800)
+  }
+}
+
+// Intercept TresJS ready event to force shader compilation before rendering
+const onTresReady = ({ renderer, scene, camera }) => {
+  // TresJS context properties are Vue refs, so we need to access .value
+  const _renderer = renderer.value || renderer
+  const _scene = scene.value || scene
+  const _camera = camera.value || camera
+
+  if (_renderer && typeof _renderer.compile === 'function') {
+    // Pre-compile all shaders for the current scene to prevent post-load freezing
+    _renderer.compile(_scene, _camera)
+  }
   
-  const st = loader.load('/tree_shadow.png')
+  isShadersCompiled.value = true
+  checkReadyState()
+}
+
+onMounted(() => {
+  // Track Global Load Progress
+  THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
+    isLoading.value = true
+    const progress = (itemsLoaded / itemsTotal) * 100
+    loadingProgress.value = Math.max(loadingProgress.value, progress)
+  }
+  
+  THREE.DefaultLoadingManager.onLoad = () => {
+    isAssetsLoaded.value = true
+    checkReadyState()
+  }
+  
+  THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+    const progress = (itemsLoaded / itemsTotal) * 100
+    // Guarantee that progress can never go backwards when new embedded assets are discovered
+    loadingProgress.value = Math.max(loadingProgress.value, progress)
+  }
+
+  const loader = new THREE.TextureLoader()
+  rugTex.value = loader.load('/persian_rug.webp')
+  
+  const st = loader.load('/tree_shadow.webp')
   st.wrapS = THREE.RepeatWrapping
   st.wrapT = THREE.RepeatWrapping
   shadowTex.value = st
+
+  lumsFlagTex.value = loader.load('/files/lums_flag.png')
+  lumsFlagTex.value.colorSpace = THREE.SRGBColorSpace
   
   // Process hardwood floor with correct scaling wrap
-  const hw = loader.load('/hardwood_floor.png')
+  const hw = loader.load('/hardwood_floor.webp')
   hw.wrapS = THREE.RepeatWrapping
   hw.wrapT = THREE.RepeatWrapping
   hw.wrapS = 1000 // RepeatWrapping
@@ -70,26 +138,30 @@ const projectComponents = {
   HTS: markRaw(HTS),
   MyDoctor: markRaw(MyDoctor),
   PortalLLM: markRaw(PortalLLM),
-  Resume: markRaw(Resume)
+  Resume: markRaw(Resume),
+  NoticeboardUpdates: markRaw(NoticeboardUpdates)
 }
 
-const activeProject = shallowRef(null)
-const activeProjectName = shallowRef('')
-
-const handleCardClick = (projectId) => {
-  activeProjectName.value = projectId
-  activeProject.value = projectComponents[projectId]
-}
-
-const unmountOverlay = () => {
-  activeProject.value = null
-  activeProjectName.value = ''
-}
+// Refs for active project handled above
 </script>
 
 <template>
   <div class="canvas-container">
-    <TresCanvas shadows clear-color="#fdf6e3" window-size>
+    <Transition name="fade">
+      <div v-if="isLoading" class="loading-screen">
+        <div class="loader-content">
+          <div class="spinner"></div>
+          <h2 class="loading-text">{{ isAssetsLoaded ? 'Compiling Shaders...' : 'Loading Project Assets' }}</h2>
+          <div class="progress-bar-container">
+            <div class="progress-bar" :style="{ width: loadingProgress + '%' }"></div>
+          </div>
+          <p class="progress-text">{{ isAssetsLoaded ? 'Optimizing Scene' : Math.round(loadingProgress) + '%' }}</p>
+        </div>
+      </div>
+    </Transition>
+
+    <div id="tres-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      <TresCanvas shadows :shadow-map-type="1" clear-color="#fdf6e3" window-size @ready="onTresReady">
       <TresPerspectiveCamera
         :position="[0, 5, 8]"
         :look-at="[0, 0, 0]"
@@ -116,6 +188,14 @@ const unmountOverlay = () => {
         :shadow-mapSize-height="2048"
       />
       <TresDirectionalLight :position="[10, 10, -10]" :intensity="1.5" color="#E6F4F1" />
+
+      <!-- Right Wall LUMS Flag -->
+      <TresGroup :position="[14.9, 4, -5]" :rotation="[0, -Math.PI / 2, 0]">
+         <TresMesh :position="[0, 0, 0.1]" receive-shadow>
+            <TresPlaneGeometry :args="[8, 4]" />
+            <TresMeshStandardMaterial :map="lumsFlagTex" roughness="0.8" :transparent="true" />
+         </TresMesh>
+      </TresGroup>
       
       <!-- Environmental Room Box -->
       <TresMesh :position="[0, 4.5, 0]" receive-shadow>
@@ -125,30 +205,11 @@ const unmountOverlay = () => {
         <TresMeshStandardMaterial color="#8A9A5B" :side="1" roughness="1.0" />
       </TresMesh>
 
-      <!-- V4 Wall of Vintage Posters -->
-      <TresGroup :position="[0, 3, -14.9]">
-         <!-- Center Main Poster -->
-         <TresMesh :position="[0, 0, 0.1]">
-           <TresPlaneGeometry :args="[2.5, 3.5]" />
-           <TresMeshStandardMaterial :map="posterTex" roughness="0.9" />
-         </TresMesh>
-         <!-- Left Poster -->
-         <TresMesh :position="[-3, 1, 0.1]" :rotation="[0, 0, 0.05]">
-           <TresPlaneGeometry :args="[2, 2.8]" />
-           <!-- We tint the repeated texture so it looks organically diverse -->
-           <TresMeshStandardMaterial :map="posterTex" roughness="0.8" color="#FFD1DC" />
-         </TresMesh>
-         <!-- Right Poster -->
-         <TresMesh :position="[3.5, -0.5, 0.1]" :rotation="[0, 0, -0.05]">
-           <TresPlaneGeometry :args="[2.2, 3]" />
-           <TresMeshStandardMaterial :map="posterTex" roughness="0.8" color="#dbeafe" />
-         </TresMesh>
-         <!-- Small upper right -->
-         <TresMesh :position="[2.5, 2.5, 0.1]" :rotation="[0, 0, -0.1]">
-           <TresPlaneGeometry :args="[1.5, 2]" />
-           <TresMeshStandardMaterial :map="posterTex" roughness="0.6" color="#fef08a" />
-         </TresMesh>
-      </TresGroup>
+      <!-- Dynamic Wall Posters -->
+      <WallPosters />
+
+      <!-- Noticeboard -->
+      <Noticeboard @boardClick="handleCardClick" />
 
       <!-- V4 Larger Window with Curtains and Tree Shadow -->
       <TresGroup :position="[-14.9, 4, 0]" :rotation="[0, Math.PI / 2, 0]">
@@ -198,15 +259,15 @@ const unmountOverlay = () => {
       <DeskDecorations @itemClick="handleCardClick" />
       <!-- <VinylPlayer :position="[-3, 0, -1]" /> -->
       <Suspense>
-          <GLTFModel path="/files/sony_headphone_model.glb" draco cast-shadow receive-shadow :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1" />
+          <GLTFModel path="/files/sony_headphone_model-compressed.glb" draco cast-shadow receive-shadow :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1" />
       </Suspense>
       <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
       <StrewnPages @pageClick="handleCardClick" />
 
       <!-- HTML Overlay logic moved to 2D space outside TresCanvas -->
-    </TresCanvas>
+      </TresCanvas>
+    </div>
 
-    <!-- 2D Screen Space Overlay for Selected Project -->
     <div v-if="activeProject" class="project-modal-overlay" @click.self="unmountOverlay">
       <div class="project-modal">
         <div class="modal-header">
@@ -231,6 +292,79 @@ const unmountOverlay = () => {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fdf6e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  color: #333;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #333;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.progress-bar-container {
+  width: 250px;
+  height: 4px;
+  background: #E5E0D8;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #333;
+  transition: width 0.3s ease-out;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .project-modal-overlay {

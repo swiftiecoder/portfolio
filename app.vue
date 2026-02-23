@@ -1,3 +1,28 @@
+<script setup>
+import { onErrorCaptured, onMounted } from 'vue'
+
+onErrorCaptured((err) => {
+  console.error('[App Error Captured]:', err)
+  // return false to stop propagation to the default app errorHandler (which crashes on ThreeJS objects)
+  return false
+})
+
+onMounted(() => {
+  // Mute specific noisy warnings from upstream libraries (Vue Suspense, ThreeJS Clock)
+  const originalWarn = console.warn
+  console.warn = (...args) => {
+    const msg = args[0]
+    if (typeof msg === 'string') {
+      if (msg.includes('THREE.Clock: This module has been deprecated')) return
+      if (msg.includes('<Suspense> is an experimental feature')) return
+      if (msg.includes('Hydration children mismatch')) return // Expected minor mismatch from TresJS
+      if (msg.includes('Hydration node mismatch')) return // Expected minor mismatch from TresJS
+    }
+    originalWarn(...args)
+  }
+})
+</script>
+
 <template>
   <NuxtPage />
 </template>

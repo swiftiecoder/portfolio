@@ -5,7 +5,7 @@ import { GLTFModel, Html } from '@tresjs/cientos'
 
 const emits = defineEmits(['itemClick'])
 
-const hoveredCat = shallowRef(false)
+const hoveredBooks = shallowRef(false)
 
 // Generate two rings of 3D petals for sunflower heads
 const outerCount = 14
@@ -76,17 +76,32 @@ onMounted(() => {
   }
   
   // Very dark mystical grey/black for Katabasis
-  katabasisMaterials.value = loadBookTexture('/files/katabasis.png')
+  katabasisMaterials.value = loadBookTexture('/files/katabasis.webp')
   
   // Deep elegant blue for Achilles
-  achillesMaterials.value = loadBookTexture('/files/achilles.png')
+  achillesMaterials.value = loadBookTexture('/files/achilles.webp')
 })
 </script>
 
 <template>
   <TresGroup>
     <!-- Stack of Books (Moved to front-left corner to make room for CV pages) -->
-    <TresGroup :position="[-3.5, -0.2, 1.5]" :rotation="[0, 0.5, 0]">
+    <TresGroup 
+      :position="[-3.5, -0.2, 1.5]" 
+      :rotation="[0, 0.5, 0]"
+    >
+      <!-- Proxy Box for Interaction -->
+      <TresMesh
+        :position="[0, 0.25, 0]"
+        @pointer-enter="hoveredBooks = true"
+        @pointer-leave="hoveredBooks = false"
+        @click="emits('itemClick', 'Bio')"
+        :visible="false"
+      >
+        <TresBoxGeometry :args="[1.4, 0.6, 1.9]" />
+        <TresMeshBasicMaterial />
+      </TresMesh>
+
       <!-- Bottom book: Katabasis (Thicker) -->
       <TresMesh v-if="katabasisMaterials.length" :position="[0, 0.15, 0]" :rotation="[0, -0.1, 0]" cast-shadow :material="katabasisMaterials">
         <TresBoxGeometry :args="[1.2, 0.3, 1.8]" />
@@ -96,6 +111,18 @@ onMounted(() => {
       <TresMesh v-if="achillesMaterials.length" :position="[0.05, 0.4, 0.05]" :rotation="[0, 0.15, 0]" cast-shadow :material="achillesMaterials">
         <TresBoxGeometry :args="[1.1, 0.25, 1.6]" />
       </TresMesh>
+
+      <Html 
+        v-if="hoveredBooks" 
+        transform 
+        :position="[0, 0.8, 0]" 
+        center 
+        wrapper-class="page-tooltip"
+      >
+        <div class="page-label">
+           About Me
+        </div>
+      </Html>
     </TresGroup>
     
     <!-- Scattered Polaroids / Papers -->
@@ -256,41 +283,13 @@ onMounted(() => {
       </TresGroup>
     </TresGroup>
 
-    <!-- V3: Subtle Atmospheric Dust Particles -->
-    <TresGroup :position="[-3, 2, 0]">
-       <TresMesh v-for="i in 30" :key="`dust-${i}`" 
-                 :position="[Math.random() * 8 - 4, Math.random() * 4 - 2, Math.random() * 6 - 3]" 
-                 :rotation="[Math.random() * Math.PI, Math.random() * Math.PI, 0]">
-          <TresPlaneGeometry :args="[0.02, 0.02]" />
-          <TresMeshBasicMaterial color="#ffffff" :transparent="true" :opacity="0.3" :side="2" />
-       </TresMesh>
-    </TresGroup>
+
 
     <!-- Additional Desk Decor from GLB -->
     <TresGroup>
+
       <Suspense>
-        <TresGroup
-          @pointer-enter="hoveredCat = true"
-          @pointer-leave="hoveredCat = false"
-          @click="emits('itemClick', 'Bio')"
-        >
-          <GLTFModel path="/files/sushi_cat_plush.glb" draco cast-shadow receive-shadow :position="[2.5, 0.4, -2]" :rotation="[0, -1.2, 0]" :scale="1.8" />
-          
-          <Html 
-            v-if="hoveredCat" 
-            transform 
-            :position="[2.5, 1.2, -2]" 
-            center 
-            wrapper-class="page-tooltip"
-          >
-            <div class="page-label">
-               About Me
-            </div>
-          </Html>
-        </TresGroup>
-      </Suspense>
-      <Suspense>
-        <GLTFModel path="/files/nikon_camera.glb" draco cast-shadow receive-shadow :position="[-2.5, 0, -2]" :rotation="[0, 0.2, 0]" :scale="5.0" />
+        <GLTFModel path="/files/nikon_camera-compressed.glb" draco cast-shadow receive-shadow :position="[-2.5, 0, -2]" :rotation="[0, 0.2, 0]" :scale="5.0" />
       </Suspense>
     </TresGroup>
 

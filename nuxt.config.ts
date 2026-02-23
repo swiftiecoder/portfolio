@@ -11,11 +11,11 @@ export default defineNuxtConfig({
       ],
       link: [
         // You can add global link tags here, like for favicons
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/sushicatfavicon.ico' }
       ]
     }
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
