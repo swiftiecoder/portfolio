@@ -196,7 +196,7 @@ const handleCardClick = (index) => {
         <Html 
           v-if="hoveredCardIndex === index && flippedCardIndex === null" 
           transform 
-          :position="tooltipPos" 
+          :position="[0, 0.4, 0]" 
           :rotation="tooltipRot"
           center 
           wrapper-class="tarot-tooltip"
@@ -226,6 +226,7 @@ const handleCardClick = (index) => {
   border: 1px solid #D4AF37;
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
   animation: floatIn 0.3s ease-out forwards;
+  white-space: nowrap;
 }
 @keyframes floatIn {
   0% { transform: translateY(10px); opacity: 0; }

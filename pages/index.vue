@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, markRaw, onMounted, onBeforeUnmount } from 'vue'
+import { shallowRef, markRaw, onMounted, onBeforeUnmount, ref, provide } from 'vue'
 import * as THREE from 'three'
 
 import DeskScene from '../components/DeskScene.vue'
@@ -42,6 +42,9 @@ const animateShadows = (timestamp) => {
 
 const activeProject = shallowRef(null)
 const activeProjectName = shallowRef('')
+
+const isDiscoverMode = ref(false)
+provide('isDiscoverMode', isDiscoverMode)
 
 // Loading State
 const isLoading = shallowRef(true)
@@ -280,6 +283,30 @@ const projectComponents = {
         </div>
       </div>
     </div>
+
+    <!-- Discover Mode UI (2D Legend Prototype) -->
+    <div class="discover-ui">
+      <button 
+        class="discover-toggle" 
+        :class="{ active: isDiscoverMode }" 
+        @click="isDiscoverMode = !isDiscoverMode"
+      >
+        <span class="icon">✨</span> Discover
+      </button>
+      
+      <Transition name="slide-fade">
+        <div v-if="isDiscoverMode" class="legend-panel">
+          <h3>Legend</h3>
+          <ul>
+            <li><span class="emoji">📚</span> <strong>Books:</strong> About Me</li>
+            <li><span class="emoji">🎴</span> <strong>Tarot Cards:</strong> Projects</li>
+            <li><span class="emoji">📌</span> <strong>Noticeboard:</strong> Updates</li>
+            <li><span class="emoji">📄</span> <strong>Papers:</strong> Resume & CV</li>
+            <li><span class="emoji">📇</span> <strong>Cards:</strong> Social Links</li>
+          </ul>
+        </div>
+      </Transition>
+    </div>
   </div>
 </template>
 
@@ -464,5 +491,98 @@ const projectComponents = {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Discover UI Styles */
+.discover-ui {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column-reverse; /* Reverses so the panel expands upwards from the button */
+  align-items: flex-end;
+  gap: 15px;
+}
+
+.discover-toggle {
+  background: rgba(253, 251, 247, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid #E5E0D8;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: 'Georgia', serif;
+  font-size: 1.05rem;
+  color: #555;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.discover-toggle:hover {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.discover-toggle.active {
+  background: #333;
+  color: #fff;
+  border-color: #333;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.legend-panel {
+  background: rgba(253, 251, 247, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid #E5E0D8;
+  border-radius: 12px;
+  padding: 20px;
+  width: 240px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+}
+
+.legend-panel h3 {
+  margin: 0 0 15px 0;
+  font-family: 'Georgia', serif;
+  font-size: 1.2rem;
+  color: #111;
+  border-bottom: 1px solid #E5E0D8;
+  padding-bottom: 10px;
+}
+
+.legend-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legend-panel li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.legend-panel .emoji {
+  font-size: 1.2rem;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95); /* Slide from bottom instead of top */
 }
 </style>

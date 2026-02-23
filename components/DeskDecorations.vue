@@ -112,6 +112,7 @@ onMounted(() => {
         <TresBoxGeometry :args="[1.1, 0.25, 1.6]" />
       </TresMesh>
 
+      <!-- Hover Tooltip -->
       <Html 
         v-if="hoveredBooks" 
         transform 
