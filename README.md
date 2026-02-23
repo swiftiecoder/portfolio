@@ -7,3 +7,4 @@ portfolioooo
     - wax seal? can add but might look cooler on updates/as a landing page
     - update design of the modals
     - loading screen
+    - update record id in the about me page to be something more meaningful?

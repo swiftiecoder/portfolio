@@ -52,8 +52,7 @@
     <div class="userstuff module">
       <h3 class="landmark heading" id="work">Summary:</h3>
       <blockquote class="userstuff">
-        <p>Guardian Angel is a research project I worked on as a Research Assistant at the Embedded Systems & Networks
-          Labs (SysNet/EmNets), LUMS. The goal was to democratize healthcare and wellness by developing an affordable
+        <p>Guardian Angel is a research project I worked on as a Research Assistant at the Embedded AI Lab, LUMS. The goal was to democratize healthcare and wellness by developing an affordable
           smartwatch and backend system that could overcome economic and linguistic barriers, especially in
           resource-constrained settings.</p>
       </blockquote>

@@ -25,7 +25,7 @@ Sept 2021-June 2025 [cite: 2]
 
 ## Research Experience
 
-**Research Assistant - Embedded Systems & Networks Labs (SysNet/EmNets), LUMS**
+**Research Assistant - Embedded Systems & Networks Labs (Embedded AI Lab), LUMS**
 June 2024-May 2025 [cite: 2]
 Advisors: Dr Naveed Anwar Bhatti (Assistant Professor), Dr Hamad Alizai (Associate Professor) [cite: 3]
 Worked on the Guardian Angel project, which involved using lot data and generative Al to develop a smartwatch which can help democratize healthcare and wellness beyond economic and linguistic obstacles. [cite: 3]

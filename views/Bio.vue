@@ -20,7 +20,7 @@
         </tr>
         <tr>
           <td class="mf-label">EDUCATION</td>
-          <td colspan="3">B.S. COMPUTER SCIENCE, LAHORE UNIVERSITY OF MANAGEMENT SCIENCES (LUMS) <br/> GRANTED: SUMMER 2025</td>
+          <td colspan="3">B.S. COMPUTER SCIENCE, LAHORE UNIVERSITY OF MANAGEMENT SCIENCES (LUMS) <br/> GRADUATED: SUMMER 2025</td>
         </tr>
         <tr>
           <td class="mf-label">ACADEMICS</td>
@@ -76,7 +76,7 @@
           
           <tr>
             <td>RESEARCH ASSISTANT</td>
-            <td>LUMS (CSALT & SYSNET LABS)</td>
+            <td>LUMS (CSALT & EMBEDDED AI LABS)</td>
             <td>JAN 24 - MAY 25</td>
           </tr>
           <tr>
