@@ -1,5 +1,7 @@
 # Lessons from Building Guardian Angel: Skills Gained Developing a Low-Cost Health Monitoring System
 
+**Read the full paper on arXiv:** [https://arxiv.org/abs/2602.08701](https://arxiv.org/abs/2602.08701)
+
 Working on Guardian Angel—a health monitoring system designed for resource-constrained settings—was a transformative experience that pushed me to grow as both an engineer and a problem-solver. This project wasn’t just about building a device; it was about understanding real-world constraints, making tough trade-offs, and applying a wide range of technical and human-centered skills.
 
 ## Embracing Constraints: Designing the Watch

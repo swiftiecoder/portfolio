@@ -36,6 +36,12 @@
           <u>G</u>itHub
         </div>
       </a>
+      <a href="https://substack.com/" target="_blank">
+        <div class="bar">
+          <img class="social-image" src="@/assets/iPhone-Icons/Substack.svg" />
+          <u>S</u>ubstack
+        </div>
+      </a>
       <div class="divider"></div>
       <a href="/files/shaharyar_resume.pdf" target="_blank">
         <div class="bar">

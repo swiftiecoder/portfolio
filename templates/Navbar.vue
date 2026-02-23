@@ -42,52 +42,46 @@ onBeforeMount(() => {
 </script>
 
 <template>
-<nav class="navbar-container">
-    <div alt="start" class="start-menu" v-on:click="windowsStore.setActiveWindow('Menu')" :class="
-          windowsStore.activeWindow == 'Menu'
-            ? 'start-menu-depressed'
-            : 'start-menu'
-        ">
-        <div class="flex" :class="
-            windowsStore.activeWindow == 'Menu'
-                ? 'border-box'
-                : 'container-border'
+    <nav class="navbar-container">
+        <div alt="start" class="start-menu" v-on:click="windowsStore.setActiveWindow('Menu')" :class="windowsStore.activeWindow == 'Menu'
+                ? 'start-menu-depressed'
+                : 'start-menu'
             ">
-            <img class="start-icon" src="../assets/win95.png" />
-            <button style="padding-left: 3px; font-size: 0.9rem; font-weight: bold">
-                Start
-            </button>
+            <div class="flex" :class="windowsStore.activeWindow == 'Menu'
+                    ? 'border-box'
+                    : 'container-border'
+                ">
+                <img class="start-icon" src="../assets/win95.png" />
+                <button style="padding-left: 3px; font-size: 0.9rem; font-weight: bold">
+                    Start
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="overflow-x-scroll flex no-scrollbar">
-    <div v-for="window in windowsStore.activeWindows" :key="window.key">
-        <button v-if="
-            windowsStore.activeWindow !== window.windowId &&
-            (window.windowState == 'open' || window.windowState == 'minimize')
-            " @click="openWindow(window.windowId)" class="navbar-item open">
-            <img class="icon-image" :src=getImagePath(window.iconImage) :alt="window.altText" />
-            <p>{{ window.displayName }}</p>
-        </button>
-        <button v-if="windowsStore.activeWindow == window.windowId" @click="openWindow(window.windowId)" class="navbar-item-depressed">
-            <img class="icon-image" :src=getImagePath(window.iconImage) :alt="window.altText" />
-            <p>{{ window.displayName }}</p>
-        </button>
-    </div>
-    </div>
-    <div class="spacer"></div>
-    <div alt="chat" class="chat-navbar">
-      <button class="navbar-item" @click="openWindow('ChatWindow')">
-        <img class="icon-image" :src="getImagePath('chat.png')" alt="Chat" />
-        <p>Chat</p>
-      </button>
-    </div>
-    <div alt="time" class="time">
-      <img src="../assets/speakers.png" class="icon-image" />
-      <time>
-        {{ time }}
-      </time>
-    </div>
-</nav>
+        <div class="overflow-x-scroll flex no-scrollbar">
+            <div v-for="window in windowsStore.activeWindows" :key="window.key">
+                <button v-if="
+                    windowsStore.activeWindow !== window.windowId &&
+                    (window.windowState == 'open' || window.windowState == 'minimize')
+                " @click="openWindow(window.windowId)" class="navbar-item open">
+                    <img class="icon-image" :src=getImagePath(window.iconImage) :alt="window.altText" />
+                    <p>{{ window.displayName }}</p>
+                </button>
+                <button v-if="windowsStore.activeWindow == window.windowId" @click="openWindow(window.windowId)"
+                    class="navbar-item-depressed">
+                    <img class="icon-image" :src=getImagePath(window.iconImage) :alt="window.altText" />
+                    <p>{{ window.displayName }}</p>
+                </button>
+            </div>
+        </div>
+        <div class="spacer"></div>
+
+        <div alt="time" class="time">
+            <img src="../assets/speakers.png" class="icon-image" />
+            <time>
+                {{ time }}
+            </time>
+        </div>
+    </nav>
 </template>
 
 <style scoped>
@@ -261,9 +255,9 @@ onBeforeMount(() => {
 }
 
 .chat-navbar {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
 }
 
 @media only screen and (max-width: 700px) {

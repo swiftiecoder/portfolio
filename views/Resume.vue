@@ -1,95 +1,92 @@
 <script setup>
-import {
-    useWindowsStore
-} from '@/stores/windows'
+import { useWindowsStore } from '@/stores/windows'
 const windowsStore = useWindowsStore()
 </script>
 
 <template>
-<div style="display: flex; height: 100%; flex-direction: column">
-    <nav class="download-bar">
-        <a href="/files/shaharyar_resume.pdf" class="download" style="z-index: 10" download target="_blank">
-            <span style="display: flex" class="border">
-                <img src="@/assets/Resume/download.png" class="icon-image" />
-                <p style="margin-top: 2px">Download</p>
-            </span>
-        </a>
-
-        <a href="/files/shaharyar_resume.pdf" class="download" style="z-index: 10" target="_blank">
-            <span style="display: flex" class="border">
-                <img src="@/assets/Resume/open.png" class="icon-image" />
-                <p style="margin-top: 2px">Open In New Tab</p>
-            </span>
-        </a>
-    </nav>
-    <div class="frame" style="z-index: 99">
-        <iframe class="frame" src="/files/shaharyar_resume.pdf" title="Resume PDF"></iframe>
+<div class="ao3-work" style="display: flex; height: 100%; flex-direction: column">
+    <div class="userstuff module">
+        <h3 class="landmark heading" id="work">Actions:</h3>
+        <div class="ao3-actions">
+            <a href="/files/shaharyar_resume.pdf" class="ao3-btn" download target="_blank">
+                ↓ Download PDF
+            </a>
+            <a href="/files/shaharyar_resume.pdf" class="ao3-btn" target="_blank">
+                ↗ Open in New Tab
+            </a>
+        </div>
+    </div>
+    
+    <div class="frame-container" style="flex: 1; z-index: 99">
+        <iframe class="pdf-frame" src="/files/shaharyar_resume.pdf" title="Resume PDF"></iframe>
     </div>
 </div>
 </template>
 
-  
-  
 <style scoped>
-.download {
-    vertical-align: middle;
-    box-shadow: 1.5px 1.5px black;
-    border-top: solid rgb(250, 250, 250) 1.5px;
-    border-left: solid rgb(250, 250, 250) 1.5px;
-    border-bottom: solid rgb(90, 90, 90) 1.5px;
-    border-right: solid rgb(90, 90, 90) 1.5px;
-    background: rgb(192, 192, 192);
-    padding: 2px;
-    margin-right: 5px;
+.ao3-work {
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #2a2a2a;
+  line-height: 1.6;
 }
 
-.download:active {
-    box-shadow: none;
-    background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,
-            rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;
-    border-top: solid rgb(0, 0, 0) 1.5px;
-    border-left: solid rgb(0, 0, 0) 1.5px;
-    border-bottom: solid rgb(250, 250, 250) 1.5px;
-    border-right: solid rgb(250, 250, 250) 1.5px;
+.module {
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
-.download-bar {
-    border: 1px white solid;
-    outline: 1px rgb(123, 125, 123) solid;
-    font-size: 12px;
-    padding: 4px 4px 4px 4px;
+.heading {
+  font-family: 'Georgia', serif;
+  color: #990000;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.ao3-actions {
+  display: flex;
+  gap: 10px;
+  padding-left: 1rem;
+}
+
+.ao3-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeeee;
+  color: #333333;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-family: 'Lucida Grande', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: url('/mouse2.cur'), pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.ao3-btn:hover {
+  background: #e0e0e0;
+  color: #990000;
+  border-color: #999999;
+}
+
+.frame-container {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
-.icon-image {
-    width: 15px;
-    height: 15px;
-    margin-right: 5px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.border {
-    justify-content: center;
-    align-items: center;
-    border: 1px solid transparent;
-    font-family: "MS Sans Serif";
-    src: url("~@/assets/fonts/MS-Sans-Serif.ttf");
-}
-
-.border:active {
-    border: black dotted 1px;
-}
-
-.download:hover {
-    cursor: pointer;
-}
-
-.frame {
-    width: 100%;
-    height: 97.5%;
     position: relative;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    background: #f5f5f5;
+    padding: 4px;
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
 }
 </style>

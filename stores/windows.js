@@ -160,7 +160,7 @@ export const useWindowsStore = defineStore("windows", {
         altText: "Chat",
         fullscreen: false,
         showInAppGrid: false,
-        showInNavbar: true,
+        showInNavbar: false,
       },
       {
         windowId: "PortalLLMWindow",

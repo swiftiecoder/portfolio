@@ -1,121 +1,265 @@
 <template>
-  <div class="px-4 md:px-16 lg:px-32 pt-8 pb-8">
-    <h2 class="font-bold text-2xl py-5">Hook, Time and Singer: Grammy Song Analysis</h2>
-    <h4 class="text-gray-600 font-medium text-xs" style="padding-bottom: 10px">
-      Data Science • NLP • Python • Music Analytics
-    </h4>
-    <div class="flex flex-wrap mt-5 gap-2 items-center">
-      <img class="w-auto h-5 rounded-none text-xs" alt="Python" src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white" />
-      <img class="w-auto h-5 rounded-none text-xs" alt="Pandas" src="https://img.shields.io/badge/-Pandas-150458?logo=pandas&logoColor=white" />
-      <img class="w-auto h-5 rounded-none text-xs" alt="Matplotlib" src="https://img.shields.io/badge/-Matplotlib-000000?logo=matplotlib&logoColor=white" />
-      <img class="w-auto h-5 rounded-none text-xs" alt="NLTK" src="https://img.shields.io/badge/-NLTK-3E4D30?logo=nltk&logoColor=white" />
-      <img class="w-auto h-5 rounded-none text-xs" alt="Spotify API" src="https://img.shields.io/badge/-Spotify-1DB954?logo=spotify&logoColor=white" />
+  <div class="ao3-work">
+    <!-- AO3 Meta Tags Box -->
+    <div class="ao3-meta-box">
+      <dl class="ao3-tags">
+        <dt>Rating:</dt>
+        <dd><span class="rating-badge tag-pg">Production Ready</span></dd>
+
+        <dt>Archive Warning:</dt>
+        <dd><strong><span class="warning-tag">Choose Not To Use Regular Expressions Properly</span></strong></dd>
+
+        <dt>Tech:</dt>
+        <dd>
+          <a class="ao3-tag-link">Python</a>,
+          <a class="ao3-tag-link">Data Science</a>,
+          <a class="ao3-tag-link">Music Analytics</a>
+        </dd>
+
+        <dt>Integrations:</dt>
+        <dd>
+          <a class="ao3-tag-link">Python & Natural Language Toolkit (NLTK)</a>,
+          <a class="ao3-tag-link">Spotify API / Billboard Charts</a>
+        </dd>
+
+        <dt>Libraries:</dt>
+        <dd>
+          <a class="ao3-tag-link">Pandas</a>,
+          <a class="ao3-tag-link">Matplotlib</a>,
+          <a class="ao3-tag-link">BeautifulSoup</a>
+        </dd>
+
+        <dt>Additional Tags:</dt>
+        <dd>
+          <a class="ao3-tag-link">Sentiment Analysis</a>,
+          <a class="ao3-tag-link">Web Scraping</a>,
+          <a class="ao3-tag-link">Historical Analysis</a>,
+          <a class="ao3-tag-link">Over-analyzing pop music</a>,
+          <a class="ao3-tag-link">Angst (but it's just the 2010s charts)</a>,
+          <a class="ao3-tag-link">Data Cleaning Hell</a>
+        </dd>
+
+        <dt>Language:</dt>
+        <dd>Python 3</dd>
+
+        <dt>Stats:</dt>
+        <dd class="ao3-stats">
+          Published: <span>2023-05-12</span>
+          Words: <span>1,200</span>
+          Commits: <span>42</span>
+          Hits: <span>903</span>
+        </dd>
+      </dl>
     </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">About the Project</h3>
-      <p class="font-thin text-sm pb-2.5">
-        Songs are more than just catchy tunes—they're cultural time capsules. In this project, I analyzed Grammy "Song of the Year" nominees from the 1960s to the 2020s to uncover how lyrics reflect shifts in language, emotion, and society.
+
+    <!-- Summary / Notes -->
+    <div class="userstuff module">
+      <h3 class="landmark heading" id="work">Summary:</h3>
+      <blockquote class="userstuff">
+        <p>Songs are more than just catchy tunes—they're cultural time capsules. In this project, I analyzed Grammy
+          "Song of the Year" nominees from the 1960s to the 2020s to uncover how lyrics reflect shifts in language,
+          emotion, and society.</p>
+      </blockquote>
+
+      <h3 class="landmark heading" id="work">Notes:</h3>
+      <blockquote class="userstuff">
+        <p>(See the end of the work for links to the repository and playlist.)</p>
+      </blockquote>
+    </div>
+
+    <hr class="ao3-divider" />
+
+    <!-- Chapter Content -->
+    <div class="userstuff chapter-content" id="chapter-1">
+      <h3 class="chapter-title">Chapter 1: The Architecture & Methodology</h3>
+
+      <p>I scraped a comprehensive list of Grammy "Song of the Year" nominees from the 1960s to the 2020s using Python,
+        BeautifulSoup, and regex. This involved pulling song metadata from Wikipedia, then using the Genius and Spotify
+        APIs to fetch lyrics and musical features. I had to handle inconsistencies in song titles, artist names, and
+        missing data, which required custom cleaning scripts and manual verification for accuracy.</p>
+
+      <p>I wrote scripts to clean and standardize the lyrics, removing annotations, special characters, and formatting
+        quirks. I also normalized the data structure for analysis, ensuring each song entry included decade, artist,
+        title, lyrics, and Spotify features like danceability and valence.</p>
+
+      <h3 class="chapter-title">Chapter 2: Sentiment & Linguistic Analysis</h3>
+
+      <p>Using Python libraries (NLTK, TextBlob), I computed sentiment scores for each song and analyzed linguistic
+        features such as lexical diversity, grammatical errors, and the frequency of repeated phrases (hooks). I also
+        explored how often key themes (like "time" and "fame") appeared and how their context changed over time.</p>
+
+      <p>I leveraged Spotify's API to extract musical attributes (danceability, valence, energy) and compared these to
+        the lyrical sentiment, revealing interesting mismatches between how songs sound and what their lyrics express.
       </p>
+
+      <h3 class="chapter-title">Chapter 3: The Findings</h3>
+
+      <p><strong>80s optimism vs. 2010s/2020s cynicism:</strong> Sentiment analysis revealed that 1980s Grammy-nominated
+        songs were notably positive and upbeat, reflecting a sense of hope and aspiration. In contrast, songs from the
+        2010s and 2020s show a marked shift toward negativity and cynicism, echoing broader cultural anxieties and a
+        more introspective, sometimes disillusioned, worldview.</p>
+
+      <p><strong>Music vs. lyrics—emotional dissonance:</strong> Spotify's musical features show that while tracks have
+        become more danceable, their "valence" (musical positivity) is often lower than the sentiment of the lyrics.
+        This means that even if a song sounds happy and energetic, its words may tell a more somber or complex story,
+        highlighting a growing emotional dissonance in popular music.</p>
     </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">How I Did It</h3>
-      <ul class="list-disc pl-5 font-thin text-sm pb-2.5 ml-4">
-        <li class="mb-1"><b>Data Collection:</b> I scraped a comprehensive list of Grammy "Song of the Year" nominees from the 1960s to the 2020s using Python, BeautifulSoup, and regex. This involved pulling song metadata from Wikipedia, then using the Genius and Spotify APIs to fetch lyrics and musical features. I had to handle inconsistencies in song titles, artist names, and missing data, which required custom cleaning scripts and manual verification for accuracy.</li>
-        <li class="mb-1"><b>Data Cleaning & Preparation:</b> I wrote scripts to clean and standardize the lyrics, removing annotations, special characters, and formatting quirks. I also normalized the data structure for analysis, ensuring each song entry included decade, artist, title, lyrics, and Spotify features like danceability and valence.</li>
-        <li class="mb-1"><b>Sentiment & Linguistic Analysis:</b> Using Python libraries (NLTK, TextBlob), I computed sentiment scores for each song and analyzed linguistic features such as lexical diversity, grammatical errors, and the frequency of repeated phrases (hooks). I also explored how often key themes (like "time" and "fame") appeared and how their context changed over time.</li>
-        <li class="mb-1"><b>Musical Feature Analysis:</b> I leveraged Spotify's API to extract musical attributes (danceability, valence, energy) and compared these to the lyrical sentiment, revealing interesting mismatches between how songs sound and what their lyrics express.</li>
-        <li class="mb-1"><b>Visualization & Interpretation:</b> I visualized trends across decades using matplotlib and seaborn, plotting sentiment, hook frequency, and other features. This helped uncover patterns like the rise of negative sentiment and the increasing importance of hooks in modern pop music.</li>
-        <li class="mb-1"><b>Contextual Research:</b> To interpret the results, I reviewed academic literature on pop music trends and cultural shifts, connecting my findings to broader research on the "saddening" of pop and the evolution of songwriting in the streaming era.</li>
-      </ul>
+
+    <!-- Final Notes -->
+    <div class="userstuff module end-notes">
+      <h3 class="landmark heading" id="work">End Notes:</h3>
+      <blockquote class="userstuff">
+        <p>If you liked this analysis, you can:</p>
+        <p>› <a class="ao3-external-link" href="https://open.spotify.com/playlist/6XSZOXB8nZoWtTsaNBsg0t"
+            target="_blank" rel="noopener">Listen to the dataset (Spotify Playlist)</a></p>
+        <p>› <a class="ao3-external-link" href="https://github.com/swiftiecoder/Digital-Humanities-Project"
+            target="_blank" rel="noopener">Read the Source Code (GitHub)</a></p>
+      </blockquote>
     </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">Key Insights</h3>
-      <ul class="list-disc pl-5 font-thin text-sm pb-2.5 ml-4">
-        <li class="mb-1"><b>80s optimism vs. 2010s/2020s cynicism:</b> Sentiment analysis revealed that 1980s Grammy-nominated songs were notably positive and upbeat, reflecting a sense of hope and aspiration. In contrast, songs from the 2010s and 2020s show a marked shift toward negativity and cynicism, echoing broader cultural anxieties and a more introspective, sometimes disillusioned, worldview.</li>
-        <li class="mb-1"><b>Changing themes of time and fame:</b> While concepts like love and time are ever-present, their portrayal has evolved. In the 80s, time was often comforting and cyclical, but in recent years, it is depicted as fleeting, painful, or even confining. Similarly, fame has shifted from being glamorous and aspirational to being viewed with skepticism and regret.</li>
-        <li class="mb-1"><b>Rise of the hook and relaxed grammar:</b> The frequency of repeated phrases (hooks) in songs has increased, especially in the streaming era, likely influenced by algorithmic playlisting and the need for catchiness. There is also a clear trend toward more grammatical errors in lyrics, suggesting that emotional impact and memorability are prioritized over technical correctness.</li>
-        <li class="mb-1"><b>Music vs. lyrics—emotional dissonance:</b> Spotify's musical features show that while tracks have become more danceable, their "valence" (musical positivity) is often lower than the sentiment of the lyrics. This means that even if a song sounds happy and energetic, its words may tell a more somber or complex story, highlighting a growing emotional dissonance in popular music.</li>
-      </ul>
-    </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">Listen & Explore</h3>
-      <a style="color:rgb(174, 48, 19); display: block;" href="https://open.spotify.com/playlist/6XSZOXB8nZoWtTsaNBsg0t" class="font-thin text-sm pb-2.5" target="_blank" rel="noopener">Listen to the playlist</a>
-      <a style="color:rgb(174, 48, 19); display: block;" href="https://github.com/swiftiecoder/Digital-Humanities-Project" class="font-thin text-sm pb-2.5" target="_blank" rel="noopener">View the code on GitHub</a>
-    </div>
+
   </div>
 </template>
 
 <style scoped>
-.flex {
-  display: flex;
+/* Core AO3 CSS Reset for this component */
+.ao3-work {
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #2a2a2a;
+  line-height: 1.6;
 }
-.flex-wrap {
-  flex-wrap: wrap;
+
+.ao3-meta-box {
+  background: #f5f5f5;
+  border: 1px solid #dddddd;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 2px;
 }
-.gap-2 {
-  gap: 0.5rem;
+
+.ao3-tags {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  font-size: 0.95rem;
 }
-.items-center {
-  align-items: center;
-}
-.mt-5 {
-  margin-top: 1.25rem;
-}
-.pt-7 {
-  padding-top: 1.75rem;
-}
-.font-bold {
+
+.ao3-tags dt {
+  text-align: right;
   font-weight: bold;
+  color: #111;
 }
-.text-2xl {
-  font-size: 1.5rem;
+
+.ao3-tags dd {
+  margin: 0;
+  padding-bottom: 0.5rem;
 }
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+
+.ao3-tags dl {
+  margin: 0;
 }
-.text-gray-600 {
-  color: #4b5563;
+
+.tag-pg {
+  background-color: #f1c40f;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
-.font-medium {
-  font-weight: 500;
+
+.warning-tag {
+  color: #990000;
 }
-.text-xs {
-  font-size: 0.75rem;
+
+.ao3-tag-link {
+  color: #0000cc;
+  text-decoration: none;
+  cursor: url('/mouse2.cur'), pointer;
 }
-.underline {
+
+.ao3-tag-link:hover {
   text-decoration: underline;
+  color: #990000;
 }
-.text-md {
-  font-size: 1rem;
+
+.ao3-stats {
+  color: #555;
 }
-.pb-1 {
-  padding-bottom: 0.25rem;
+
+.ao3-stats span {
+  color: #111;
+  font-weight: bold;
+  margin-right: 15px;
 }
-.font-thin {
-  font-weight: 300;
+
+.module {
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  margin-top: 1rem;
 }
-.text-sm {
-  font-size: 0.875rem;
+
+.heading {
+  font-family: 'Georgia', serif;
+  color: #990000;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
-.pb-2.5 {
-  padding-bottom: 0.625rem;
+
+.userstuff {
+  margin-bottom: 1.5rem;
 }
-.list-disc {
-  list-style-type: disc;
+
+.userstuff p {
+  margin-bottom: 1rem;
 }
-.pl-5 {
-  padding-left: 1.25rem;
+
+blockquote.userstuff {
+  border-left: 2px solid #990000;
+  padding-left: 1rem;
+  margin: 0 0 1.5rem 1rem;
+  color: #333;
 }
-.ml-4 {
-  margin-left: 1rem;
+
+.ao3-divider {
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  margin: 2rem 0;
 }
-ul {
-  list-style-type: "* ";
-  padding-left: 0.5rem !important;
+
+.chapter-title {
+  font-family: 'Georgia', serif;
+  text-align: center;
+  color: #111;
+  margin: 2.5rem 0 1.5rem;
+  font-size: 1.4rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
 }
-ul li {
-  display: list-item !important;
-  list-style-type: "* ";
+
+.ao3-external-link {
+  color: #990000;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: url('/mouse2.cur'), pointer;
+}
+
+.ao3-external-link:hover {
+  color: #cc0000;
+}
+
+/* Make it responsive */
+@media (max-width: 600px) {
+  .ao3-tags {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ao3-tags dt {
+    text-align: left;
+    margin-top: 0.5rem;
+  }
 }
 </style>

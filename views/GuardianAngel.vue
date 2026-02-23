@@ -1,222 +1,257 @@
 <template>
-  <div class="px-1 md:px-4 lg:px-8 pt-4 pb-4">
-    <img
-      class="w-full h-auto mb-4"
-      src="@/assets/GuardianAngel/watch_image.jpg"
-      alt="Guardian Angel Watch Prototype"
-    />
-    <h2 class="font-bold text-2xl py-5">
-      Guardian Angel: Building a Low-Cost Health Monitoring System
-    </h2>
-    <h4 class="text-gray-600 font-medium text-xs pb-2">
-      Research Project • Embedded Systems • AI for Health • LUMS
-    </h4>
-    <div class="flex flex-wrap mt-5 gap-2 items-center">
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="ESP32"
-        src="https://img.shields.io/badge/-ESP32-3C3C3C?logo=espressif&logoColor=white"
-      />
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="C"
-        src="https://img.shields.io/badge/-C-A8B9CC?logo=c&logoColor=black"
-      />
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="Java"
-        src="https://img.shields.io/badge/-Java-007396?logo=java&logoColor=white"
-      />
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="Node.js"
-        src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white"
-      />
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="OpenAI"
-        src="https://img.shields.io/badge/-OpenAI-412991?logo=openai&logoColor=white"
-      />
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="LangChain"
-        src="https://img.shields.io/badge/-LangChain-000000?logo=langchain&logoColor=white"
-      />
-      <img
-        class="w-auto h-5 rounded-none text-xs"
-        alt="Android"
-        src="https://img.shields.io/badge/-Android-3DDC84?logo=android&logoColor=white"
-      />
-    <img
-      class="w-auto h-5 rounded-none text-xs"
-      alt="WhatsApp"
-      src="https://img.shields.io/badge/-WhatsApp-25D366?logo=whatsapp&logoColor=white"
-    />
+  <div class="ao3-work">
+    <!-- AO3 Meta Tags Box -->
+    <div class="ao3-meta-box">
+      <dl class="ao3-tags">
+        <dt>Rating:</dt>
+        <dd><span class="rating-badge tag-pg">Research Prototype</span></dd>
+
+        <dt>Archive Warning:</dt>
+        <dd><strong><span class="warning-tag">Major Hardware Complications Applied</span></strong></dd>
+
+        <dt>Tech:</dt>
+        <dd>
+          <a class="ao3-tag-link">C</a>,
+          <a class="ao3-tag-link">Java</a>,
+          <a class="ao3-tag-link">Node.js</a>
+        </dd>
+
+        <dt>Integrations:</dt>
+        <dd>
+          <a class="ao3-tag-link">ESP-32</a>,
+          <a class="ao3-tag-link">OpenAI / LangChain</a>,
+          <a class="ao3-tag-link">Android / WhatsApp API</a>
+        </dd>
+
+        <dt>Additional Tags:</dt>
+        <dd>
+          <a class="ao3-tag-link">Embedded Systems</a>,
+          <a class="ao3-tag-link">AI for Health</a>,
+          <a class="ao3-tag-link">Bluetooth Low Energy (BLE)</a>,
+          <a class="ao3-tag-link">Resource Constrained Environments</a>,
+          <a class="ao3-tag-link">Hardware Tinkering Angst</a>,
+          <a class="ao3-tag-link">Team Leadership</a>
+        </dd>
+
+        <dt>Link:</dt>
+        <dd>
+          <a href="https://arxiv.org/abs/2602.08701" target="_blank" rel="noopener noreferrer"
+            class="ao3-tag-link">arXiv:2602.08701</a>
+        </dd>
+
+        <dt>Stats:</dt>
+        <dd class="ao3-stats">
+          Published: <span>2024-05-18</span>
+          Chapters: <span>2/2</span>
+          Kudos: <span>104</span>
+        </dd>
+      </dl>
     </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">Project Overview</h3>
-      <p class="font-thin text-sm pb-2.5">
-        Guardian Angel is a research project I worked on as a Research Assistant
-        at the Embedded Systems & Networks Labs (SysNet/EmNets), LUMS. The goal
-        was to democratize healthcare and wellness by developing an affordable
-        smartwatch and backend system that could overcome economic and
-        linguistic barriers, especially in resource-constrained settings.
+
+    <!-- Summary / Notes -->
+    <div class="userstuff module">
+      <h3 class="landmark heading" id="work">Summary:</h3>
+      <blockquote class="userstuff">
+        <p>Guardian Angel is a research project I worked on as a Research Assistant at the Embedded Systems & Networks
+          Labs (SysNet/EmNets), LUMS. The goal was to democratize healthcare and wellness by developing an affordable
+          smartwatch and backend system that could overcome economic and linguistic barriers, especially in
+          resource-constrained settings.</p>
+      </blockquote>
+    </div>
+
+    <hr class="ao3-divider" />
+
+    <!-- Chapter Content -->
+    <div class="userstuff chapter-content" id="chapter-1">
+      <img class="work-image" src="@/assets/GuardianAngel/watch_image.jpg" alt="Guardian Angel Watch Prototype" />
+
+      <h3 class="chapter-title">Chapter 1: The Hardware & Android Bridge</h3>
+
+      <p>I designed and implemented a small-scale prototype using an ESP-32 and off-the-shelf sensors for initial
+        proof-of-concept. This involved writing C code for the microcontroller and carefully selecting sensors for the
+        final PCB version of the watch. Working within severe space constraints, I had to source lightweight libraries,
+        at one point fixing a critical oximeter bug by completely replacing the underlying library.</p>
+
+      <p>Data transmission was crucial for saving energy on the device. I learned about GATT Bluetooth protocols and
+        used BLE modules to transmit data efficiently to an Android app I developed in Java. The mobile app handled data
+        collection, intermediate processing (structuring into JSON), and secure transmission to the inference server.
       </p>
+
+      <img class="work-image app-screenshot" src="@/assets/GuardianAngel/app-signup.jpg"
+        alt="Guardian Angel App Signup Screen" />
+      <p class="image-caption">Guardian Angel App Signup Screen</p>
+
+      <h3 class="chapter-title">Chapter 2: The AI Backend & Impact</h3>
+
+      <p>Rebuilding the project in the EmNets lab, I designed the tech stack to meet our rigorous research goals for
+        affordability and intuitiveness. I wrote and deployed an inference server in Node.js, utilizing OpenAI and
+        LangChain JS to implement in-context learning mechanisms like RAG and chain-of-thought prompting.</p>
+
+      <p>We built early chatbot prototypes (including one using the Telegram Web API that earned the highest grade in
+        the course) and integrated function-calling capabilities with custom tools and cron jobs for optimal, automated
+        results.</p>
+
+      <p>Working on Guardian Angel taught me how to bridge embedded hardware, mobile development, and AI-driven backend
+        systems. I learned to prioritize user needs, especially for those with low digital literacy, and to design for
+        real-world constraints like cost and power. The project gave me hands-on experience in leadership, technical
+        troubleshooting, and deploying solutions that can make a tangible difference in healthcare accessibility.</p>
     </div>
-    <div class="pt-7">
-      <img
-        class="w-full h-auto mb-2"
-        src="@/assets/GuardianAngel/app-signup.jpg"
-        alt="Guardian Angel App Signup Screen"
-      />
-      <h6 class="text-gray-600 font-medium text-xs text-center pb-2">
-        Guardian Angel App Signup Screen
-      </h6>
-    </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">
-        What I Learned & Skills Applied
-      </h3>
-      <ul class="list-disc pl-5 font-thin text-sm pb-2.5 ml-4">
-        <li class="mb-1">
-          Designed and implemented a small-scale prototype using an ESP-32 and
-          off-the-shelf sensors for initial proof-of-concept.
-        </li>
-        <li class="mb-1">
-          Learned about GATT Bluetooth protocols and used BLE modules to
-          transmit data efficiently, saving energy on the device.
-        </li>
-        <li class="mb-1">
-          Helped write C code for the microcontroller and selected sensors for
-          the final PCB version of the watch.
-        </li>
-        <li class="mb-1">
-          Sourced lightweight libraries for a space-constrained MCU, including
-          fixing a critical oximeter bug by replacing a library.
-        </li>
-        <li class="mb-1">
-          Led a team of three, managed the project budget, and coordinated with
-          research supervisors to keep progress on track.
-        </li>
-        <li class="mb-1">
-          Developed an Android app in Java for data collection, intermediate
-          processing (structuring into JSON), and secure transmission to the
-          inference server.
-        </li>
-        <li class="mb-1">
-          Used the Telegram Web API and Gemini's free plan to build an early
-          chatbot prototype, which earned the highest grade in the course.
-        </li>
-        <li class="mb-1">
-          Rebuilt the project in the EmNets lab, designing the tech stack to
-          meet research goals for affordability and intuitiveness.
-        </li>
-        <li class="mb-1">
-          Wrote and deployed an inference server in Node.js, using OpenAI and
-          LangChain JS, and implemented in-context learning mechanisms like RAG
-          and chain-of-thought prompting.
-        </li>
-        <li class="mb-1">
-          Added function-calling capabilities to the server with custom tools,
-          cron jobs, and prompt engineering for optimal results.
-        </li>
-      </ul>
-    </div>
-    <div class="pt-7">
-      <h3 class="underline font-bold text-md pb-1">Impact & Reflection</h3>
-      <p class="font-thin text-sm pb-2.5">
-        Working on Guardian Angel taught me how to bridge embedded hardware,
-        mobile development, and AI-driven backend systems. I learned to
-        prioritize user needs, especially for those with low digital literacy,
-        and to design for real-world constraints like cost and power. The
-        project also gave me hands-on experience in team leadership, technical
-        troubleshooting, and deploying solutions that can make a tangible
-        difference in healthcare accessibility.
-      </p>
-    </div>
+
   </div>
 </template>
 
 <style scoped>
-.flex {
-  display: flex;
+/* Core AO3 CSS Reset for this component */
+.ao3-work {
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #2a2a2a;
+  line-height: 1.6;
 }
-.flex-wrap {
-  flex-wrap: wrap;
+
+.ao3-meta-box {
+  background: #f5f5f5;
+  border: 1px solid #dddddd;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 2px;
 }
-.gap-2 {
-  gap: 0.5rem;
+
+.ao3-tags {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  font-size: 0.95rem;
 }
-.items-center {
-  align-items: center;
-}
-.mt-5 {
-  margin-top: 1.25rem;
-}
-.pt-7 {
-  padding-top: 1.75rem;
-}
-.font-bold {
+
+.ao3-tags dt {
+  text-align: right;
   font-weight: bold;
+  color: #111;
 }
-.text-2xl {
-  font-size: 1.5rem;
+
+.ao3-tags dd {
+  margin: 0;
+  padding-bottom: 0.5rem;
 }
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+
+.ao3-tags dl {
+  margin: 0;
 }
-.text-gray-600 {
-  color: #4b5563;
+
+.tag-pg {
+  background-color: #f1c40f;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
-.font-medium {
-  font-weight: 500;
+
+.warning-tag {
+  color: #990000;
 }
-.text-xs {
-  font-size: 0.75rem;
+
+.ao3-tag-link {
+  color: #0000cc;
+  text-decoration: none;
+  cursor: url('/mouse2.cur'), pointer;
 }
-.underline {
+
+.ao3-tag-link:hover {
   text-decoration: underline;
+  color: #990000;
 }
-.text-md {
-  font-size: 1rem;
+
+.ao3-stats {
+  color: #555;
 }
-.pb-1 {
-  padding-bottom: 0.25rem;
+
+.ao3-stats span {
+  color: #111;
+  font-weight: bold;
+  margin-right: 15px;
 }
-.font-thin {
-  font-weight: 300;
+
+.module {
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  margin-top: 1rem;
 }
-.text-sm {
-  font-size: 0.875rem;
+
+.heading {
+  font-family: 'Georgia', serif;
+  color: #990000;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
-.pb-2.5 {
-  padding-bottom: 0.625rem;
+
+.userstuff {
+  margin-bottom: 1.5rem;
 }
-.list-disc {
-  list-style-type: disc;
-}
-.pl-5 {
-  padding-left: 1.25rem;
-}
-.ml-4 {
-  margin-left: 1rem;
-}
-ul {
-  list-style-type: "* ";
-  padding-left: 0.5rem !important;
-}
-ul li {
-  display: list-item !important;
-  list-style-type: "* ";
-}
-.text-center {
-  text-align: center;
-}
-.mb-4 {
+
+.userstuff p {
   margin-bottom: 1rem;
 }
-.mb-2 {
-  margin-bottom: 0.5rem;
+
+blockquote.userstuff {
+  border-left: 2px solid #990000;
+  padding-left: 1rem;
+  margin: 0 0 1.5rem 1rem;
+  color: #333;
+}
+
+.ao3-divider {
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  margin: 2rem 0;
+}
+
+.chapter-title {
+  font-family: 'Georgia', serif;
+  text-align: center;
+  color: #111;
+  margin: 2.5rem 0 1.5rem;
+  font-size: 1.4rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.work-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  padding: 4px;
+  background: white;
+}
+
+.app-screenshot {
+  max-width: 400px;
+  display: block;
+  margin: 2rem auto 0.5rem auto;
+}
+
+.image-caption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 2rem !important;
+}
+
+/* Make it responsive */
+@media (max-width: 600px) {
+  .ao3-tags {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ao3-tags dt {
+    text-align: left;
+    margin-top: 0.5rem;
+  }
 }
 </style>

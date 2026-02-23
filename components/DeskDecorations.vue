@@ -50,21 +50,22 @@ const katabasisTex = shallowRef(null)
 const achillesTex = shallowRef(null)
 const katabasisMaterials = shallowRef([])
 const achillesMaterials = shallowRef([])
+const giovanniMaterials = shallowRef([])
 
 onMounted(() => {
   const loader = new THREE.TextureLoader()
-  
+
   const loadBookTexture = (path) => {
     const tex = loader.load(path)
     tex.colorSpace = THREE.SRGBColorSpace
-    
+
     // Create an array of 6 materials for the BoxGeometry
     // [right, left, top, bottom, front, back]
     // Textures typically go on top (2) and bottom (3)
     const spineMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9 })
     const coverMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.7 })
     const pagesMat = new THREE.MeshStandardMaterial({ color: '#f5f5dc', roughness: 1.0 })
-    
+
     return [
       pagesMat, // Right
       spineMat, // Left (the side facing the front-left edge)
@@ -74,67 +75,65 @@ onMounted(() => {
       pagesMat  // Back
     ]
   }
-  
+
   // Very dark mystical grey/black for Katabasis
   katabasisMaterials.value = loadBookTexture('/files/katabasis.webp')
-  
+
   // Deep elegant blue for Achilles
   achillesMaterials.value = loadBookTexture('/files/achilles.webp')
+
+  // Third book 
+  giovanniMaterials.value = loadBookTexture('/files/giovanni.webp')
 })
 </script>
 
 <template>
   <TresGroup>
     <!-- Stack of Books (Moved to front-left corner to make room for CV pages) -->
-    <TresGroup 
-      :position="[-3.5, -0.2, 1.5]" 
-      :rotation="[0, 0.5, 0]"
-    >
+    <TresGroup :position="[-3.5, -0.2, 1.5]" :rotation="[0, 0.5, 0]">
       <!-- Proxy Box for Interaction -->
-      <TresMesh
-        :position="[0, 0.25, 0]"
-        @pointer-enter="hoveredBooks = true"
-        @pointer-leave="hoveredBooks = false"
-        @click="emits('itemClick', 'Bio')"
-        :visible="false"
-      >
-        <TresBoxGeometry :args="[1.4, 0.6, 1.9]" />
+      <TresMesh :position="[0, 0.35, 0]" @pointer-enter="hoveredBooks = true" @pointer-leave="hoveredBooks = false"
+        @click="emits('itemClick', 'Bio')" :visible="false">
+        <TresBoxGeometry :args="[1.4, 0.8, 1.9]" />
         <TresMeshBasicMaterial />
       </TresMesh>
 
       <!-- Bottom book: Katabasis (Thicker) -->
-      <TresMesh v-if="katabasisMaterials.length" :position="[0, 0.15, 0]" :rotation="[0, -0.1, 0]" cast-shadow :material="katabasisMaterials">
+      <TresMesh v-if="katabasisMaterials.length" :position="[0, 0.15, 0]" :rotation="[0, -0.1, 0]" cast-shadow
+        :material="katabasisMaterials">
         <TresBoxGeometry :args="[1.2, 0.3, 1.8]" />
       </TresMesh>
-      
+
       <!-- Top book: The Song of Achilles -->
-      <TresMesh v-if="achillesMaterials.length" :position="[0.05, 0.4, 0.05]" :rotation="[0, 0.15, 0]" cast-shadow :material="achillesMaterials">
+      <TresMesh v-if="achillesMaterials.length" :position="[0.05, 0.4, 0.05]" :rotation="[0, 0.15, 0]" cast-shadow
+        :material="achillesMaterials">
         <TresBoxGeometry :args="[1.1, 0.25, 1.6]" />
       </TresMesh>
 
+      <!-- Third book: Giovanni -->
+      <TresMesh v-if="giovanniMaterials.length" :position="[-0.02, 0.6, 0.02]" :rotation="[0, -0.05, 0]" cast-shadow
+        :material="giovanniMaterials">
+        <TresBoxGeometry :args="[1.0, 0.2, 1.5]" />
+      </TresMesh>
+
       <!-- Hover Tooltip -->
-      <Html 
-        v-if="hoveredBooks" 
-        transform 
-        :position="[0, 0.8, 0]" 
-        center 
-        wrapper-class="page-tooltip"
-      >
-        <div class="page-label">
-           About Me
-        </div>
+      <Html v-if="hoveredBooks" transform :position="[0, 1.0, 0]" center wrapper-class="page-tooltip">
+      <div class="page-label">
+        About Me
+      </div>
+
       </Html>
     </TresGroup>
-    
+
     <!-- Scattered Polaroids / Papers -->
     <TresMesh :position="[2.5, -0.19, -1.5]" :rotation="[0, -0.5, 0]" receive-shadow>
-       <TresBoxGeometry :args="[0.8, 0.01, 1]" />
-       <TresMeshStandardMaterial color="#f7fafc" roughness="1.0" />
+      <TresBoxGeometry :args="[0.8, 0.01, 1]" />
+      <TresMeshStandardMaterial color="#f7fafc" roughness="1.0" />
     </TresMesh>
-    
+
     <TresMesh :position="[2.2, -0.18, -1.2]" :rotation="[0, 0.3, 0]" receive-shadow>
-       <TresBoxGeometry :args="[0.8, 0.01, 1]" />
-       <TresMeshStandardMaterial color="#edf2f7" roughness="1.0" />
+      <TresBoxGeometry :args="[0.8, 0.01, 1]" />
+      <TresMeshStandardMaterial color="#edf2f7" roughness="1.0" />
     </TresMesh>
 
     <!-- V3: Potted Sunflowers -->
@@ -149,138 +148,126 @@ onMounted(() => {
         <TresCylinderGeometry :args="[0.47, 0.47, 0.02, 32]" />
         <TresMeshStandardMaterial color="#2B1B17" roughness="1.0" />
       </TresMesh>
-      
+
       <!-- Stems with Leaves -->
       <TresGroup :position="[0, 0.8, 0]">
-         <!-- Stem 1 (tallest, slight lean) -->
-         <TresMesh :position="[0.1, 0.5, 0]" :rotation="[0, 0, -0.08]" cast-shadow>
-            <TresCylinderGeometry :args="[0.03, 0.04, 1.0, 8]" />
-            <TresMeshStandardMaterial color="#388E3C" roughness="0.7" />
-         </TresMesh>
-         <!-- Leaf on stem 1 -->
-         <TresMesh :position="[0.22, 0.35, 0]" :rotation="[0, 0.3, -0.6]" cast-shadow>
-            <TresPlaneGeometry :args="[0.25, 0.12]" />
-            <TresMeshStandardMaterial color="#2E7D32" :side="2" roughness="0.6" />
-         </TresMesh>
+        <!-- Stem 1 (tallest, slight lean) -->
+        <TresMesh :position="[0.1, 0.5, 0]" :rotation="[0, 0, -0.08]" cast-shadow>
+          <TresCylinderGeometry :args="[0.03, 0.04, 1.0, 8]" />
+          <TresMeshStandardMaterial color="#388E3C" roughness="0.7" />
+        </TresMesh>
+        <!-- Leaf on stem 1 -->
+        <TresMesh :position="[0.22, 0.35, 0]" :rotation="[0, 0.3, -0.6]" cast-shadow>
+          <TresPlaneGeometry :args="[0.25, 0.12]" />
+          <TresMeshStandardMaterial color="#2E7D32" :side="2" roughness="0.6" />
+        </TresMesh>
 
-         <!-- Stem 2 (medium, lean other way) -->
-         <TresMesh :position="[-0.15, 0.35, 0.1]" :rotation="[0, 0, 0.15]" cast-shadow>
-            <TresCylinderGeometry :args="[0.03, 0.04, 0.7, 8]" />
-            <TresMeshStandardMaterial color="#2E7D32" roughness="0.7" />
-         </TresMesh>
-         <!-- Leaf on stem 2 -->
-         <TresMesh :position="[-0.3, 0.25, 0.1]" :rotation="[0, -0.4, 0.5]" cast-shadow>
-            <TresPlaneGeometry :args="[0.22, 0.1]" />
-            <TresMeshStandardMaterial color="#388E3C" :side="2" roughness="0.6" />
-         </TresMesh>
+        <!-- Stem 2 (medium, lean other way) -->
+        <TresMesh :position="[-0.15, 0.35, 0.1]" :rotation="[0, 0, 0.15]" cast-shadow>
+          <TresCylinderGeometry :args="[0.03, 0.04, 0.7, 8]" />
+          <TresMeshStandardMaterial color="#2E7D32" roughness="0.7" />
+        </TresMesh>
+        <!-- Leaf on stem 2 -->
+        <TresMesh :position="[-0.3, 0.25, 0.1]" :rotation="[0, -0.4, 0.5]" cast-shadow>
+          <TresPlaneGeometry :args="[0.22, 0.1]" />
+          <TresMeshStandardMaterial color="#388E3C" :side="2" roughness="0.6" />
+        </TresMesh>
 
-         <!-- Stem 3 (shortest, slight forward lean) -->
-         <TresMesh :position="[0.12, 0.55, -0.18]" :rotation="[0.12, 0, -0.12]" cast-shadow>
-            <TresCylinderGeometry :args="[0.025, 0.035, 1.1, 8]" />
-            <TresMeshStandardMaterial color="#4CAF50" roughness="0.7" />
-         </TresMesh>
-         <!-- Leaf on stem 3 -->
-         <TresMesh :position="[0.02, 0.5, -0.25]" :rotation="[0.3, 0, 0.4]" cast-shadow>
-            <TresPlaneGeometry :args="[0.2, 0.1]" />
-            <TresMeshStandardMaterial color="#388E3C" :side="2" roughness="0.6" />
-         </TresMesh>
+        <!-- Stem 3 (shortest, slight forward lean) -->
+        <TresMesh :position="[0.12, 0.55, -0.18]" :rotation="[0.12, 0, -0.12]" cast-shadow>
+          <TresCylinderGeometry :args="[0.025, 0.035, 1.1, 8]" />
+          <TresMeshStandardMaterial color="#4CAF50" roughness="0.7" />
+        </TresMesh>
+        <!-- Leaf on stem 3 -->
+        <TresMesh :position="[0.02, 0.5, -0.25]" :rotation="[0.3, 0, 0.4]" cast-shadow>
+          <TresPlaneGeometry :args="[0.2, 0.1]" />
+          <TresMeshStandardMaterial color="#388E3C" :side="2" roughness="0.6" />
+        </TresMesh>
       </TresGroup>
 
       <!-- Sunflower Heads -->
       <TresGroup :position="[0, 0.8, 0]">
-         <!-- Flower 1 (Tallest) -->
-         <TresGroup :position="[0.12, 1.05, 0.05]" :rotation="[0.5, 0, 0.1]">
-            <!-- Outer ring of petals (cone-shaped, fanning backward) -->
-            <TresGroup v-for="(p, i) in flower1.outer" :key="'f1o-' + i"
-              :position="[p.px, p.py, p.pz]"
-              :rotation="[p.tilt, 0, p.rz]"
-            >
-              <TresMesh cast-shadow>
-                <TresConeGeometry :args="[0.04, p.len, 6]" />
-                <TresMeshStandardMaterial color="#FFD54F" roughness="0.45" emissive="#FFB300" :emissiveIntensity="0.2" />
-              </TresMesh>
-            </TresGroup>
-            <!-- Inner ring of petals (more upright, fills gaps) -->
-            <TresGroup v-for="(p, i) in flower1.inner" :key="'f1i-' + i"
-              :position="[p.px, p.py, p.pz]"
-              :rotation="[p.tilt, 0, p.rz]"
-            >
-              <TresMesh cast-shadow>
-                <TresConeGeometry :args="[0.035, p.len, 6]" />
-                <TresMeshStandardMaterial color="#FFC107" roughness="0.45" emissive="#FF8F00" :emissiveIntensity="0.2" />
-              </TresMesh>
-            </TresGroup>
-            <!-- Domed Seed Center -->
-            <TresMesh cast-shadow :rotation="[Math.PI/2, 0, 0]">
-              <TresSphereGeometry :args="[0.14, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
-              <TresMeshStandardMaterial color="#3E2723" roughness="1.0" />
+        <!-- Flower 1 (Tallest) -->
+        <TresGroup :position="[0.12, 1.05, 0.05]" :rotation="[0.5, 0, 0.1]">
+          <!-- Outer ring of petals (cone-shaped, fanning backward) -->
+          <TresGroup v-for="(p, i) in flower1.outer" :key="'f1o-' + i" :position="[p.px, p.py, p.pz]"
+            :rotation="[p.tilt, 0, p.rz]">
+            <TresMesh cast-shadow>
+              <TresConeGeometry :args="[0.04, p.len, 6]" />
+              <TresMeshStandardMaterial color="#FFD54F" roughness="0.45" emissive="#FFB300" :emissiveIntensity="0.2" />
             </TresMesh>
-            <!-- Seed texture bump -->
-            <TresMesh :position="[0, 0, 0.01]" :rotation="[Math.PI/2, 0, 0]">
-              <TresSphereGeometry :args="[0.08, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]" />
-              <TresMeshStandardMaterial color="#5D4037" roughness="0.9" />
+          </TresGroup>
+          <!-- Inner ring of petals (more upright, fills gaps) -->
+          <TresGroup v-for="(p, i) in flower1.inner" :key="'f1i-' + i" :position="[p.px, p.py, p.pz]"
+            :rotation="[p.tilt, 0, p.rz]">
+            <TresMesh cast-shadow>
+              <TresConeGeometry :args="[0.035, p.len, 6]" />
+              <TresMeshStandardMaterial color="#FFC107" roughness="0.45" emissive="#FF8F00" :emissiveIntensity="0.2" />
             </TresMesh>
-         </TresGroup>
+          </TresGroup>
+          <!-- Domed Seed Center -->
+          <TresMesh cast-shadow :rotation="[Math.PI / 2, 0, 0]">
+            <TresSphereGeometry :args="[0.14, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
+            <TresMeshStandardMaterial color="#3E2723" roughness="1.0" />
+          </TresMesh>
+          <!-- Seed texture bump -->
+          <TresMesh :position="[0, 0, 0.01]" :rotation="[Math.PI / 2, 0, 0]">
+            <TresSphereGeometry :args="[0.08, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]" />
+            <TresMeshStandardMaterial color="#5D4037" roughness="0.9" />
+          </TresMesh>
+        </TresGroup>
 
-         <!-- Flower 2 (Medium) -->
-         <TresGroup :position="[-0.18, 0.72, 0.15]" :rotation="[0.3, -0.5, -0.15]">
-            <TresGroup v-for="(p, i) in flower2.outer" :key="'f2o-' + i"
-              :position="[p.px, p.py, p.pz]"
-              :rotation="[p.tilt, 0, p.rz]"
-            >
-              <TresMesh cast-shadow>
-                <TresConeGeometry :args="[0.035, p.len, 6]" />
-                <TresMeshStandardMaterial color="#FFCA28" roughness="0.45" emissive="#FFA000" :emissiveIntensity="0.2" />
-              </TresMesh>
-            </TresGroup>
-            <TresGroup v-for="(p, i) in flower2.inner" :key="'f2i-' + i"
-              :position="[p.px, p.py, p.pz]"
-              :rotation="[p.tilt, 0, p.rz]"
-            >
-              <TresMesh cast-shadow>
-                <TresConeGeometry :args="[0.03, p.len, 6]" />
-                <TresMeshStandardMaterial color="#FFB300" roughness="0.45" emissive="#FF8F00" :emissiveIntensity="0.2" />
-              </TresMesh>
-            </TresGroup>
-            <TresMesh cast-shadow :rotation="[Math.PI/2, 0, 0]">
-              <TresSphereGeometry :args="[0.11, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
-              <TresMeshStandardMaterial color="#3E2723" roughness="1.0" />
+        <!-- Flower 2 (Medium) -->
+        <TresGroup :position="[-0.18, 0.72, 0.15]" :rotation="[0.3, -0.5, -0.15]">
+          <TresGroup v-for="(p, i) in flower2.outer" :key="'f2o-' + i" :position="[p.px, p.py, p.pz]"
+            :rotation="[p.tilt, 0, p.rz]">
+            <TresMesh cast-shadow>
+              <TresConeGeometry :args="[0.035, p.len, 6]" />
+              <TresMeshStandardMaterial color="#FFCA28" roughness="0.45" emissive="#FFA000" :emissiveIntensity="0.2" />
             </TresMesh>
-            <TresMesh :position="[0, 0, 0.01]" :rotation="[Math.PI/2, 0, 0]">
-              <TresSphereGeometry :args="[0.06, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]" />
-              <TresMeshStandardMaterial color="#4E342E" roughness="0.9" />
+          </TresGroup>
+          <TresGroup v-for="(p, i) in flower2.inner" :key="'f2i-' + i" :position="[p.px, p.py, p.pz]"
+            :rotation="[p.tilt, 0, p.rz]">
+            <TresMesh cast-shadow>
+              <TresConeGeometry :args="[0.03, p.len, 6]" />
+              <TresMeshStandardMaterial color="#FFB300" roughness="0.45" emissive="#FF8F00" :emissiveIntensity="0.2" />
             </TresMesh>
-         </TresGroup>
+          </TresGroup>
+          <TresMesh cast-shadow :rotation="[Math.PI / 2, 0, 0]">
+            <TresSphereGeometry :args="[0.11, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
+            <TresMeshStandardMaterial color="#3E2723" roughness="1.0" />
+          </TresMesh>
+          <TresMesh :position="[0, 0, 0.01]" :rotation="[Math.PI / 2, 0, 0]">
+            <TresSphereGeometry :args="[0.06, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]" />
+            <TresMeshStandardMaterial color="#4E342E" roughness="0.9" />
+          </TresMesh>
+        </TresGroup>
 
-         <!-- Flower 3 (Tallest stem, slightly drooping) -->
-         <TresGroup :position="[0.2, 1.15, -0.25]" :rotation="[0.7, 0.3, -0.1]">
-            <TresGroup v-for="(p, i) in flower3.outer" :key="'f3o-' + i"
-              :position="[p.px, p.py, p.pz]"
-              :rotation="[p.tilt, 0, p.rz]"
-            >
-              <TresMesh cast-shadow>
-                <TresConeGeometry :args="[0.03, p.len, 6]" />
-                <TresMeshStandardMaterial color="#FFE082" roughness="0.45" emissive="#FFCA28" :emissiveIntensity="0.2" />
-              </TresMesh>
-            </TresGroup>
-            <TresGroup v-for="(p, i) in flower3.inner" :key="'f3i-' + i"
-              :position="[p.px, p.py, p.pz]"
-              :rotation="[p.tilt, 0, p.rz]"
-            >
-              <TresMesh cast-shadow>
-                <TresConeGeometry :args="[0.025, p.len, 6]" />
-                <TresMeshStandardMaterial color="#FFD54F" roughness="0.45" emissive="#FFB300" :emissiveIntensity="0.2" />
-              </TresMesh>
-            </TresGroup>
-            <TresMesh cast-shadow :rotation="[Math.PI/2, 0, 0]">
-              <TresSphereGeometry :args="[0.09, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
-              <TresMeshStandardMaterial color="#3E2723" roughness="1.0" />
+        <!-- Flower 3 (Tallest stem, slightly drooping) -->
+        <TresGroup :position="[0.2, 1.15, -0.25]" :rotation="[0.7, 0.3, -0.1]">
+          <TresGroup v-for="(p, i) in flower3.outer" :key="'f3o-' + i" :position="[p.px, p.py, p.pz]"
+            :rotation="[p.tilt, 0, p.rz]">
+            <TresMesh cast-shadow>
+              <TresConeGeometry :args="[0.03, p.len, 6]" />
+              <TresMeshStandardMaterial color="#FFE082" roughness="0.45" emissive="#FFCA28" :emissiveIntensity="0.2" />
             </TresMesh>
-            <TresMesh :position="[0, 0, 0.01]" :rotation="[Math.PI/2, 0, 0]">
-              <TresSphereGeometry :args="[0.05, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]" />
-              <TresMeshStandardMaterial color="#5D4037" roughness="0.9" />
+          </TresGroup>
+          <TresGroup v-for="(p, i) in flower3.inner" :key="'f3i-' + i" :position="[p.px, p.py, p.pz]"
+            :rotation="[p.tilt, 0, p.rz]">
+            <TresMesh cast-shadow>
+              <TresConeGeometry :args="[0.025, p.len, 6]" />
+              <TresMeshStandardMaterial color="#FFD54F" roughness="0.45" emissive="#FFB300" :emissiveIntensity="0.2" />
             </TresMesh>
-         </TresGroup>
+          </TresGroup>
+          <TresMesh cast-shadow :rotation="[Math.PI / 2, 0, 0]">
+            <TresSphereGeometry :args="[0.09, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
+            <TresMeshStandardMaterial color="#3E2723" roughness="1.0" />
+          </TresMesh>
+          <TresMesh :position="[0, 0, 0.01]" :rotation="[Math.PI / 2, 0, 0]">
+            <TresSphereGeometry :args="[0.05, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]" />
+            <TresMeshStandardMaterial color="#5D4037" roughness="0.9" />
+          </TresMesh>
+        </TresGroup>
       </TresGroup>
     </TresGroup>
 
@@ -290,7 +277,8 @@ onMounted(() => {
     <TresGroup>
 
       <Suspense>
-        <GLTFModel path="/files/nikon_camera-compressed.glb" draco cast-shadow receive-shadow :position="[-2.5, 0, -2]" :rotation="[0, 0.2, 0]" :scale="5.0" />
+        <GLTFModel path="/files/nikon_camera-compressed.glb" draco cast-shadow receive-shadow :position="[-2.5, 0, -2]"
+          :rotation="[0, 0.2, 0]" :scale="5.0" />
       </Suspense>
     </TresGroup>
 
@@ -301,6 +289,7 @@ onMounted(() => {
 :deep(.page-tooltip) {
   pointer-events: none;
 }
+
 .page-label {
   background: rgba(245, 245, 236, 0.95);
   color: #333;
@@ -310,11 +299,19 @@ onMounted(() => {
   font-size: 0.9rem;
   letter-spacing: 1px;
   border: 1px solid #CCC;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   animation: floatUp 0.2s ease-out forwards;
 }
+
 @keyframes floatUp {
-  0% { transform: translateY(5px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 </style>
