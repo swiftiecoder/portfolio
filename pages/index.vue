@@ -7,6 +7,7 @@ import DeskDecorations from '../components/DeskDecorations.vue'
 import VinylPlayer from '../components/VinylPlayer.vue'
 import TarotDeck from '../components/TarotDeck.vue'
 import StrewnPages from '../components/StrewnPages.vue'
+import BusinessCards from '../components/BusinessCards.vue'
 import WallPosters from '../components/WallPosters.vue'
 import Noticeboard from '../components/Noticeboard.vue'
 
@@ -263,6 +264,7 @@ const projectComponents = {
       </Suspense>
       <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
       <StrewnPages @pageClick="handleCardClick" />
+      <BusinessCards />
 
       <!-- HTML Overlay logic moved to 2D space outside TresCanvas -->
       </TresCanvas>
