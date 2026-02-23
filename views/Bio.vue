@@ -2,8 +2,8 @@
   <div class="microfiche-record">
     <div class="mf-header-section">
       <div class="mf-title-block">
-        <h1>SHERRY'S WORLD</h1>
-        <div class="mf-id">RECORD ID: BIO-199-X</div>
+        <h1>SPECIMEN FILE</h1>
+        <div class="mf-id">RECORD ID: BI-VII-169</div>
       </div>
       <div class="mf-photo-box">
         <img src="@/assets/Biography/self2.png" alt="Subject Photo" />
@@ -42,7 +42,7 @@
         </div>
         <div class="mf-skill-row">
           <span class="mf-skill-cat">DB & TOOLS</span>
-          <span class="mf-skill-list">SQL, MONGODB, MATLAB, FIGMA, LUCIDCHART, GITHUB, GIT, AGILE</span>
+          <span class="mf-skill-list">SQL, MONGODB, MATLAB, FIGMA, LUCIDCHART, GITHUB, CURSOR, ANTIGRAVITY, GIT, AGILE</span>
         </div>
       </div>
     </div>
@@ -77,7 +77,7 @@
           <tr>
             <td>RESEARCH ASSISTANT</td>
             <td>LUMS (CSALT & EMBEDDED AI LABS)</td>
-            <td>JAN 24 - MAY 25</td>
+            <td>JAN 24 - JULY 25</td>
           </tr>
           <tr>
             <td colspan="3" class="mf-subtext">AI-driven healthcare, NLP for low-resource langs. Built prototypes/designed tech stacks.</td>

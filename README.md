@@ -1,10 +1,13 @@
 portfolioooo
 
 - features i can add
-    - headphones - link to an original strudel composition
     - digicam can link to pictures - of what? idk
     - mysterious second flag?
-    - wax seal? can add but might look cooler on updates/as a landing page
-    - update design of the modals
-    - loading screen
-    - update record id in the about me page to be something more meaningful?
+
+    - headphones - link to an original strudel composition
+    - unveil button looks fat in the deployment - add a fix
+    - automatically redirect tablet/mobile users to /retro?
+    - get rid of mail in retro
+    - retro windows look weird
+    - make responsive
+    - refactor/delete useless code

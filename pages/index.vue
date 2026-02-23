@@ -10,6 +10,8 @@ import StrewnPages from '../components/StrewnPages.vue'
 import BusinessCards from '../components/BusinessCards.vue'
 import WallPosters from '../components/WallPosters.vue'
 import Noticeboard from '../components/Noticeboard.vue'
+import WallCertificates from '../components/WallCertificates.vue'
+import TypewriterLoading from '../components/TypewriterLoading.vue'
 
 // Nuxt auto-imports TresCanvas via @tresjs/nuxt
 import { OrbitControls, Html, GLTFModel } from '@tresjs/cientos'
@@ -138,14 +140,9 @@ const handleKeyDown = (e) => {
   }
 }
 
-// Function to check if everything is ready to hide the loading screen
+// Function to check if everything is ready (door sequence will trigger in TypewriterLoading)
 const checkReadyState = () => {
-  if (isAssetsLoaded.value && isShadersCompiled.value) {
-    // Add a slight delay for aesthetic smoothness
-    setTimeout(() => {
-      isLoading.value = false
-    }, 800)
-  }
+  // No auto-dismiss — user clicks Enter in the typewriter door
 }
 
 // Intercept TresJS ready event to force shader compilation before rendering
@@ -241,18 +238,16 @@ const projectTitles = {
 
 <template>
   <div class="canvas-container">
-    <Transition name="fade">
-      <div v-if="isLoading" class="loading-screen">
-        <div class="loader-content">
-          <div class="spinner"></div>
-          <h2 class="loading-text">{{ isAssetsLoaded ? 'Compiling Shaders...' : 'Loading Project Assets' }}</h2>
-          <div class="progress-bar-container">
-            <div class="progress-bar" :style="{ width: loadingProgress + '%' }"></div>
-          </div>
-          <p class="progress-text">{{ isAssetsLoaded ? 'Optimizing Scene' : Math.round(loadingProgress) + '%' }}</p>
+    <!-- Loading Screen: client-only to avoid SSR hydration mismatch -->
+    <ClientOnly>
+      <TypewriterLoading v-if="isLoading" :progress="loadingProgress" :is-ready="isAssetsLoaded && isShadersCompiled"
+        @enter="isLoading = false" />
+      <template #fallback>
+        <div
+          style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #fdf6e3; z-index: 9999;">
         </div>
-      </div>
-    </Transition>
+      </template>
+    </ClientOnly>
 
     <div id="tres-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
       <TresCanvas shadows :shadow-map-type="1" clear-color="#fdf6e3" window-size @ready="onTresReady">
@@ -290,6 +285,9 @@ const projectTitles = {
 
         <!-- Noticeboard -->
         <Noticeboard @boardClick="handleCardClick" />
+
+        <!-- Wall Certificates -->
+        <WallCertificates />
 
         <!-- V4 Larger Window with Curtains and Tree Shadow -->
         <TresGroup :position="[-14.9, 4, 0]" :rotation="[0, Math.PI / 2, 0]">
@@ -369,9 +367,9 @@ const projectTitles = {
 
     <!-- Discover Mode UI (Fantastical & Rustic Theme) -->
     <div class="discover-ui">
-      <button class="discover-toggle" :class="{ active: isDiscoverMode }" @click="isDiscoverMode = !isDiscoverMode">
-        <span class="icon" v-if="!isDiscoverMode">🗝</span>
-        <span class="icon" v-else>✧</span>
+      <button class="discover-toggle" :data-state="isDiscoverMode ? 'unveiled' : 'concealed'"
+        @click="isDiscoverMode = !isDiscoverMode">
+        <span class="icon">{{ isDiscoverMode ? '✧' : '🗝' }}</span>
         <span class="text">{{ isDiscoverMode ? 'Conceal' : 'Unveil' }}</span>
       </button>
 
@@ -415,6 +413,13 @@ const projectTitles = {
                   <span class="legend-desc">Social Links</span>
                 </div>
               </li>
+              <li>
+                <div class="legend-icon">🏅</div>
+                <div class="legend-text">
+                  <span class="legend-title">Certificates</span>
+                  <span class="legend-desc">Certifications</span>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -439,81 +444,6 @@ const projectTitles = {
   cursor: url('/mouse2.cur'), auto;
 }
 
-/* Loading Screen Styles */
-.loading-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #fdf6e3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  cursor: url('/mouse2.cur'), auto;
-}
-
-.loader-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Georgia', serif;
-  color: #333;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: #333;
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.loading-text {
-  font-size: 1.2rem;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-}
-
-.progress-bar-container {
-  width: 250px;
-  height: 4px;
-  background: #E5E0D8;
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.progress-bar {
-  height: 100%;
-  background: #333;
-  transition: width 0.3s ease-out;
-}
-
-.progress-text {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.8s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 
 .project-modal-overlay {
   position: absolute;
@@ -776,45 +706,73 @@ const projectTitles = {
 }
 
 .discover-toggle {
-  background: radial-gradient(circle at center, #3d3024 0%, #201811 100%);
-  border: 1px solid #7a6146;
-  padding: 10px 22px;
-  border-radius: 40px;
-  /* Pill shape amulet */
-  font-family: 'IM Fell English', serif;
-  font-style: italic;
-  font-size: 1.15rem;
-  color: #e3d3bd;
-  cursor: url('/mouse2.cur'), pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  cursor: url('/mouse2.cur'), pointer;
+  transition: all 220ms ease;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+/* Concealed State (Light) */
+.discover-toggle[data-state="concealed"] {
+  background: linear-gradient(to bottom, #fdf8ef 0%, #f2e1c9 100%);
+  color: #5c4633;
+  border-color: #a38d72;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Unveiled State (Dark) */
+.discover-toggle[data-state="unveiled"] {
+  background: linear-gradient(to bottom, #3d3024 0%, #201811 100%);
+  color: #e3d3bd;
+  border-color: rgba(32, 24, 17, 0.5);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.05);
 }
 
 .discover-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(122, 97, 70, 0.3);
-  border-color: #a38562;
-  color: #fff4e6;
+  transform: translateY(-1.5px);
+  filter: brightness(1.05);
 }
 
-.discover-toggle.active {
-  background: #e3d3bd;
-  color: #201811;
-  border-color: #201811;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.discover-toggle[data-state="concealed"]:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.discover-toggle[data-state="unveiled"]:hover {
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.discover-toggle:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
 .discover-toggle .icon {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.discover-toggle.active .icon {
-  filter: none;
+.discover-toggle[data-state="unveiled"] .icon {
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 .legend-panel {
@@ -898,6 +856,10 @@ const projectTitles = {
 
 .legend-panel li:nth-child(5) {
   animation-delay: 0.5s;
+}
+
+.legend-panel li:nth-child(6) {
+  animation-delay: 0.6s;
 }
 
 @keyframes floatUp {
