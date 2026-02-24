@@ -5,9 +5,11 @@ portfolioooo
     - mysterious second flag?
 
     - headphones - link to an original strudel composition
-    - unveil button looks fat in the deployment - add a fix
-    - automatically redirect tablet/mobile users to /retro?
-    - get rid of mail in retro
-    - retro windows look weird
-    - make responsive
+    
+    - IF LOOKS WEIRD
+        - fix retro windows look weird (ao3 padding)
+        - automatically redirect tablet/mobile users to /retro
+    - OTHERWISE
+        - GET RID OF RETRO? OR KEEP IT IN THE BCKG
+
     - refactor/delete useless code

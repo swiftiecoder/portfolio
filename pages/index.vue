@@ -369,8 +369,7 @@ const projectTitles = {
     <div class="discover-ui">
       <button class="discover-toggle" :data-state="isDiscoverMode ? 'unveiled' : 'concealed'"
         @click="isDiscoverMode = !isDiscoverMode">
-        <span class="icon">{{ isDiscoverMode ? '✧' : '🗝' }}</span>
-        <span class="text">{{ isDiscoverMode ? 'Conceal' : 'Unveil' }}</span>
+        {{ isDiscoverMode ? 'Conceal' : 'Unveil' }}
       </button>
 
       <Transition name="float-fade">
@@ -571,19 +570,26 @@ const projectTitles = {
   padding: 1rem 1.5rem;
   background: #eeeeee;
   border-bottom: 2px solid #990000;
-  overflow: hidden;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .ao3-header-meta {
   display: block;
+  flex: 1;
+  min-width: 0;
 }
 
 .ao3-title {
   font-family: 'Georgia', serif;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin: 0;
   color: #990000;
   font-weight: bold;
+  word-break: break-word;
 }
 
 .ao3-author {
@@ -602,9 +608,8 @@ const projectTitles = {
 }
 
 .ao3-modal .close-btn {
-  float: right;
-  margin-left: 1rem;
-  margin-bottom: 0.25rem;
+  flex-shrink: 0;
+  margin: 0;
   padding: 0.4rem 0.8rem;
   background: #eeeeee;
   color: #555555;
@@ -614,7 +619,7 @@ const projectTitles = {
   border-radius: 4px;
   cursor: url('/mouse2.cur'), pointer;
   transition: all 0.2s ease;
-  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .ao3-modal .close-btn:hover {
@@ -626,7 +631,7 @@ const projectTitles = {
 .ao3-modal .modal-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2.5rem 4rem;
+  padding: 2rem 3rem;
   background: transparent;
   line-height: 1.5;
   font-size: 1rem;
@@ -695,8 +700,8 @@ const projectTitles = {
 /* Discover UI Styles - Fantastical & Rustic Theme */
 .discover-ui {
   position: absolute;
-  bottom: 40px;
-  right: 40px;
+  bottom: clamp(16px, 3vw, 40px);
+  right: clamp(12px, 3vw, 40px);
   z-index: 50;
   display: flex;
   flex-direction: column-reverse;
@@ -709,36 +714,35 @@ const projectTitles = {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 6px 18px;
+  gap: 7px;
+  padding: 6px 16px;
   border-radius: 999px;
   font-family: 'IM Fell English', serif;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   cursor: url('/mouse2.cur'), pointer;
   transition: all 220ms ease;
   border: 1px solid transparent;
   user-select: none;
+  line-height: 1.4;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* Concealed State (Light) */
+/* Concealed State (Dark — mysterious, hidden) */
 .discover-toggle[data-state="concealed"] {
-  background: linear-gradient(to bottom, #fdf8ef 0%, #f2e1c9 100%);
-  color: #5c4633;
-  border-color: #a38d72;
-  box-shadow:
-    0 2px 10px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: #2c2219;
+  color: #ddc9b0;
+  border-color: rgba(200, 170, 130, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
 }
 
-/* Unveiled State (Dark) */
+/* Unveiled State (Light — revealed, warm parchment) */
 .discover-toggle[data-state="unveiled"] {
-  background: linear-gradient(to bottom, #3d3024 0%, #201811 100%);
-  color: #e3d3bd;
-  border-color: rgba(32, 24, 17, 0.5);
-  box-shadow:
-    0 4px 15px rgba(0, 0, 0, 0.35),
-    inset 0 1px 2px rgba(255, 255, 255, 0.05);
+  background: #ede0cc;
+  color: #5c4633;
+  border-color: #b09a7e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .discover-toggle:hover {
@@ -747,15 +751,13 @@ const projectTitles = {
 }
 
 .discover-toggle[data-state="concealed"]:hover {
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  background: #342820;
 }
 
 .discover-toggle[data-state="unveiled"]:hover {
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.45),
-    inset 0 1px 2px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+  background: #e4d4bb;
 }
 
 .discover-toggle:active {
@@ -764,15 +766,15 @@ const projectTitles = {
 }
 
 .discover-toggle .icon {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.discover-toggle[data-state="unveiled"] .icon {
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+.discover-toggle[data-state="concealed"] .icon {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
 }
 
 .legend-panel {
@@ -913,5 +915,38 @@ const projectTitles = {
 .float-fade-leave-to {
   opacity: 0;
   transform: translateY(20px) scale(0.9);
+}
+
+/* ========================================= */
+/* Responsive Overrides                       */
+/* ========================================= */
+@media (max-width: 600px) {
+  /* Modals */
+  .ao3-modal .modal-content {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .microfiche-modal .modal-content {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .ao3-title {
+    font-size: 1.1rem;
+  }
+
+  /* Legend panel smaller on very small screens */
+  .legend-panel {
+    width: 170px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ao3-modal .modal-content {
+    padding: 1rem;
+  }
+
+  .microfiche-modal .modal-content {
+    padding: 1rem;
+  }
 }
 </style>

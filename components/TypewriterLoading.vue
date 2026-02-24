@@ -73,9 +73,9 @@ let typeTimer = null
 let pauseTimer = null
 let statusTimer = null
 
-const CHAR_SPEED = 55
-const PAUSE_AFTER_QUOTE = 2200
-const READING_PAUSE = 1400
+const CHAR_SPEED = 28
+const PAUSE_AFTER_QUOTE = 1000
+const READING_PAUSE = 700
 
 const typeNextChar = () => {
   if (displayedLength.value < currentQuote.value.text.length) {
@@ -116,7 +116,7 @@ const advanceQuote = () => {
     displayedLength.value = 0
     isTyping.value = true
     typeNextChar()
-  }, 500)
+  }, 280)
 }
 
 const triggerButtonReveal = () => {
@@ -194,8 +194,7 @@ onBeforeUnmount(() => {
         </template>
         <Transition name="btn-appear">
           <button v-if="showButton" class="enter-toggle" @click="handleEnter">
-            <span class="enter-icon">✦</span>
-            <span class="enter-label">Enter</span>
+            Enter
           </button>
         </Transition>
       </div>
@@ -447,34 +446,38 @@ onBeforeUnmount(() => {
   color: #e3d3bd;
   cursor: url('/mouse2.cur'), pointer;
   pointer-events: auto;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), inset 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.15s ease,
+              color 0.15s ease,
+              border-color 0.15s ease;
+  letter-spacing: 0.05em;
+  will-change: transform, filter;
+  animation: enter-pulse 3s ease-in-out infinite;
 }
 
 .enter-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(122, 97, 70, 0.3);
+  transform: translateY(-2px) scale(1.04);
+  filter: brightness(1.18) drop-shadow(0 6px 14px rgba(100, 75, 40, 0.45));
   border-color: #a38562;
   color: #fff4e6;
+  animation: none;
 }
 
 .enter-toggle:active {
-  transform: translateY(0) scale(0.97);
+  transform: translateY(0) scale(0.96);
+  filter: brightness(0.95);
 }
 
-.enter-icon {
-  font-size: 2rem;
-  line-height: 1;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
-  font-style: normal;
+@keyframes enter-pulse {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.08);
+  }
 }
 
-.enter-label {
-  letter-spacing: 0.05em;
-}
 
 @keyframes gentle-float {
 
@@ -489,12 +492,24 @@ onBeforeUnmount(() => {
 }
 
 .btn-appear-enter-active {
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: btn-bloom 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.btn-appear-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
+@keyframes btn-bloom {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.88);
+    filter: blur(4px) brightness(2);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0px) brightness(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px) brightness(1);
+  }
 }
 
 @media (max-width: 600px) {
@@ -504,6 +519,21 @@ onBeforeUnmount(() => {
 
   .typewriter-area {
     padding: 0 1rem;
+  }
+
+  .enter-toggle {
+    font-size: 1.2rem;
+    padding: 7px 22px;
+    gap: 12px;
+  }
+
+  .enter-icon {
+    font-size: 1.4rem;
+  }
+
+  .skip-btn {
+    font-size: 0.8rem;
+    padding: 4px 14px;
   }
 }
 </style>

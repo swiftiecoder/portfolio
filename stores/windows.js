@@ -138,8 +138,8 @@ export const useWindowsStore = defineStore("windows", {
         iconImage: "mail.png",
         altText: "Mail",
         fullscreen: false,
-        showInAppGrid: true,
-        showInNavbar: true,
+        showInAppGrid: false,
+        showInNavbar: false,
       },
       {
         windowId: "ChatWindow",

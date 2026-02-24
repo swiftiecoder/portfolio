@@ -115,7 +115,7 @@
 }
 
 .mf-title-block h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
   margin: 0 0 10px 0;
   letter-spacing: -1px;
   font-weight: bold;
@@ -188,7 +188,9 @@
 }
 
 .mf-skill-cat {
-  width: 180px;
+  min-width: 120px;
+  width: 140px;
+  flex-shrink: 0;
   padding: 8px;
   background: rgba(26, 32, 53, 0.1);
   font-weight: bold;
@@ -251,5 +253,38 @@
 .mf-file-list a:hover {
   background: #1a2035;
   color: #e8f4f8;
+}
+
+@media (max-width: 600px) {
+  .mf-header-section {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .mf-photo-box {
+    width: 80px;
+    margin-bottom: 12px;
+  }
+
+  .mf-table td {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  .mf-skill-row {
+    flex-direction: column;
+  }
+
+  .mf-skill-cat {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #1a2035;
+  }
+
+  .mf-employment-table th,
+  .mf-employment-table td {
+    font-size: 0.8rem;
+    padding: 5px 6px;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup>
 import FileWindow from '~/templates/FileWindow.vue'
 import Window from '~/templates/Window.vue'
-import Mail from '~/templates/Mail.vue'
+// import Mail from '~/templates/Mail.vue'
 import Navbar from '~/templates/Navbar.vue'
 import AppGrid from '~/templates/AppGrid.vue'
 import Bio from '~/views/Bio.vue'
@@ -25,7 +25,7 @@ const windows = windowsStore.windows
 const windowComponents = [
   { name: 'window', comp: Window },
   { name: 'ImagePreviewWindow', comp: ImagePreviewWindow },
-  { name: 'mail', comp: Mail },
+  // { name: 'mail', comp: Mail },
   { name: 'chat', comp: Chat },
   { name: 'FilesWindow', comp: FileWindow }
 ]

@@ -46,7 +46,8 @@ const windowsStore = useWindowsStore()
 
 .ao3-actions {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   padding-left: 1rem;
 }
 
