@@ -25,6 +25,7 @@ import MyDoctor from '../views/My Doctor.vue'
 import PortalLLM from '../views/PortalLLM.vue'
 import Resume from '../views/Resume.vue'
 import NoticeboardUpdates from '../views/NoticeboardUpdates.vue'
+import StrudelCreations from '../views/StrudelCreations.vue'
 
 // Load generated textures client-side to prevent Nuxt SSR crashes
 const rugTex = shallowRef(null)
@@ -219,7 +220,8 @@ const projectComponents = {
   MyDoctor: markRaw(MyDoctor),
   PortalLLM: markRaw(PortalLLM),
   Resume: markRaw(Resume),
-  NoticeboardUpdates: markRaw(NoticeboardUpdates)
+  NoticeboardUpdates: markRaw(NoticeboardUpdates),
+  StrudelCreations: markRaw(StrudelCreations)
 }
 
 const projectTitles = {
@@ -230,7 +232,8 @@ const projectTitles = {
   MyDoctor: "Khpaltabib: AI Medical Chatbot",
   PortalLLM: "Portal-LLM: Chatting Up Characters",
   Resume: "Resume",
-  NoticeboardUpdates: "Noticeboard Updates"
+  NoticeboardUpdates: "Noticeboard Updates",
+  StrudelCreations: "Strudel Creations"
 }
 
 // Refs for active project handled above
@@ -339,7 +342,8 @@ const projectTitles = {
         <!-- <VinylPlayer :position="[-3, 0, -1]" /> -->
         <Suspense>
           <GLTFModel path="/files/sony_headphone_model-compressed.glb" draco cast-shadow receive-shadow
-            :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1" />
+            :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1"
+            @click="handleCardClick('StrudelCreations')" />
         </Suspense>
         <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
         <StrewnPages @pageClick="handleCardClick" />
@@ -921,6 +925,7 @@ const projectTitles = {
 /* Responsive Overrides                       */
 /* ========================================= */
 @media (max-width: 600px) {
+
   /* Modals */
   .ao3-modal .modal-content {
     padding: 1.25rem 1.25rem;

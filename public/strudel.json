@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "Sine Wave Polyrhythms",
+    "date": "2024-02-24",
+    "link": "https://strudel.cc/#CnNldGNwbSgxMjAvNCkKCmNvbnN0IG5vdGVTbGlkZXIgPSBpcmFuZChzbGlkZXIoMjQsIDE2LCA1MCwgMikpCmNvbnN0IHNvdW5kVmFyID0gInNpbmUiCgpjb25zdCBuMSA9IG4obm90ZVNsaWRlcikKICAuc2VnKDE2KQogIC5zb3VuZChzb3VuZFZhcikKICAuc2NhbGUoIkM6bWFqb3IiKS5zbG93KCI8Mj4iKS5scGYoODAwKQoKY29uc3QgbjIgPSAobm90ZVNsaWRlcikKICAuc2VnKDE2KQogIC5zb3VuZChzb3VuZFZhcikKICAuc2NhbGUoIkM1Om1ham9yIikuc2xvdygiPDI%2BIikubHBmKDQwMCkKCmNvbnN0IG4zID0gKG5vdGVTbGlkZXIpCiAgLnNlZygxNikKICAuc291bmQoc291bmRWYXIpCiAgLnNjYWxlKCJDMjptYWpvciIpLnNsb3coIjwyPiIpLmdhaW4oMC41KS5yb29tKDQpCgpjb25zdCBiYXNzMSA9IHNvdW5kKCJiZCBiZCBiZCBiZCIpLmJhbmsoImtvcmdkZG0xMTAiKQoKY29uc3Qga2ljayA9IHNvdW5kKCJoaCBoaCBoaCBoaCIpLmJhbmsoImtvcmdkZG0xMTAiKS5scGYoNDAwKQoKY29uc3QgYmFzczIgPSBzb3VuZCgiYmQgYmQgYmQgYmQiKS5iYW5rKCJrb3JnZGRtMTEwIikucm9vbSgzKS5scGYoNTAwKQoKc3RhY2sobjEsIG4yLCBuMywgYmFzczEsIGJhc3MyLCBraWNrKS5fcGlhbm9yb2xsKCkuc2NvcGUoKQ%3D%3D",
+    "tags": ["Polyrhythm", "Sine", "Generative"],
+    "description": "A complex stack of sine waves with varying speeds and LP filters, anchored by Korg DDM-110 rhythmic patterns."
+  },
+  {
+    "id": 2,
+    "title": "Minor Pad Progression",
+    "date": "2024-02-24",
+    "link": "https://strudel.cc/#CmNvbnN0IGxwZlZhbCA9IHNsaWRlcigxNDY0LCA1MDAsIDMwMDAsIDEpCmNvbnN0IG5vdGVTbGlkZXIgPSBpcmFuZChzbGlkZXIoMTcsIDIsIDMwLCAxKSkKCmNvbnN0IG4xID0gbm90ZShub3RlU2xpZGVyKQogIC5zZWcoMTYpCiAgLnNjYWxlKCJDOm1ham9yIikKICAuc291bmQoImdtX2VsZWN0cmljX2d1aXRhcl9qYXp6IikKICAubHBmKGxwZlZhbCkKICAuY29sb3IoIndoaXRlIikKCmNvbnN0IGtpY2sgPSBzKCJiZCwgbHQsIFstIGhoIC0gaGhdIikuc2VnKDQpLmxwZihscGZWYWwpLmNvbG9yKCJyZWQiKQoKY29uc3Qga2ljazIgPSBzKCJoaCo4IFtoaCBoaF0iKS5scGYobHBmVmFsKS5jb2xvcigieWVsbG93IikKCnN0YWNrKG4xLCBraWNrLCBraWNrMikuX3B1bmNoY2FyZCgp",
+    "tags": ["Ambient", "Minor", "Pad"],
+    "description": "Atmospheric halo pads moving through a C-minor progression, visualized with punchcard patterns."
+  },
+  {
+    "id": 3,
+    "title": "Electric Guitar Harmony",
+    "date": "2024-02-24",
+    "link": "https://strudel.cc/#CmNvbnN0IG4xID0gbigiW2YsIGNdIGcjIGEgYyMiKQpjb25zdCBuMyA9IG4oIltmLCBjXSBlIGYjIFtnLCBlI10iKQpjb25zdCBuNCA9IG4oIltmLCBjXSBlIGYjIFthIywgZl0iKQoKY29uc3QgcHJvZ3Jlc3Npb24gPSBjYXQobjEsIG4zLCBuMSwgbjQpLnNvdW5kKCJnbV9lbGVjdHJpY19ndWl0YXJfbXV0ZWQiKS5zY2FsZSgiQTY6bWFqb3IiKS5jb2xvcigid2hpdGUiKQoKY29uc3QgaGFybW9ueSA9IGNhdChuMSwgbjMsIG4xLCBuNCkuc291bmQoImdtX2VsZWN0cmljX2d1aXRhcl9tdXRlZCIpLnNjYWxlKCJBMTptYWpvciIpLmNvbG9yKCJjeWFuIikKCmNvbnN0IGJhc3MgPSBzb3VuZCgiYmQgbHQgYmQgbHQiKS5jb2xvcigieWVsbG93IikKCmNvbnN0IGtpY2sgPSBzb3VuZCgiaGggaGggaGggaGgiKS5scGYoODAwKS5jb2xvcigicmVkIikKCnN0YWNrKHByb2dyZXNzaW9uLnNlZyg4KSwgaGFybW9ueS5zZWcoOCksIGJhc3MsIGtpY2spCiAgLl9waWFub3JvbGwoKQ%3D%3D",
+    "tags": ["Guitar", "Muted", "Harmony"],
+    "description": "Muted electric guitar harmonies in A-major, layered with a steady kick and bass rhythm."
+  },
+  {
+    "id": 4,
+    "title": "Jazzy Guitar Slider",
+    "date": "2024-02-24",
+    "link": "https://strudel.cc/#CmNvbnN0IG4xID0gbigiMEAyIDMgNSA3IDIgMSIpCmNvbnN0IG4yID0gbigiMyA2IDIgNCAwIDIgMSIpCmNvbnN0IG4zID0gbigiMyA2IDIgNCAwIDIgNyIpCgpjb25zdCBwcm9ncmVzc2lvbiA9IGNhdChuMSwgbjIsIG4xLCBuMykKICAuc291bmQoImdtX3BhZF9oYWxvIikKICAuc2NhbGUoIkM1Om1pbm9yIikKCmNvbnN0IHByb2dyZXNzaW9uX2hhcm1vbnkgPSBjYXQobjEsIG4yLCBuMSwgbjMpCiAgLnNvdW5kKCJnbV9wYWRfaGFsbyIpCiAgLnNjYWxlKCJDMjptaW5vciIpCgpjb25zdCBiYXNzID0gcygiYmQgLSB0YiAtIikuc2VnKDgpLmxwZigxMDAwKQoKY29uc3Qga2ljayA9IHMoImhoITQiKS5zZWcoOCkubHBmKDE1MDApCgpzdGFjayhwcm9ncmVzc2lvbi5zZWcoOCksIHByb2dyZXNzaW9uX2hhcm1vbnkuc2VnKDgpLCBiYXNzLCBraWNrKQogIC5fcHVuY2hjYXJkKCkKICAvLyAuaHVzaCgp",
+    "tags": ["Jazz", "Interactive", "Sliders"],
+    "description": "An interactive sketch using sliders to control low-pass filters and note ranges for a jazzy electric guitar pattern."
+  }
+]
