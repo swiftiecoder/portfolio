@@ -13,4 +13,3 @@ portfolioooo
         - GET RID OF RETRO? OR KEEP IT IN THE BCKG
 
     - refactor/delete useless code
-    - update substack, linkedin and github links

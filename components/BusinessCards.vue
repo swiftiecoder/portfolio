@@ -11,7 +11,7 @@ const cardTextures = shallowRef([])
 const cards = [
   {
     name: "LinkedIn",
-    link: "https://linkedin.com",
+    link: "https://www.linkedin.com/in/shaharyar-ahsan13/",
     color: "#ffffff",
     textColor: "#0a66c2",
     pos: [3.2, 0.011, 2.0],
@@ -20,7 +20,7 @@ const cards = [
   },
   {
     name: "GitHub",
-    link: "https://github.com",
+    link: "https://github.com/swiftiecoder",
     color: "#24292e",
     textColor: "#ffffff",
     pos: [4.2, 0.015, 2.1],
@@ -29,7 +29,7 @@ const cards = [
   },
   {
     name: "Substack",
-    link: "https://substack.com",
+    link: "https://substack.com/@sherfruitavitals",
     color: "#ff6719",
     textColor: "#ffffff",
     pos: [3.7, 0.015, 1.5],
