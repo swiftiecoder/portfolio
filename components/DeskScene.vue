@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const spots = [];
 const numSpots = 15;
 const minDist = 0.35; // Minimum distance to prevent unrealistic clumping
-const r = 1.01;
+const r = 1.01; 
 
 const dummy = new THREE.Object3D();
 
@@ -13,44 +13,29 @@ while (spots.length < numSpots && attempts < 300) {
   attempts++;
   const theta = Math.random() * Math.PI * 2;
   const phi = Math.random() * (Math.PI / 2.3);
-
+  
   const x = r * Math.sin(phi) * Math.cos(theta);
   const y = r * Math.cos(phi);
   const z = r * Math.sin(phi) * Math.sin(theta);
-
+  
   // Reject if too close to an existing spot
   const tooClose = spots.some(spot => {
     const dx = spot.position[0] - x;
     const dy = spot.position[1] - y;
     const dz = spot.position[2] - z;
-    return Math.sqrt(dx * dx + dy * dy + dz * dz) < minDist;
+    return Math.sqrt(dx*dx + dy*dy + dz*dz) < minDist;
   });
-
+  
   if (!tooClose) {
     dummy.position.set(x, y, z);
     dummy.lookAt(0, 0, 0);
-
+    
     spots.push({
       position: [x, y, z],
       rotation: [dummy.rotation.x, dummy.rotation.y, dummy.rotation.z],
       radius: 0.06 + Math.random() * 0.10 // Slightly varied sizes
     });
   }
-}
-
-import { ref } from 'vue'
-
-const lampStates = [
-  { color: '#FF8A80', intensity: 22, emissive: '#FF5252', emissiveIntensity: 0.8 }, // Saturated Warm/Red
-  { color: '#2979FF', intensity: 28, emissive: '#2962FF', emissiveIntensity: 1.0 }, // Saturated Blue
-  { color: '#F50057', intensity: 28, emissive: '#C51162', emissiveIntensity: 1.0 }, // Saturated Pink
-  { color: '#D500F9', intensity: 28, emissive: '#AA00FF', emissiveIntensity: 1.0 }, // Saturated Purple
-  { color: '#000000', intensity: 0, emissive: '#000000', emissiveIntensity: 0 }    // Off
-]
-
-const currentStateIndex = ref(0)
-const cycleLamp = () => {
-  currentStateIndex.value = (currentStateIndex.value + 1) % lampStates.length
 }
 </script>
 
@@ -61,7 +46,7 @@ const cycleLamp = () => {
       <TresBoxGeometry :args="[10, 0.4, 6]" />
       <TresMeshStandardMaterial color="#d4b595" roughness="0.6" />
     </TresMesh>
-
+    
     <!-- Desk Legs -->
     <!-- Front Left -->
     <TresMesh :position="[-4.8, -2.7, 2.8]" cast-shadow receive-shadow>
@@ -86,42 +71,49 @@ const cycleLamp = () => {
 
     <!-- Desk Ambient Light -->
     <TresAmbientLight :intensity="0.8" color="#ffffff" />
-
+    
     <!-- Literal Mushroom Desk Lamp -->
-    <TresGroup :position="[-3.5, -0.2, -2]" @click="cycleLamp">
+    <TresGroup :position="[-3.5, -0.2, -2]">
       <!-- Mushroom Stalk (Taller) -->
       <TresMesh :position="[0, 0.75, 0]" cast-shadow>
-        <TresCylinderGeometry :args="[0.12, 0.25, 1.5, 32]" />
-        <TresMeshStandardMaterial color="#fdfaee" roughness="0.9" />
+         <TresCylinderGeometry :args="[0.12, 0.25, 1.5, 32]" />
+         <TresMeshStandardMaterial color="#fdfaee" roughness="0.9" />
       </TresMesh>
-
+      
       <!-- Mushroom Cap -->
       <TresGroup :position="[0, 1.5, 0]">
-        <TresMesh cast-shadow>
-          <TresSphereGeometry :args="[1.0, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
-          <TresMeshStandardMaterial color="#d32f2f" emissive="#e53935"
-            :emissiveIntensity="currentStateIndex === 4 ? 0 : 0.4" roughness="0.5" />
-        </TresMesh>
-
-        <!-- Mushroom Spots (Randomly placed flat circles) -->
-        <TresMesh v-for="(spot, index) in spots" :key="`spot-${index}`" :position="spot.position"
-          :rotation="spot.rotation">
-          <TresCircleGeometry :args="[spot.radius, 16]" />
-          <TresMeshBasicMaterial color="#ffffff" :side="2" />
-        </TresMesh>
-
-        <!-- Soft under-glow for the cap -->
-        <TresMesh :rotation="[Math.PI / 2, 0, 0]">
-          <TresCircleGeometry :args="[1.0, 32]" />
-          <TresMeshStandardMaterial :color="lampStates[currentStateIndex].color"
-            :emissive="lampStates[currentStateIndex].emissive"
-            :emissiveIntensity="lampStates[currentStateIndex].intensity > 0 ? 0.8 : 0" />
-        </TresMesh>
+         <TresMesh cast-shadow>
+           <TresSphereGeometry :args="[1.0, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
+           <TresMeshStandardMaterial color="#d32f2f" emissive="#e53935" :emissiveIntensity="0.6" roughness="0.5" />
+         </TresMesh>
+         
+         <!-- Mushroom Spots (Randomly placed flat circles) -->
+         <TresMesh 
+           v-for="(spot, index) in spots" 
+           :key="`spot-${index}`"
+           :position="spot.position"
+           :rotation="spot.rotation"
+         >
+           <TresCircleGeometry :args="[spot.radius, 16]" />
+           <TresMeshBasicMaterial color="#ffffff" :side="2" />
+         </TresMesh>
+         
+         <!-- Soft under-glow for the cap -->
+         <TresMesh :rotation="[Math.PI / 2, 0, 0]">
+            <TresCircleGeometry :args="[1.0, 32]" />
+            <TresMeshStandardMaterial color="#ffcdd2" emissive="#ffcdd2" :emissiveIntensity="0.8" />
+         </TresMesh>
       </TresGroup>
-
+      
       <!-- Mushroom Light Source (Intensified) -->
-      <TresPointLight :position="[0, 1.0, 0]" :intensity="lampStates[currentStateIndex].intensity" :distance="18"
-        cast-shadow :color="lampStates[currentStateIndex].color" :decay="1.5" />
+      <TresPointLight 
+        :position="[0, 1.0, 0]" 
+        :intensity="20" 
+        :distance="18"
+        cast-shadow 
+        color="#ffcdd2"
+        :decay="1.5"
+      />
     </TresGroup>
 
   </TresGroup>

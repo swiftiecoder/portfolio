@@ -60,27 +60,6 @@ const loadingProgress = shallowRef(0)
 const isAssetsLoaded = shallowRef(false)
 const isShadersCompiled = shallowRef(false)
 
-// Sun Direction Logic
-const sunPositions = [
-  { pos: [-12, 12, 5], intensity: 3.5, color: '#FFF1D0' }, // Day
-  { pos: [-15, 5, 2], intensity: 2.5, color: '#FFD700' },   // Sunset
-  { pos: [-12, 15, -5], intensity: 0.5, color: '#444466' }, // Night
-  { pos: [-10, 8, 8], intensity: 2.0, color: '#FFE4B5' }    // Dawn
-]
-const sunIndex = ref(0)
-const handleFlowerClick = () => {
-  sunIndex.value = (sunIndex.value + 1) % sunPositions.length
-}
-
-// Camera Flash Logic
-const isFlashActive = ref(false)
-const handleCameraClick = () => {
-  isFlashActive.value = true
-  setTimeout(() => {
-    isFlashActive.value = false
-  }, 100)
-}
-
 const handleCardClick = (projectId) => {
   activeProjectName.value = projectId
   activeProject.value = projectComponents[projectId]
@@ -284,9 +263,8 @@ const projectTitles = {
         <TresAmbientLight :intensity="1.5" color="#ffffff" />
 
         <!-- Window Sunlight (Casting Blinds Shadows) -->
-        <TresDirectionalLight :position="sunPositions[sunIndex].pos"
-          :intensity="sunPositions[sunIndex].intensity + (isFlashActive ? 10 : 0)" cast-shadow
-          :color="sunPositions[sunIndex].color" :shadow-mapSize-width="2048" :shadow-mapSize-height="2048" />
+        <TresDirectionalLight :position="[-12, 12, 5]" :intensity="3.5" cast-shadow color="#FFF1D0"
+          :shadow-mapSize-width="2048" :shadow-mapSize-height="2048" />
         <TresDirectionalLight :position="[10, 10, -10]" :intensity="1.5" color="#E6F4F1" />
 
         <!-- Right Wall LUMS Flag -->
@@ -360,8 +338,7 @@ const projectTitles = {
         <!-- Legs are handled in DeskScene, but we might need to add them there if not present. Assuming DeskScene has just surface for now, we will add leg stubs in DeskScene later -->
 
         <DeskScene />
-        <DeskDecorations @itemClick="handleCardClick" @flowerClick="handleFlowerClick"
-          @cameraClick="handleCameraClick" />
+        <DeskDecorations @itemClick="handleCardClick" />
         <!-- <VinylPlayer :position="[-3, 0, -1]" /> -->
         <Suspense>
           <GLTFModel path="/files/sony_headphone_model-compressed.glb" draco cast-shadow receive-shadow
@@ -391,11 +368,6 @@ const projectTitles = {
         </div>
       </div>
     </div>
-
-    <!-- Camera Flash Overlay -->
-    <Transition name="fade">
-      <div v-if="isFlashActive" class="camera-flash"></div>
-    </Transition>
 
     <!-- Discover Mode UI (Fantastical & Rustic Theme) -->
     <div class="discover-ui">
@@ -981,27 +953,5 @@ const projectTitles = {
   .microfiche-modal .modal-content {
     padding: 1rem;
   }
-}
-
-/* Camera Flash Styling */
-.camera-flash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: white;
-  z-index: 10000;
-  pointer-events: none;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s ease-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

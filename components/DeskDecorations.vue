@@ -3,7 +3,7 @@ import { shallowRef, ref, onMounted } from 'vue'
 import * as THREE from 'three'
 import { GLTFModel, Html } from '@tresjs/cientos'
 
-const emits = defineEmits(['itemClick', 'flowerClick', 'cameraClick'])
+const emits = defineEmits(['itemClick'])
 
 const hoveredBooks = shallowRef(false)
 
@@ -85,22 +85,6 @@ onMounted(() => {
   // Third book 
   giovanniMaterials.value = loadBookTexture('/files/giovanni.webp')
 })
-
-// Microinteraction Animations
-const flowerNod = ref(0)
-const cameraRecoil = ref(0)
-
-const onFlowerClick = () => {
-  emits('flowerClick')
-  flowerNod.value = 0.1
-  setTimeout(() => flowerNod.value = 0, 150)
-}
-
-const onCameraClick = () => {
-  emits('cameraClick')
-  cameraRecoil.value = 0.05
-  setTimeout(() => cameraRecoil.value = 0, 100)
-}
 </script>
 
 <template>
@@ -153,7 +137,7 @@ const onCameraClick = () => {
     </TresMesh>
 
     <!-- V3: Potted Sunflowers -->
-    <TresGroup :position="[3.5, -0.2 + flowerNod, -2]" @click="onFlowerClick">
+    <TresGroup :position="[3.5, -0.2, -2]">
       <!-- Terracotta Pot -->
       <TresMesh :position="[0, 0.4, 0]" cast-shadow receive-shadow>
         <TresCylinderGeometry :args="[0.5, 0.35, 0.8, 32]" />
@@ -290,7 +274,8 @@ const onCameraClick = () => {
 
 
     <!-- Additional Desk Decor from GLB -->
-    <TresGroup :position="[0, 0, cameraRecoil]" @click="onCameraClick">
+    <TresGroup>
+
       <Suspense>
         <GLTFModel path="/files/nikon_camera-compressed.glb" draco cast-shadow receive-shadow :position="[-2.5, 0, -2]"
           :rotation="[0, 0.2, 0]" :scale="5.0" />
