@@ -31,25 +31,10 @@ const quotes = [
     secretIndices: [0, 13, 39]
   },
   {
-    text: "You must be mad, said the Cat, or you wouldn't have come here.",
+    text: "You must be [mad], said the Cat, or you wouldn't have come here.",
     author: "Lewis Carroll, Alice in Wonderland",
-    secretIndices: [52, 53, 54, 55]
+    secretIndices: [28, 41, 56, 62]
   },
-  {
-    text: "Why, sometimes I've believed as many as six impossible things before breakfast.",
-    author: "Lewis Carroll, Alice in Wonderland",
-    secretIndices: []
-  },
-  {
-    text: "Isn't it nice to think that tomorrow is a new day with no mistakes in it yet?",
-    author: "L.M. Montgomery, Anne of Green Gables",
-    secretIndices: []
-  },
-  {
-    text: "All we have to decide is what to do with the time that is given us.",
-    author: "J.R.R. Tolkien, The Fellowship of the Ring",
-    secretIndices: []
-  }
 ]
 
 const currentQuoteIndex = ref(0)
@@ -99,11 +84,17 @@ const typeNextChar = () => {
     }
 
     pauseTimer = setTimeout(() => {
-      if (showButton.value) return
+      if (showButton.value || fadeOut.value) return
       if (secretComplete.value && props.isReady) {
         triggerButtonReveal()
         return
       }
+
+      // Stop cycling if we reached the last quote
+      if (currentQuoteIndex.value >= quotes.length - 1) {
+        return
+      }
+
       advanceQuote()
     }, PAUSE_AFTER_QUOTE)
   }
@@ -112,7 +103,20 @@ const typeNextChar = () => {
 const advanceQuote = () => {
   showAttribution.value = false
   pauseTimer = setTimeout(() => {
-    currentQuoteIndex.value = (currentQuoteIndex.value + 1) % quotes.length
+    let nextIndex = (currentQuoteIndex.value + 1) % quotes.length
+
+    // If app is ready, skip atmosphere quotes to finish the secret faster
+    if (props.isReady && !secretComplete.value) {
+      let searchIndex = nextIndex
+      let attempts = 0
+      while (quotes[searchIndex].secretIndices.length === 0 && attempts < quotes.length) {
+        searchIndex = (searchIndex + 1) % quotes.length
+        attempts++
+      }
+      nextIndex = searchIndex
+    }
+
+    currentQuoteIndex.value = nextIndex
     displayedLength.value = 0
     isTyping.value = true
     typeNextChar()
@@ -126,6 +130,7 @@ const triggerButtonReveal = () => {
 }
 
 const handleEnter = () => {
+  if (fadeOut.value) return
   fadeOut.value = true
   setTimeout(() => emit('enter'), 800)
 }
@@ -152,7 +157,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="typewriter-page" :class="{ 'page-fade-out': fadeOut }"
-    style="background-color: #fdf6e3; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999;">
+    style="background-color: #fdf6e3; position: fixed; inset: 0; width: 100vw; height: 100dvh; z-index: 9999;">
     <div class="paper-grain"></div>
 
     <div class="typewriter-area">
@@ -207,10 +212,9 @@ onBeforeUnmount(() => {
 
 .typewriter-page {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background-color: #fdf6e3;
   display: flex;
   flex-direction: column;
@@ -448,9 +452,9 @@ onBeforeUnmount(() => {
   pointer-events: auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), inset 0 0 8px rgba(255, 255, 255, 0.05);
   transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1),
-              filter 0.15s ease,
-              color 0.15s ease,
-              border-color 0.15s ease;
+    filter 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
   letter-spacing: 0.05em;
   will-change: transform, filter;
   animation: enter-pulse 3s ease-in-out infinite;
@@ -470,9 +474,12 @@ onBeforeUnmount(() => {
 }
 
 @keyframes enter-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     filter: brightness(1);
   }
+
   50% {
     filter: brightness(1.08);
   }
@@ -501,10 +508,12 @@ onBeforeUnmount(() => {
     transform: translateY(14px) scale(0.88);
     filter: blur(4px) brightness(2);
   }
+
   40% {
     opacity: 1;
     filter: blur(0px) brightness(1.2);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);

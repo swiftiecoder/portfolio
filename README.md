@@ -6,9 +6,9 @@ portfolioooo
 - features i can add
     - digicam can link to pictures - of what? idk
     - mysterious second flag?
+    - prepare and add my educative portfolio (uno*/clue/monopoly cards)
 
-    - IF LOOKS WEIRD
-        - fix retro windows look weird (ao3 padding)
-        - automatically redirect tablet/mobile users to /retro
-    - OTHERWISE
-        - GET RID OF RETRO? OR KEEP IT IN THE BCKG
+- issues ive seen in the mobile/tablet version
+    - sometimes the unveil button doesnt show
+    - red line at the bottom
+    - slighly weird positioning of the modal but nothing too strange

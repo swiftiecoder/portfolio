@@ -436,7 +436,7 @@ const projectTitles = {
 
 .canvas-container {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -453,7 +453,7 @@ const projectTitles = {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -479,7 +479,7 @@ const projectTitles = {
   width: 900px;
   max-width: 90vw;
   height: 600px;
-  max-height: 80vh;
+  max-height: 80dvh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 40px rgba(18, 160, 219, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.1);
@@ -560,7 +560,7 @@ const projectTitles = {
   width: 900px;
   max-width: 90vw;
   height: 700px;
-  max-height: 85vh;
+  max-height: 85dvh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);

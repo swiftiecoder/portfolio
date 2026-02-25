@@ -17,7 +17,7 @@ import HTS from '~/views/HTS.vue'
 import LoadingScreen from '~/templates/LoadingScreen.vue'
 import { ref, onMounted } from 'vue';
 import {
-    useWindowsStore
+  useWindowsStore
 } from '~/stores/windows'
 const windowsStore = useWindowsStore()
 const windows = windowsStore.windows
@@ -41,9 +41,9 @@ const slotViews = [
 ]
 
 const windowCheck = (windowId) => {
-    if (windowsStore.getWindowById(windowId).windowState == "open") {
-        return true
-    } 
+  if (windowsStore.getWindowById(windowId).windowState == "open") {
+    return true
+  }
 }
 
 const deinitWindows = () => {
@@ -68,7 +68,7 @@ onMounted(() => {
   let navbarHeight = navbar.clientHeight;
 
   document.getElementById("screen").style.height =
-  window.innerHeight - navbarHeight + "px";
+    window.innerHeight - navbarHeight + "px";
 
   window.addEventListener("resize", () => {
     let vh = window.innerHeight * 0.01;
@@ -83,50 +83,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="app">
+  <div id="retro-app">
     <LoadingScreen v-if="showLoading" />
     <transition name="screen-fade" appear>
       <div class="screen" id="screen" @click="deinitWindows" v-show="!showLoading">
-        <div 
-          v-for="window in windows" 
-          :key="window.key" 
-          :aria-label="window.displayName"
-        >
-            <component 
-              :is="windowComponents.find(comp => comp.name === window.windowComponent).comp"
-              :nameOfWindow="window.windowId" 
-              :content_padding_bottom="window.windowContentPadding['bottom']" 
-              :content_padding_left="window.windowContentPadding['left']" 
-              :content_padding_right="window.windowContentPadding['right']" 
-              :content_padding_top="window.windowContentPadding['top']" 
-              :id="window.windowId" 
-              :style="{
-                      position: window.position,
-                      left: window.positionX,
-                      top: window.positionY,
-                    }" 
-              :folderContent="window.folderContent" 
-              :folderSize="window.folderSize" 
-              v-if="windowCheck(window.windowId)" 
-            >
+        <div v-for="window in windows" :key="window.key" :aria-label="window.displayName">
+          <component :is="windowComponents.find(comp => comp.name === window.windowComponent).comp"
+            :nameOfWindow="window.windowId" :content_padding_bottom="window.windowContentPadding['bottom']"
+            :content_padding_left="window.windowContentPadding['left']"
+            :content_padding_right="window.windowContentPadding['right']"
+            :content_padding_top="window.windowContentPadding['top']" :id="window.windowId" :style="{
+              position: window.position,
+              left: window.positionX,
+              top: window.positionY,
+            }" :folderContent="window.folderContent" :folderSize="window.folderSize"
+            v-if="windowCheck(window.windowId)">
             <template v-slot:content>
               <component :is="slotViews.find(comp => comp.name === window.windowContent).comp"></component>
             </template>
-            </component>
-          </div>
-          <AppGrid />
+          </component>
+        </div>
+        <AppGrid />
       </div>
     </transition>
-    <StartMenu
-      v-if="windowsStore.activeWindow == 'Menu'"
-      style="position: absolute; z-index: 9999; left: 0; bottom: 36px"
-    ></StartMenu>
+    <StartMenu v-if="windowsStore.activeWindow == 'Menu'"
+      style="position: absolute; z-index: 9999; left: 0; bottom: 36px">
+    </StartMenu>
     <navbar style="position: absolute; bottom: 0; z-index: 9999" id="navbar" />
   </div>
 </template>
 
 <style>
-
 @import "~/assets/css/utils/normalize.css";
 @import "~/assets/css/windows/app.css";
 @import "~/assets/css/windows/window.css";
@@ -146,10 +133,10 @@ html {
 }
 
 h6 {
-    margin-top: 5px !important;
+  margin-top: 5px !important;
 }
 
-#app {
+#retro-app {
   font-family: "MS Sans Serif";
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -166,15 +153,13 @@ h6 {
   z-index: 999;
 }
 
-::-webkit-scrollbar {
+#retro-app ::-webkit-scrollbar {
   width: 15px;
-  background: repeating-conic-gradient(
-      rgb(189, 190, 189) 0% 25%,
-      rgb(255, 255, 255) 0% 50%
-    )
-    50% / 2px 2px;
+  background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,
+      rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;
 }
-::-webkit-scrollbar-thumb {
+
+#retro-app ::-webkit-scrollbar-thumb {
   background: rgb(189, 190, 189);
   /* box-shadow: 1.5px 1.5px black; */
   border-top: solid rgb(250, 250, 250) 1.5px;
@@ -197,13 +182,18 @@ h6 {
 }
 
 /* Screen fade-in transition */
-.screen-fade-enter-active, .screen-fade-leave-active {
+.screen-fade-enter-active,
+.screen-fade-leave-active {
   transition: opacity 1s ease;
 }
-.screen-fade-enter-from, .screen-fade-leave-to {
+
+.screen-fade-enter-from,
+.screen-fade-leave-to {
   opacity: 0;
 }
-.screen-fade-enter-to, .screen-fade-leave-from {
+
+.screen-fade-enter-to,
+.screen-fade-leave-from {
   opacity: 1;
 }
 </style>

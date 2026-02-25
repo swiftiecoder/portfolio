@@ -3,7 +3,8 @@
     <div class="mf-header-section">
       <div class="mf-title-block">
         <h1>SPECIMEN FILE</h1>
-        <div class="mf-id">RECORD ID: BI-VII-169</div>
+        <!-- rot 13 -->
+        <div class="mf-id">RECORD ID: OV-CLXIX</div> 
       </div>
       <div class="mf-photo-box">
         <img src="@/assets/Biography/self2.png" alt="Subject Photo" />
@@ -14,9 +15,9 @@
       <tbody>
         <tr>
           <td class="mf-label">SUBJECT</td>
-          <td>SHAHARYAR AHSAN (SHERRY)</td>
+          <td>SHAHARYAR AHSAN</td>
           <td class="mf-label">LOCATION</td>
-          <td>LAHORE, PAKISTAN 📍</td>
+          <td>LAHORE, PAKISTAN</td>
         </tr>
         <tr>
           <td class="mf-label">EDUCATION</td>
