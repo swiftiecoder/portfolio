@@ -835,7 +835,7 @@ const projectTitles = {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-height: 45dvh;
+  max-height: 70dvh;
   overflow-y: auto;
   padding-right: 6px;
 }
