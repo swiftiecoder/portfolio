@@ -835,6 +835,27 @@ const projectTitles = {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  max-height: 45dvh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.legend-panel ul::-webkit-scrollbar {
+  width: 4px;
+}
+
+.legend-panel ul::-webkit-scrollbar-track {
+  background: rgba(140, 112, 82, 0.1);
+  border-radius: 4px;
+}
+
+.legend-panel ul::-webkit-scrollbar-thumb {
+  background: rgba(140, 112, 82, 0.5);
+  border-radius: 4px;
+}
+
+.legend-panel ul::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 112, 82, 0.8);
 }
 
 .legend-panel li {
