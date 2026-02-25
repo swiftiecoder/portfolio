@@ -379,7 +379,7 @@ const projectTitles = {
       <Transition name="float-fade">
         <div v-if="isDiscoverMode" class="legend-panel">
           <div class="panel-inner">
-            <h3>Desk Secrets</h3>
+            <h3>Secrets</h3>
             <ul>
               <li>
                 <div class="legend-icon">📚</div>
@@ -712,6 +712,7 @@ const projectTitles = {
   /* Expands upwards */
   align-items: flex-end;
   gap: 16px;
+  max-width: 90vw;
 }
 
 .discover-toggle {
@@ -786,11 +787,12 @@ const projectTitles = {
   background-image: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23noise)" opacity="0.04"/%3E%3C/svg%3E');
   border: 1px solid #5c4633;
   padding: 6px;
-  width: 200px;
+  width: min(200px, 85vw);
   border-radius: 110px 110px 16px 16px;
   /* Apothecary Arch */
   box-shadow: 8px 12px 25px rgba(32, 24, 17, 0.25), inset 0 0 30px rgba(100, 75, 50, 0.1);
-  transform-origin: bottom center;
+  transform-origin: bottom right;
+  /* Pin origin to align with the toggle button */
 }
 
 /* Inner dashed border */
