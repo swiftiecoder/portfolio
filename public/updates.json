@@ -1,20 +1,20 @@
 [
+    {
+    "id": 3,
+    "date": "2026-03-20",
+    "title": "Paper Published",
+    "content": "After a year of working on it, my paper, 'Hooked on a Feeling: A Computational Approach Towards Understanding Songwriting as Cultural Memory', has been accepted for publication at the *Digital Studies / Le champ numérique (DSCN)*. [Read it here](https://www.digitalstudies.org/article/id/23539/) "
+  },
+  {
+    "id": 2,
+    "date": "2026-03-23",
+    "title": "Preprint Published",
+    "content": "My senior project thesis, 'LLM-Enhanced Wearables for Comprehensible Health Guidance in LMICs', is now available as a preprint on arXiv. [Read it here](https://arxiv.org/abs/2602.08701)"
+  },
   {
     "id": 1,
     "date": "2026-02-23",
     "title": "Noticeboard Feature Created",
-    "content": "Working on this redesign to distract myself from the pain of having my right wisdom tooth removed. All I have to say about it is _Fuck my chungus life_. "
-  },
-  {
-    "id": 2,
-    "date": "2026-02-23",
-    "title": "Noticeboard Feature Created",
-    "content": "Working on this redesign to distract myself from the pain of having my right wisdom tooth removed. All I have to say about it is _Fuck my chungus life_. "
-  },
-  {
-    "id": 3,
-    "date": "2026-02-23",
-    "title": "Noticeboard Feature Created",
-    "content": "Working on this redesign to distract myself from the pain of having my right wisdom tooth removed. All I have to say about it is _Fuck my chungus life_. "
+    "content": "Working on this redesign to distract myself from the pain of having my right wisdom tooth removed. All I have to say about it is _**** ** ****** ****_. "
   }
 ]

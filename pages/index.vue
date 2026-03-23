@@ -26,6 +26,7 @@ import PortalLLM from '../views/PortalLLM.vue'
 import Resume from '../views/Resume.vue'
 import NoticeboardUpdates from '../views/NoticeboardUpdates.vue'
 import StrudelCreations from '../views/StrudelCreations.vue'
+import DevAdvocate from '../views/DevAdvocate.vue'
 
 // Load generated textures client-side to prevent Nuxt SSR crashes
 const rugTex = shallowRef(null)
@@ -221,19 +222,21 @@ const projectComponents = {
   PortalLLM: markRaw(PortalLLM),
   Resume: markRaw(Resume),
   NoticeboardUpdates: markRaw(NoticeboardUpdates),
-  StrudelCreations: markRaw(StrudelCreations)
+  StrudelCreations: markRaw(StrudelCreations),
+  DevAdvocate: markRaw(DevAdvocate)
 }
 
 const projectTitles = {
   AcademicCV: "Academic Curriculum Vitae",
-  Bio: "sherry's world",
+  Bio: "shaharyar ahsan",
   GuardianAngel: "Guardian Angel: Building a Low-Cost Health Monitoring System",
   HTS: "Hook, Time and Singer: Grammy Song Analysis",
   MyDoctor: "Khpaltabib: AI Medical Chatbot",
   PortalLLM: "Portal-LLM: Chatting Up Characters",
   Resume: "Resume",
   NoticeboardUpdates: "Noticeboard Updates",
-  StrudelCreations: "Strudel Creations"
+  StrudelCreations: "Strudel Creations",
+  DevAdvocate: "Developer Advocate"
 }
 
 // Refs for active project handled above
@@ -393,6 +396,13 @@ const projectTitles = {
                 <div class="legend-text">
                   <span class="legend-title">Tarot Deck</span>
                   <span class="legend-desc">Projects</span>
+                </div>
+              </li>
+              <li>
+                <div class="legend-icon">🃏</div>
+                <div class="legend-text">
+                  <span class="legend-title">Uno Card</span>
+                  <span class="legend-desc">Experience</span>
                 </div>
               </li>
               <li>
@@ -787,8 +797,8 @@ const projectTitles = {
   background-image: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23noise)" opacity="0.04"/%3E%3C/svg%3E');
   border: 1px solid #5c4633;
   padding: 6px;
-  width: min(300px, 85vw);
-  border-radius: 110px 110px 16px 16px;
+  width: min(230px, 85vw);
+  border-radius: 90px 90px 16px 16px;
   /* Apothecary Arch */
   box-shadow: 8px 12px 25px rgba(32, 24, 17, 0.25), inset 0 0 30px rgba(100, 75, 50, 0.1);
   transform-origin: bottom right;
@@ -798,7 +808,7 @@ const projectTitles = {
 /* Inner dashed border */
 .panel-inner {
   border: 1px dashed #a38d72;
-  border-radius: 104px 104px 10px 10px;
+  border-radius: 84px 84px 10px 10px;
   padding: 36px 16px 24px 16px;
   background: transparent;
 }
@@ -889,6 +899,10 @@ const projectTitles = {
 
 .legend-panel li:nth-child(6) {
   animation-delay: 0.6s;
+}
+
+.legend-panel li:nth-child(7) {
+  animation-delay: 0.7s;
 }
 
 @keyframes floatUp {

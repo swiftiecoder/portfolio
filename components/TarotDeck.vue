@@ -93,7 +93,7 @@ const startAnimationLoop = () => {
         const isFlipped = flippedCardIndex.value === index
         
         let x = base.x
-        let y = 0.02 + (index * 0.01) // Slight stacking overlap
+        let y = -0.01 + (index * 0.002) // Dropped slightly below 0 to sit perfectly on table
         let z = base.z
         
         // Base rotation starts face-down (bottom edge faces +Z/Viewer)

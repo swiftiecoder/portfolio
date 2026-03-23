@@ -6,4 +6,3 @@ portfolioooo
 - features i can add
     - digicam can link to pictures - of what? idk
     - mysterious second flag?
-    - prepare and add my educative portfolio (uno*/clue/monopoly cards)

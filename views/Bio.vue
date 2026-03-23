@@ -7,7 +7,7 @@
         <div class="mf-id">RECORD ID: OV-CLXIX</div> 
       </div>
       <div class="mf-photo-box">
-        <img src="@/assets/Biography/self2.png" alt="Subject Photo" />
+        <img src="@/assets/Biography/self3.jpeg" alt="Subject Photo" />
       </div>
     </div>
 
@@ -51,7 +51,7 @@
     <div class="mf-section">
       <div class="mf-section-title">SUBJECT SUMMARY</div>
       <p class="mf-text">
-        Subject is a CS graduate passionate about data science, machine learning, and NLP—especially computational hermeneutics and linguistic analysis for social impact. Currently serving as a Developer Advocate at Educative. Driven by a desire to build impactful, accessible technology and to contribute to research and open-source communities.
+        Subject's file indicates a keen computational curiosity, originally trained in data science and NLP at LUMS, and now navigating the developer ecosystem as a Developer Advocate at Educative. Intercepted logs reveal a consistent drive to build impactful, accessible technology, with frequent contributions to open-source communities and research initiatives.
       </p>
     </div>
 
@@ -72,7 +72,7 @@
             <td>SEP 23 - DEC 24</td>
           </tr>
           <tr>
-            <td colspan="3" class="mf-subtext">Assisted in creating/grading lab tasks, led project groups, taught citation skills.</td>
+            <td colspan="3" class="mf-subtext">Facilitated lab sessions, evaluated assignments, and guided project groups through complex problem sets.</td>
           </tr>
           
           <tr>
@@ -81,7 +81,7 @@
             <td>JAN 24 - JULY 25</td>
           </tr>
           <tr>
-            <td colspan="3" class="mf-subtext">AI-driven healthcare, NLP for low-resource langs. Built prototypes/designed tech stacks.</td>
+            <td colspan="3" class="mf-subtext">Developed AI-driven healthcare solutions and NLP systems for low-resource languages, building early prototypes and architectures.</td>
           </tr>
         </tbody>
       </table>

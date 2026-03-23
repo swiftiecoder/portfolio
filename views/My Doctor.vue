@@ -63,24 +63,15 @@
     <!-- Chapter Content -->
     <div class="userstuff chapter-content" id="chapter-1">
       <h3 class="chapter-title">Chapter 1: The Data Hunt</h3>
-      <p>My role was to build a high-quality dataset and train a state-of-the-art AI model to act like a helpful medical
-        professional. To do this, I started by scraping real medical Q&A from r/AskDocs on Reddit using Python and PRAW.
-        I had to filter specifically for verified physician responses and handle quirks like auto-moderator comments and
-        flair variations.</p>
-      <p>Once the raw data was collected, I jumped into data cleaning. I used regex and custom text-cleaning scripts to
-        remove edits, links, and messy formatting, ensuring the data was perfectly AI-friendly.</p>
+      <p>Training an AI to act like a doctor meant first determining how doctors actually communicate online. My mandate was to build a high-quality dataset, so I deployed a Python scraper using PRAW to extract verified physician wisdom from the depths of r/AskDocs on Reddit.</p>
+      <p>Filtering through auto-moderator comments and flair quirks was just the beginning. I then used regex and custom text-cleaning scripts to strip out edits, links, and formatting artifacts, transforming the raw output into a perfectly pristine, AI-friendly dataset.</p>
 
-      <h3 class="chapter-title">Chapter 2: Training the Doctor</h3>
-      <p>For the model itself, I finetuned Google's open-source Gemma LLM (7B). To do this efficiently on limited
-        hardware, I utilized Unsloth and LoRA. The data was formatted in the Alpaca prompt style for best results.</p>
-      <p>Testing involved running inference on the finetuned model to check its ability to answer new, open-ended
-        medical questions in a helpful, doctor-like tone. Finally, I exported and saved the LoRA adapter for easy
-        sharing and deployment, making the model portable and highly efficient.</p>
+      <h3 class="chapter-title">Chapter 2: Finetuning</h3>
+      <p>With the data formatted in the Alpaca prompt style, I focused on the model itself: finetuning Google's open-source Gemma LLM (7B). To handle the processing on limited hardware, I utilized Unsloth and LoRA, which kept things highly efficient.</p>
+      <p>We tested the finetuned model extensively, running inferences to evaluate its ability to answer open-ended medical questions with an accurate, helpful tone. Finally, I exported the LoRA adapter to ensure the model remained portable and easy to deploy.</p>
 
-      <h3 class="chapter-title">Chapter 3: Reflection</h3>
-      <p>This project was a fantastic hands-on experience in building a real-world AI application, from data scraping
-        all the way to deploying a specialized chatbot. It was exciting to contribute to making healthcare more
-        accessible and to learn the full pipeline of modern AI development!</p>
+      <h3 class="chapter-title">Chapter 3: Impact</h3>
+      <p>Building Khpaltabib was a masterclass in the end-to-end AI pipeline—from navigating messy real-world data to deploying a specialized, finetuned chatbot. The ultimate goal wasn't just technical execution, but making a tangible contribution toward accessible healthcare technology.</p>
     </div>
 
   </div>

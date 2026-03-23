@@ -65,30 +65,18 @@
       <img class="work-image" src="@/assets/Portal LLM/screenshot.jpg" alt="Portal-LLM Screenshot" />
       <p class="image-caption">Talking to characters on Telegram</p>
 
-      <h3 class="chapter-title">Chapter 1: About Portal-LLM</h3>
-      <p>Portal-LLM lets you chat with your favorite book characters using the latest AI magic! Our Telegram bot brings
-        fictional characters to life, making learning from stories interactive, engaging, and fun—especially for kids
-        who might find traditional reading a drag.</p>
+      <h3 class="chapter-title">Chapter 1: The Premise</h3>
+      <p>What if you could literally interrogate Gatsby about his life choices? That was the premise of Portal-LLM. Designed to make reading interactive and engaging—especially for younger audiences—this project brings fictional characters to life through a standard Telegram bot, turning classic narratives into lively conversations.</p>
 
-      <h3 class="chapter-title">Chapter 2: How It Works</h3>
-      <ul>
-        <li><strong>Telegram Bot Interface:</strong> No new app needed—just chat where you already do.</li>
-        <li><strong>AI Brain:</strong> Powered by LLMs (like Gemini) and Langchain, with prompt engineering to make the
-          AI act like your chosen character.</li>
-        <li><strong>Knowledge & Memory:</strong> Uses Retrieval-Augmented Generation (RAG) and a vector database
-          (Pinecone) to ground answers in real book content, plus MongoDB for chat memory.</li>
-        <li><strong>Cloud Deployed:</strong> Runs on Microsoft Azure, with webhooks for real-time chat.</li>
-      </ul>
+      <h3 class="chapter-title">Chapter 2: The Architecture</h3>
+      <p>Building the illusion of talking to a fictional character requires a resilient tech stack. Instead of forcing users into a new app, I utilized the Telegram Bot Interface. The real magic happens behind the scenes: powered by models like Gemini and Langchain, heavy prompt engineering keeps the AI firmly in character.</p>
+      <p>To prevent the AI from hallucinating a new plot, I implemented a Retrieval-Augmented Generation (RAG) pipeline backed by Pinecone (a vector database), ensuring answers are grounded in the actual book text. MongoDB handles the chat memory, and the entire system is deployed on Microsoft Azure using webhooks for real-time interaction.</p>
 
-      <h3 class="chapter-title">Chapter 3: What We Learned</h3>
-      <p>Building this meant navigating messaging APIs, prompt engineering, RAG, vector databases, and cloud deployment.
-        We also had to evaluate AI for accuracy and readability. A huge focus was on user-centered design for younger
-        audiences, ensuring responses are always fun and easy to understand.</p>
+      <h3 class="chapter-title">Chapter 3: The Takeaway</h3>
+      <p>This project was an intensive exercise in stringing together messaging APIs, evaluating RAG pipelines, and prompting LLMs until they behaved predictably. Beyond the technical challenges, the biggest takeaway was mastering user-centered design for younger readers—ensuring the output was always accessible, safe, and genuinely fun to interact with.</p>
 
-      <h3 class="chapter-title">Chapter 4: Future Ideas</h3>
-      <p>We're not stopping here. Next steps include adding group chats with multiple characters interacting at once,
-        adding voice and image support to literally see and hear the characters, and developing an even smarter RAG
-        pipeline for hyper-accurate lore answers.</p>
+      <h3 class="chapter-title">Chapter 4: What's Next</h3>
+      <p>Future development aims to expand the immersion: enabling group chats where multiple book characters can argue with each other, adding voice generation for distinct character accents, and refining the RAG pipeline to capture even the most obscure lore.</p>
     </div>
 
   </div>

@@ -2,6 +2,7 @@
 import { shallowRef, ref, onMounted } from 'vue'
 import * as THREE from 'three'
 import { GLTFModel, Html } from '@tresjs/cientos'
+import UnoCard from './UnoCard.vue'
 
 const emits = defineEmits(['itemClick'])
 
@@ -135,6 +136,11 @@ onMounted(() => {
       <TresBoxGeometry :args="[0.8, 0.01, 1]" />
       <TresMeshStandardMaterial color="#edf2f7" roughness="1.0" />
     </TresMesh>
+
+    <!-- Uno Card for Developer Advocate role -->
+    <TresGroup :position="[0.9, 0.01, -0.8]" :rotation="[0, 0.2, 0]">
+      <UnoCard @itemClick="(id) => emits('itemClick', id)" />
+    </TresGroup>
 
     <!-- V3: Potted Sunflowers -->
     <TresGroup :position="[3.5, -0.2, -2]">

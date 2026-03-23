@@ -76,10 +76,9 @@ const closePreview = () => {
             <h3 class="landmark heading">Summary:</h3>
             <blockquote class="userstuff">
                 <p>
-                    This is where I document my journey of learning livecoding with
-                    <a href="https://strudel.cc" target="_blank" class="ao3-external-link">Strudel</a>.
-                    I've been dipping in and out of it for a while now, and I'm sharing my creations
-                    here mainly to keep myself accountable and to track my progress.
+                    An ongoing public accountability log documenting my attempts to learn algorithmic livecoding with
+                    <a href="https://strudel.cc" target="_blank" class="ao3-external-link">Strudel</a>. 
+                    Expect generative music experiments, half-finished loops, and evidence of my slow descent into the algorave scene.
                 </p>
             </blockquote>
         </div>

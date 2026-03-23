@@ -71,38 +71,22 @@
 
     <!-- Chapter Content -->
     <div class="userstuff chapter-content" id="chapter-1">
-      <h3 class="chapter-title">Chapter 1: The Architecture & Methodology</h3>
+      <h3 class="chapter-title">Chapter 1: Data Gathering</h3>
 
-      <p>I scraped a comprehensive list of Grammy "Song of the Year" nominees from the 1960s to the 2020s using Python,
-        BeautifulSoup, and regex. This involved pulling song metadata from Wikipedia, then using the Genius and Spotify
-        APIs to fetch lyrics and musical features. I had to handle inconsistencies in song titles, artist names, and
-        missing data, which required custom cleaning scripts and manual verification for accuracy.</p>
+      <p>To understand fifty years of pop culture, I needed data. A lot of it. I started by scraping a comprehensive list of Grammy "Song of the Year" nominees from the 1960s to the 2020s using Python and BeautifulSoup. This meant pulling song metadata from Wikipedia, then leveraging the Genius and Spotify APIs to fetch lyrics and musical features.</p>
+      <p>Dealing with inconsistent artist names and missing data required writing custom cleaning scripts and performing manual verification. I stripped out annotations, normalized the data structure, and ensured each song entry was ready for analysis with features like danceability and valence attached.</p>
 
-      <p>I wrote scripts to clean and standardize the lyrics, removing annotations, special characters, and formatting
-        quirks. I also normalized the data structure for analysis, ensuring each song entry included decade, artist,
-        title, lyrics, and Spotify features like danceability and valence.</p>
+      <h3 class="chapter-title">Chapter 2: Analyzing Sentiment</h3>
 
-      <h3 class="chapter-title">Chapter 2: Sentiment & Linguistic Analysis</h3>
+      <p>With the dataset cleaned, I used Python libraries (NLTK, TextBlob) to compute sentiment scores for each song. I analyzed linguistic features such as lexical diversity and the frequency of repeated phrases, tracking how often key themes (like "time" and "fame") appeared across decades.</p>
 
-      <p>Using Python libraries (NLTK, TextBlob), I computed sentiment scores for each song and analyzed linguistic
-        features such as lexical diversity, grammatical errors, and the frequency of repeated phrases (hooks). I also
-        explored how often key themes (like "time" and "fame") appeared and how their context changed over time.</p>
-
-      <p>I leveraged Spotify's API to extract musical attributes (danceability, valence, energy) and compared these to
-        the lyrical sentiment, revealing interesting mismatches between how songs sound and what their lyrics express.
-      </p>
+      <p>I then cross-referenced these lyrical insights with Spotify's musical attributes (danceability, valence, energy). This comparison revealed fascinating mismatches between how songs sound and what their lyrics actually express.</p>
 
       <h3 class="chapter-title">Chapter 3: The Findings</h3>
 
-      <p><strong>80s optimism vs. 2010s/2020s cynicism:</strong> Sentiment analysis revealed that 1980s Grammy-nominated
-        songs were notably positive and upbeat, reflecting a sense of hope and aspiration. In contrast, songs from the
-        2010s and 2020s show a marked shift toward negativity and cynicism, echoing broader cultural anxieties and a
-        more introspective, sometimes disillusioned, worldview.</p>
+      <p><strong>80s optimism vs. 2010s cynicism:</strong> Sentiment analysis highlighted that 1980s Grammy-nominated songs were notably positive, reflecting a sense of hope and aspiration. In stark contrast, songs from the 2010s and 2020s show a marked shift toward negativity and cynicism, perhaps echoing broader cultural anxieties.</p>
 
-      <p><strong>Music vs. lyrics—emotional dissonance:</strong> Spotify's musical features show that while tracks have
-        become more danceable, their "valence" (musical positivity) is often lower than the sentiment of the lyrics.
-        This means that even if a song sounds happy and energetic, its words may tell a more somber or complex story,
-        highlighting a growing emotional dissonance in popular music.</p>
+      <p><strong>Emotional Dissonance:</strong> While tracks have progressively become more danceable, their musical positivity is often lower than the sentiment of the lyrics. This creates a growing emotional dissonance in popular music: even if a song sounds happy and energetic, its words may tell a much more somber story.</p>
     </div>
 
     <!-- Final Notes -->

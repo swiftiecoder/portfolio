@@ -64,36 +64,23 @@
     <div class="userstuff chapter-content" id="chapter-1">
       <img class="work-image" src="@/assets/GuardianAngel/watch_image.jpg" alt="Guardian Angel Watch Prototype" />
 
-      <h3 class="chapter-title">Chapter 1: The Hardware & Android Bridge</h3>
+      <h3 class="chapter-title">Chapter 1: The Hardware Bridge</h3>
 
-      <p>I designed and implemented a small-scale prototype using an ESP-32 and off-the-shelf sensors for initial
-        proof-of-concept. This involved writing C code for the microcontroller and carefully selecting sensors for the
-        final PCB version of the watch. Working within severe space constraints, I had to source lightweight libraries,
-        at one point fixing a critical oximeter bug by completely replacing the underlying library.</p>
+      <p>The constraints were challenging: build a smartwatch that actually works, but keep it affordable enough to be accessible in resource-limited settings. Armed with an ESP-32 and off-the-shelf sensors, I started building the initial proof-of-concept. Writing C code for a microcontroller with severe space constraints meant relentlessly sourcing lightweight libraries—including replacing an entire underlying oximeter library just to fix a single critical bug.</p>
 
-      <p>Data transmission was crucial for saving energy on the device. I learned about GATT Bluetooth protocols and
-        used BLE modules to transmit data efficiently to an Android app I developed in Java. The mobile app handled data
-        collection, intermediate processing (structuring into JSON), and secure transmission to the inference server.
-      </p>
+      <p>Data transmission was the next bottleneck. To save energy on the device, I dug into GATT Bluetooth protocols, using BLE modules to securely ping data over to an Android app I had built in Java. The mobile app served as the bridge, structuring the raw sensor data into clean JSON and sending it off to the inference server.</p>
 
       <img class="work-image app-screenshot" src="@/assets/GuardianAngel/app-signup.jpg"
         alt="Guardian Angel App Signup Screen" />
       <p class="image-caption">Guardian Angel App Signup Screen</p>
 
-      <h3 class="chapter-title">Chapter 2: The AI Backend & Impact</h3>
+      <h3 class="chapter-title">Chapter 2: The Embedded AI Architecture</h3>
 
-      <p>Rebuilding the project in the EmNets lab, I designed the tech stack to meet our rigorous research goals for
-        affordability and intuitiveness. I wrote and deployed an inference server in Node.js, utilizing OpenAI and
-        LangChain JS to implement in-context learning mechanisms like RAG and chain-of-thought prompting.</p>
+      <p>When rebuilding the project in the Embedded AI lab, the focus shifted to the backend. I designed the server stack in Node.js, hooking up OpenAI and LangChain JS to implement in-context learning mechanisms like RAG and chain-of-thought prompting.</p>
 
-      <p>We built early chatbot prototypes (including one using the Telegram Web API that earned the highest grade in
-        the course) and integrated function-calling capabilities with custom tools and cron jobs for optimal, automated
-        results.</p>
+      <p>This phase produced early chatbot prototypes (including a Telegram-based one that earned the highest grade in our course), integrating function-calling capabilities and custom cron jobs to automate health updates.</p>
 
-      <p>Working on Guardian Angel taught me how to bridge embedded hardware, mobile development, and AI-driven backend
-        systems. I learned to prioritize user needs, especially for those with low digital literacy, and to design for
-        real-world constraints like cost and power. The project gave me hands-on experience in leadership, technical
-        troubleshooting, and deploying solutions that can make a tangible difference in healthcare accessibility.</p>
+      <p>Ultimately, Guardian Angel was a masterclass in bridging embedded hardware, mobile development, and AI backends. More importantly, it was a lesson in building empathy into software: prioritizing users with low digital literacy and working within the very real constraints of cost and power to make healthcare a little more accessible.</p>
     </div>
 
   </div>
