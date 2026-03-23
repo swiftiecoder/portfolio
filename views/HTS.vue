@@ -94,6 +94,8 @@
       <h3 class="landmark heading" id="work">End Notes:</h3>
       <blockquote class="userstuff">
         <p>If you liked this analysis, you can:</p>
+        <p>› <a class="ao3-external-link" href="https://doi.org/10.16995/dscn.23539"
+            target="_blank" rel="noopener">Read the Paper (!!!)</a></p>
         <p>› <a class="ao3-external-link" href="https://open.spotify.com/playlist/6XSZOXB8nZoWtTsaNBsg0t"
             target="_blank" rel="noopener">Listen to the dataset (Spotify Playlist)</a></p>
         <p>› <a class="ao3-external-link" href="https://github.com/swiftiecoder/Digital-Humanities-Project"
