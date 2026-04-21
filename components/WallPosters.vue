@@ -24,6 +24,8 @@ const posterFiles = [
   'trixie polaroid.webp',
   'wandavision.webp',
   'wuthering heights album cover.webp'
+  'wha.webp',
+  'HAVE YOU SEEN HIM.webp'
 ]
 
 const posters = shallowRef([])
