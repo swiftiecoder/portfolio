@@ -23,7 +23,7 @@ const posterFiles = [
   'the traitors.webp',
   'trixie polaroid.webp',
   'wandavision.webp',
-  'wuthering heights album cover.webp'
+  'wuthering heights album cover.webp',
   'wha.webp',
   'HAVE YOU SEEN HIM.webp'
 ]
