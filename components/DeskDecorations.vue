@@ -137,8 +137,8 @@ onMounted(() => {
       <TresMeshStandardMaterial color="#edf2f7" roughness="1.0" />
     </TresMesh>
 
-    <!-- Uno Card for Developer Advocate role -->
-    <TresGroup :position="[0.9, 0.01, -0.8]" :rotation="[0, 0.2, 0]">
+    <!-- Uno Card for Developer Advocate role (temporarily hidden) -->
+    <TresGroup v-if="false" :position="[0.9, 0.01, -0.8]" :rotation="[0, 0.2, 0]">
       <UnoCard @itemClick="(id) => emits('itemClick', id)" />
     </TresGroup>
 
