@@ -107,17 +107,18 @@ const startAnimationLoop = () => {
         }
         
         if (isFlipped) {
-          // When flipping, move it up significantly and forward to the camera
-          y += 1.5 * flipProgress.value
-          z += 3 * flipProgress.value // Positive Z is toward the camera (viewer)
-          x *= (1 - flipProgress.value) // Center it horizontally as it flips
+          // Simply flip over in place
+          // Add a slight lift during the flip to prevent clipping through the desk
+          const lift = Math.sin(flipProgress.value * Math.PI) * 0.4
           
-          // Flatten out Y rotation to perfectly face camera
-          rotY *= (1 - flipProgress.value)
+          // Add a height offset so the flipped card lands resting on top of all other cards
+          const heightOffset = 0.02 * flipProgress.value
           
-          // Rotate X toward the screen
-          const targetRotX = Math.PI / 3
-          rotX = Math.PI - ((Math.PI - targetRotX) * flipProgress.value) 
+          y += lift + heightOffset
+          
+          // Rotate around X axis to flip it face up
+          // Starts at Math.PI (face down), goes to 0 (face up)
+          rotX = Math.PI - (Math.PI * flipProgress.value) 
         }
         
         // Directly apply to THREE.js objects
