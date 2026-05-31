@@ -12,6 +12,7 @@ import WallPosters from '../components/WallPosters.vue'
 import Noticeboard from '../components/Noticeboard.vue'
 import WallCertificates from '../components/WallCertificates.vue'
 import TypewriterLoading from '../components/TypewriterLoading.vue'
+import AcousticGuitar from '../components/AcousticGuitar.vue'
 
 // Nuxt auto-imports TresCanvas via @tresjs/nuxt
 import { OrbitControls, Html, GLTFModel } from '@tresjs/cientos'
@@ -343,6 +344,7 @@ const projectTitles = {
         <DeskScene />
         <DeskDecorations @itemClick="handleCardClick" />
         <!-- <VinylPlayer :position="[-3, 0, -1]" /> -->
+        <AcousticGuitar />
         <Suspense>
           <GLTFModel path="/files/sony_headphone_model-compressed.glb" draco cast-shadow receive-shadow
             :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1"
