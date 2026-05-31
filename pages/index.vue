@@ -236,7 +236,7 @@ const projectTitles = {
   PortalLLM: "Portal-LLM: Chatting Up Characters",
   Resume: "Resume",
   NoticeboardUpdates: "Noticeboard Updates",
-  StrudelCreations: "Strudel Creations",
+  StrudelCreations: "Strudel Experiments",
   DevAdvocate: "Developer Advocate"
 }
 
