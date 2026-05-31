@@ -138,6 +138,7 @@ onMounted(() => {
     </TresMesh>
 
     <!-- Uno Card for Developer Advocate role (temporarily hidden) -->
+     <!-- also hidden from the legend - bring back manually if set to true -->
     <TresGroup v-if="false" :position="[0.9, 0.01, -0.8]" :rotation="[0, 0.2, 0]">
       <UnoCard @itemClick="(id) => emits('itemClick', id)" />
     </TresGroup>

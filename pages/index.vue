@@ -407,13 +407,14 @@ const projectTitles = {
                   <span class="legend-desc">Projects</span>
                 </div>
               </li>
-              <li>
+              <!-- TO RESTORE UNO CARD: uncomment below + set v-if="true" in DeskDecorations.vue -->
+              <!-- <li>
                 <div class="legend-icon">🃏</div>
                 <div class="legend-text">
                   <span class="legend-title">Uno Card</span>
                   <span class="legend-desc">Experience</span>
                 </div>
-              </li>
+              </li> -->
               <li>
                 <div class="legend-icon">📌</div>
                 <div class="legend-text">
