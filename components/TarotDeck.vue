@@ -1,9 +1,20 @@
 <script setup>
-import { shallowRef, ref, onMounted, onBeforeUnmount } from 'vue'
+import { shallowRef, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import * as THREE from 'three'
 import { Html } from '@tresjs/cientos'
 
+const props = defineProps({ activeProject: { type: String, default: '' } })
 const emits = defineEmits(['cardClick'])
+
+// When the modal closes (activeProject goes truthy → falsy), flip the card back down
+watch(() => props.activeProject, (newVal, oldVal) => {
+  if (!newVal && oldVal && flippedCardIndex.value !== null) {
+    targetFlipProgress = 0
+    setTimeout(() => {
+      flippedCardIndex.value = null
+    }, 700)
+  }
+})
 
 // 4 Projects mapped to provided images
 const cardData = [
@@ -47,9 +58,13 @@ const cardFaceTextures = shallowRef([])
 // Animation state
 const hoveredCardIndex = shallowRef(null)
 const flippedCardIndex = shallowRef(null)
-const flipProgress = shallowRef(0) // 0 to 1 value for animation
+const flipProgress = shallowRef(0) // 0 to 1 value for click-flip animation
 let animationFrameId = null
 let targetFlipProgress = 0
+
+// Per-card hover flip progress (0 = face-down, 1 = face-up)
+const hoverFlipProgress = ref(cardData.map(() => 0))
+const targetHoverFlip = cardData.map(() => 0)
 
 // Geometry and Materials (Made smaller as requested)
 const cardGeo = new THREE.BoxGeometry(0.8, 0.02, 1.4) 
@@ -58,7 +73,7 @@ const edgeMaterial = new THREE.MeshStandardMaterial({ color: '#D4AF37', metalnes
 onMounted(() => {
   const loader = new THREE.TextureLoader()
   
-  cardBackTex.value = loader.load('/tarot/CardBacks.webp')
+  cardBackTex.value = loader.load('/tarot/CardBacks2.webp')
   cardBackTex.value.colorSpace = THREE.SRGBColorSpace
   
   const loadedFaces = []
@@ -75,10 +90,10 @@ onMounted(() => {
 
 const startAnimationLoop = () => {
   const animate = () => {
-    // Smoothly interpolate flip progress
+    // Smoothly interpolate click-flip progress
     const diff = targetFlipProgress - flipProgress.value
     if (Math.abs(diff) > 0.001) {
-      flipProgress.value += diff * 0.25 
+      flipProgress.value += diff * 0.25
     } else {
       flipProgress.value = targetFlipProgress
     }
@@ -91,33 +106,56 @@ const startAnimationLoop = () => {
         const base = baseTransforms[index]
         const isHovered = hoveredCardIndex.value === index
         const isFlipped = flippedCardIndex.value === index
+        const isAnyFlipping = flippedCardIndex.value !== null
+        
+        // Update hover flip progress per card
+        targetHoverFlip[index] = (isHovered && !isAnyFlipping) ? 1 : 0
+        const hDiff = targetHoverFlip[index] - hoverFlipProgress.value[index]
+        if (Math.abs(hDiff) > 0.001) {
+          hoverFlipProgress.value[index] += hDiff * 0.12
+        } else {
+          hoverFlipProgress.value[index] = targetHoverFlip[index]
+        }
         
         let x = base.x
-        let y = -0.01 + (index * 0.002) // Dropped slightly below 0 to sit perfectly on table
+        let y = -0.01 + (index * 0.002)
         let z = base.z
         
-        // Base rotation starts face-down (bottom edge faces +Z/Viewer)
-        let rotX = Math.PI 
+        // Two-phase flip animation:
+        // Phase 1 (progress 0 → LIFT_END): card rises vertically, no rotation
+        // Phase 2 (LIFT_END → 1): card flips, Y eases back down to resting position
+        const LIFT_END = 0.35 // 35% of animation is pure lift
+        const LIFT_HEIGHT = 0.3
+        
+        // liftY (hover): rises in phase 1, cosine-eases back to 0 in phase 2
+        const liftY = (p) => {
+          if (p <= LIFT_END) return LIFT_HEIGHT * (p / LIFT_END)
+          const t = (p - LIFT_END) / (1 - LIFT_END)
+          return LIFT_HEIGHT * Math.cos(t * Math.PI / 2)
+        }
+        // liftYClick (click): rises in phase 1, stays at LIFT_HEIGHT for the rest
+        // — card remains raised while the modal is open, only lowers when returning (p→0)
+        const liftYClick = (p) => {
+          if (p <= LIFT_END) return LIFT_HEIGHT * (p / LIFT_END)
+          return LIFT_HEIGHT
+        }
+        
+        // flipRot: 0 during phase 1, then 0→1 during phase 2
+        const flipRot = (p) => {
+          if (p <= LIFT_END) return 0
+          return (p - LIFT_END) / (1 - LIFT_END)
+        }
+        
+        const hProgress = hoverFlipProgress.value[index]
+        let rotX = Math.PI * (1 - flipRot(hProgress))
         let rotY = base.rotY
         let rotZ = 0
         
-        if (isHovered && !isFlipped && flippedCardIndex.value === null) {
-          y += 0.2 // Levitate
-          z += 0.1 // Pull forward
-        }
+        y += liftY(hProgress)
         
         if (isFlipped) {
-          // When flipping, move it up significantly and forward to the camera
-          y += 1.5 * flipProgress.value
-          z += 3 * flipProgress.value // Positive Z is toward the camera (viewer)
-          x *= (1 - flipProgress.value) // Center it horizontally as it flips
-          
-          // Flatten out Y rotation to perfectly face camera
-          rotY *= (1 - flipProgress.value)
-          
-          // Rotate X toward the screen
-          const targetRotX = Math.PI / 3
-          rotX = Math.PI - ((Math.PI - targetRotX) * flipProgress.value) 
+          rotX = Math.PI * (1 - flipRot(flipProgress.value))
+          y += liftYClick(flipProgress.value)
         }
         
         // Directly apply to THREE.js objects
@@ -132,15 +170,10 @@ const startAnimationLoop = () => {
       const currentIndex = flippedCardIndex.value
       targetFlipProgress = 1.01 // Slight offset so diff < 0.01 is false on next frame
       
-      // Wait before opening modal and putting card back
+      // Wait a beat then open the modal — card stays raised until modal closes
       setTimeout(() => {
         emits('cardClick', cardData[currentIndex].id)
-        
-        // Reset after emitting so they slowly flip back down
-        targetFlipProgress = 0
-        setTimeout(() => {
-          flippedCardIndex.value = null
-        }, 300)
+        // Reset is now handled by the activeProject watcher in defineProps
       }, 500)
     }
     

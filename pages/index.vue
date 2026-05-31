@@ -12,6 +12,7 @@ import WallPosters from '../components/WallPosters.vue'
 import Noticeboard from '../components/Noticeboard.vue'
 import WallCertificates from '../components/WallCertificates.vue'
 import TypewriterLoading from '../components/TypewriterLoading.vue'
+import AcousticGuitar from '../components/AcousticGuitar.vue'
 
 // Nuxt auto-imports TresCanvas via @tresjs/nuxt
 import { OrbitControls, Html, GLTFModel } from '@tresjs/cientos'
@@ -55,8 +56,11 @@ const cameraRef = shallowRef(null)
 const isDiscoverMode = ref(false)
 provide('isDiscoverMode', isDiscoverMode)
 
+// Set this to true to skip the welcome screen entirely
+const skipWelcome = ref(false)
+
 // Loading State
-const isLoading = shallowRef(true)
+const isLoading = shallowRef(!skipWelcome.value)
 const loadingProgress = shallowRef(0)
 const isAssetsLoaded = shallowRef(false)
 const isShadersCompiled = shallowRef(false)
@@ -166,7 +170,9 @@ const onTresReady = ({ renderer, scene, camera }) => {
 onMounted(() => {
   // Track Global Load Progress
   THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
-    isLoading.value = true
+    if (!skipWelcome.value) {
+      isLoading.value = true
+    }
     const progress = (itemsLoaded / itemsTotal) * 100
     loadingProgress.value = Math.max(loadingProgress.value, progress)
   }
@@ -348,9 +354,12 @@ const projectTitles = {
             :position="[-1, 0.9, 2]" :rotation="[-0.2, -1, 1.57]" :scale="0.1"
             @click="handleCardClick('StrudelCreations')" />
         </Suspense>
-        <TarotDeck :position="[3, 0.05, 1]" @cardClick="handleCardClick" />
+        <TarotDeck :position="[3, 0.05, 1]" :active-project="activeProjectName" @cardClick="handleCardClick" />
         <StrewnPages @pageClick="handleCardClick" />
         <BusinessCards />
+
+        <!-- Acoustic Guitar leaning against the back wall -->
+        <AcousticGuitar />
 
         <!-- HTML Overlay logic moved to 2D space outside TresCanvas -->
       </TresCanvas>

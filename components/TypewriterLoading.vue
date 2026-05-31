@@ -8,8 +8,6 @@ const props = defineProps({
 
 const emit = defineEmits(['enter'])
 
-const SECRET = "welcome"
-
 const statusMessages = [
   'turning pages...',
   'chasing white rabbits...',
@@ -21,106 +19,43 @@ const statusMessages = [
   'brewing some ink...'
 ]
 
-// Quote 1: w(0) e(13) l(39) → "wel"
-// Quote 2: c(52) o(53) m(54) e(55) → "come"
-// Remaining quotes: no secret letters, just whimsical atmosphere
 const quotes = [
   {
-    text: "Would you like an adventure now, or shall we have our tea first?",
-    author: "J.M. Barrie, Peter Pan",
-    secretIndices: [0, 13, 39]
-  },
-  {
     text: "You must be [mad], said the Cat, or you wouldn't have come here.",
-    author: "Lewis Carroll, Alice in Wonderland",
-    secretIndices: [28, 41, 56, 62]
-  },
+    author: "Lewis Carroll, Alice in Wonderland"
+  }
 ]
 
 const currentQuoteIndex = ref(0)
 const displayedLength = ref(0)
 const showAttribution = ref(false)
 const showButton = ref(false)
-const fadeQuotes = ref(false)
 const isTyping = ref(true)
 const currentStatusIndex = ref(0)
-const secretLettersRevealed = ref(0)
-const secretComplete = ref(false)
-const readyForButton = ref(false)
 const fadeOut = ref(false)
+const typingFinished = ref(false)
 
-const formattedSecret = computed(() => SECRET.slice(0, secretLettersRevealed.value))
 const currentQuote = computed(() => quotes[currentQuoteIndex.value])
 const currentStatus = computed(() => statusMessages[currentStatusIndex.value])
-const actionLabel = computed(() => secretComplete.value ? 'Enter' : 'Skip')
 
 let typeTimer = null
-let pauseTimer = null
 let statusTimer = null
 
 const CHAR_SPEED = 28
-const PAUSE_AFTER_QUOTE = 1000
-const READING_PAUSE = 700
 
 const typeNextChar = () => {
   if (displayedLength.value < currentQuote.value.text.length) {
     displayedLength.value++
-    const charIndex = displayedLength.value - 1
-    if (currentQuote.value.secretIndices.includes(charIndex)) {
-      secretLettersRevealed.value++
-    }
     typeTimer = setTimeout(typeNextChar, CHAR_SPEED)
   } else {
     isTyping.value = false
     showAttribution.value = true
+    typingFinished.value = true
 
-    // Check if all secret letters are now revealed
-    if (secretLettersRevealed.value >= SECRET.length && !secretComplete.value) {
-      secretComplete.value = true
-      if (props.isReady) {
-        triggerButtonReveal()
-        return
-      }
+    if (props.isReady) {
+      triggerButtonReveal()
     }
-
-    pauseTimer = setTimeout(() => {
-      if (showButton.value || fadeOut.value) return
-      if (secretComplete.value && props.isReady) {
-        triggerButtonReveal()
-        return
-      }
-
-      // Stop cycling if we reached the last quote
-      if (currentQuoteIndex.value >= quotes.length - 1) {
-        return
-      }
-
-      advanceQuote()
-    }, PAUSE_AFTER_QUOTE)
   }
-}
-
-const advanceQuote = () => {
-  showAttribution.value = false
-  pauseTimer = setTimeout(() => {
-    let nextIndex = (currentQuoteIndex.value + 1) % quotes.length
-
-    // If app is ready, skip atmosphere quotes to finish the secret faster
-    if (props.isReady && !secretComplete.value) {
-      let searchIndex = nextIndex
-      let attempts = 0
-      while (quotes[searchIndex].secretIndices.length === 0 && attempts < quotes.length) {
-        searchIndex = (searchIndex + 1) % quotes.length
-        attempts++
-      }
-      nextIndex = searchIndex
-    }
-
-    currentQuoteIndex.value = nextIndex
-    displayedLength.value = 0
-    isTyping.value = true
-    typeNextChar()
-  }, 280)
 }
 
 const triggerButtonReveal = () => {
@@ -136,7 +71,7 @@ const handleEnter = () => {
 }
 
 watch(() => props.isReady, (ready) => {
-  if (ready && secretComplete.value && !showButton.value) {
+  if (ready && typingFinished.value && !showButton.value) {
     triggerButtonReveal()
   }
 })
@@ -150,7 +85,6 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   clearTimeout(typeTimer)
-  clearTimeout(pauseTimer)
   clearInterval(statusTimer)
 })
 </script>
@@ -165,8 +99,7 @@ onBeforeUnmount(() => {
         <p class="typewriter-line" style="text-align: center;">
           <span class="open-quote">&ldquo;</span>
           <template v-for="(char, i) in currentQuote.text.split('')" :key="i">
-            <span v-if="i < displayedLength" :class="{ 'secret-letter': currentQuote.secretIndices.includes(i) }">{{
-              char }}</span>
+            <span v-if="i < displayedLength">{{ char }}</span>
           </template>
           <span class="cursor" :class="{ typing: isTyping }">|</span>
           <span v-if="displayedLength >= currentQuote.text.length" class="close-quote">&rdquo;</span>
@@ -176,11 +109,6 @@ onBeforeUnmount(() => {
             &mdash; {{ currentQuote.author }}
           </p>
         </Transition>
-      </div>
-
-      <div class="secret-message-bar">
-        <span class="secret-revealed">{{ formattedSecret }}</span>
-        <span class="secret-cursor" v-if="!showButton">_</span>
       </div>
 
       <!-- Status area + skip/enter button -->
@@ -193,7 +121,7 @@ onBeforeUnmount(() => {
           <!-- Skip button appears once page is ready -->
           <Transition name="btn-appear">
             <button v-if="isReady" class="skip-btn" @click="handleEnter">
-              {{ actionLabel }}
+              Skip
             </button>
           </Transition>
         </template>
