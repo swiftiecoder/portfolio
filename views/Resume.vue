@@ -1,6 +1,4 @@
 <script setup>
-import { useWindowsStore } from '@/stores/windows'
-const windowsStore = useWindowsStore()
 </script>
 
 <template>

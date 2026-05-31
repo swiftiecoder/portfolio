@@ -365,21 +365,23 @@ const projectTitles = {
       </TresCanvas>
     </div>
 
-    <div v-if="activeProject" class="project-modal-overlay" :class="{ 'ao3-overlay': !isMicrofiche }"
-      @click.self="unmountOverlay">
-      <div class="project-modal" :class="isMicrofiche ? 'microfiche-modal' : 'ao3-modal'">
-        <div class="modal-header">
-          <button class="close-btn" @click="unmountOverlay">{{ isMicrofiche ? '[ EJECT ]' : '✕ Close' }}</button>
-          <div v-if="!isMicrofiche" class="ao3-header-meta">
-            <h2 class="ao3-title">{{ projectTitles[activeProjectName] || activeProjectName }}</h2>
-            <p class="ao3-author">by <span class="ao3-link">Shaharyar Ahsan</span></p>
+    <ClientOnly>
+      <div v-if="activeProject" class="project-modal-overlay" :class="{ 'ao3-overlay': !isMicrofiche }"
+        @click.self="unmountOverlay">
+        <div class="project-modal" :class="isMicrofiche ? 'microfiche-modal' : 'ao3-modal'">
+          <div class="modal-header">
+            <button class="close-btn" @click="unmountOverlay">{{ isMicrofiche ? '[ EJECT ]' : '✕ Close' }}</button>
+            <div v-if="!isMicrofiche" class="ao3-header-meta">
+              <h2 class="ao3-title">{{ projectTitles[activeProjectName] || activeProjectName }}</h2>
+              <p class="ao3-author">by <span class="ao3-link">Shaharyar Ahsan</span></p>
+            </div>
+          </div>
+          <div class="modal-content">
+            <component :is="activeProject" />
           </div>
         </div>
-        <div class="modal-content">
-          <component :is="activeProject" />
-        </div>
       </div>
-    </div>
+    </ClientOnly>
 
     <!-- Discover Mode UI (Fantastical & Rustic Theme) -->
     <div class="discover-ui">
