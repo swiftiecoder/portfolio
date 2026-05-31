@@ -58,7 +58,7 @@ const edgeMaterial = new THREE.MeshStandardMaterial({ color: '#D4AF37', metalnes
 onMounted(() => {
   const loader = new THREE.TextureLoader()
   
-  cardBackTex.value = loader.load('/tarot/CardBacks.webp')
+  cardBackTex.value = loader.load('/tarot/CardBacks2.webp')
   cardBackTex.value.colorSpace = THREE.SRGBColorSpace
   
   const loadedFaces = []
