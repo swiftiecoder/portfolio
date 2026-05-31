@@ -111,8 +111,8 @@ const startAnimationLoop = () => {
           // Add a slight lift during the flip to prevent clipping through the desk
           const lift = Math.sin(flipProgress.value * Math.PI) * 0.4
           
-          // Add a height offset so the flipped card lands resting on top of all other cards
-          const heightOffset = 0.02 * flipProgress.value
+          // Add a height offset so the flipped card lands resting visibly on top of all other cards
+          const heightOffset = 0.08 * flipProgress.value
           
           y += lift + heightOffset
           
