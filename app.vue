@@ -28,7 +28,7 @@ onMounted(() => {
 </template>
 
 <style>
-/* Reset global styles that might interfere with TresJS. Page-specific styles should be scoped inside each page component. */
+/* Reset global styles that might interfere with TresJS. Specific retro styles should be inside retro.vue or handled per page. */
 html, body, #__nuxt {
   margin: 0;
   padding: 0;
