@@ -365,7 +365,7 @@ const projectTitles = {
       </TresCanvas>
     </div>
 
-    <ClientOnly>
+    <Teleport to="body">
       <div v-if="activeProject" class="project-modal-overlay" :class="{ 'ao3-overlay': !isMicrofiche }"
         @click.self="unmountOverlay">
         <div class="project-modal" :class="isMicrofiche ? 'microfiche-modal' : 'ao3-modal'">
@@ -381,7 +381,7 @@ const projectTitles = {
           </div>
         </div>
       </div>
-    </ClientOnly>
+    </Teleport>
 
     <!-- Discover Mode UI (Fantastical & Rustic Theme) -->
     <div class="discover-ui">
