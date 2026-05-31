@@ -138,9 +138,9 @@ onMounted(() => {
     </TresMesh>
 
     <!-- Uno Card for Developer Advocate role -->
-    <TresGroup :position="[0.9, 0.01, -0.8]" :rotation="[0, 0.2, 0]">
+    <!-- <TresGroup :position="[0.9, 0.01, -0.8]" :rotation="[0, 0.2, 0]">
       <UnoCard @itemClick="(id) => emits('itemClick', id)" />
-    </TresGroup>
+    </TresGroup> -->
 
     <!-- V3: Potted Sunflowers -->
     <TresGroup :position="[3.5, -0.2, -2]">
