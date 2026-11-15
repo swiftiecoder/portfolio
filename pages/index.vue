@@ -41,7 +41,23 @@ const outdoorDayTex = shallowRef(null)
 const outdoorNightTex = shallowRef(null)
 const canopyDayTex = shallowRef(null)
 const canopyNightTex = shallowRef(null)
+const canopyMaterialRef = shallowRef(null)
+const shadowMaterialRef = shallowRef(null)
 const blindWoodTex = shallowRef(null)
+
+const applyCanopyTextures = () => {
+  const canopyMat = canopyMaterialRef.value?.value || canopyMaterialRef.value?.instance || canopyMaterialRef.value
+  const targetCanopy = isNightMode.value ? canopyNightTex.value : canopyDayTex.value
+  if (canopyMat && targetCanopy && canopyMat.map !== targetCanopy) {
+    canopyMat.map = targetCanopy
+    canopyMat.needsUpdate = true
+  }
+  const shadowMat = shadowMaterialRef.value?.value || shadowMaterialRef.value?.instance || shadowMaterialRef.value
+  if (shadowMat && shadowTex.value && shadowMat.map !== shadowTex.value) {
+    shadowMat.map = shadowTex.value
+    shadowMat.needsUpdate = true
+  }
+}
 
 const blindLadderXs = [-4.5, -1.5, 1.5, 4.5]
 
@@ -73,6 +89,7 @@ const cameraRef = shallowRef(null)
 const isDiscoverMode = ref(false)
 
 const isNightMode = ref(false)
+watch([canopyMaterialRef, shadowMaterialRef, isNightMode], applyCanopyTextures, { flush: 'post', immediate: true })
 const toggleNightMode = () => {
   isNightMode.value = !isNightMode.value
 }
@@ -113,11 +130,11 @@ const snapHeadphones = () => {
     return
   }
   const center = box.getCenter(new THREE.Vector3())
-  headphonesAdjust.value = {
-    x: headphonesAdjust.value.x + (HEADPHONES_TARGET.x - center.x),
-    y: headphonesAdjust.value.y + (HEADPHONES_TARGET.y - box.min.y),
-    z: headphonesAdjust.value.z + (HEADPHONES_TARGET.z - center.z)
-  }
+  group.position.set(
+    group.position.x + (HEADPHONES_TARGET.x - center.x),
+    group.position.y + (HEADPHONES_TARGET.y - box.min.y),
+    group.position.z + (HEADPHONES_TARGET.z - center.z)
+  )
   headphonesSnapped = true
 }
 
@@ -515,6 +532,7 @@ onMounted(() => {
   canopyDayTex.value = fallbackCanopy.canopyDayTex
   canopyNightTex.value = fallbackCanopy.canopyNightTex
   shadowTex.value = fallbackCanopy.dappledShadowTex
+  applyCanopyTextures()
 
   loader.load('/tree_shadow.webp', (tex) => {
     const oldDay = canopyDayTex.value
@@ -525,6 +543,7 @@ onMounted(() => {
     canopyDayTex.value = dayTex
     canopyNightTex.value = nightTex
     shadowTex.value = dappledShadowTex
+    applyCanopyTextures()
     oldDay?.dispose?.()
     oldNight?.dispose?.()
     oldShadow?.dispose?.()
@@ -686,7 +705,7 @@ const projectTitles = {
           <TresMesh :position="[0, 0, 0.01]">
             <TresPlaneGeometry :args="[11.5, 7.5]" />
             <TresMeshBasicMaterial
-              :map="isNightMode ? canopyNightTex : canopyDayTex"
+              ref="canopyMaterialRef"
               :transparent="true"
               :depth-write="false"
             />
@@ -863,7 +882,7 @@ const projectTitles = {
           <TresMesh :position="[0, 0, 0.22]">
             <TresPlaneGeometry :args="[11.3, 7.3]" />
             <TresMeshBasicMaterial
-              :map="shadowTex"
+              ref="shadowMaterialRef"
               :transparent="true"
               :opacity="isNightMode ? 0.45 : 0.75"
               :depth-write="false"
