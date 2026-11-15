@@ -91,16 +91,30 @@ const closePreview = () => {
             <div v-if="activeCreation" class="iframe-container">
                 <div class="iframe-header">
                     <button @click="closePreview" class="back-link">« Back to List</button>
-                    <span class="preview-title">Creation #{{ creations.indexOf(activeCreation) + 1 }}</span>
+                    <span class="preview-title">Creation #{{ creations.indexOf(activeCreation) + 1 }} — {{ activeCreation.title }}</span>
+                </div>
+                <div class="active-creation-meta">
+                    <p class="active-creation-desc">{{ activeCreation.description }}</p>
+                    <div v-if="activeCreation.tags && activeCreation.tags.length" class="tags-row">
+                        <span v-for="tag in activeCreation.tags" :key="tag" class="small-tag">{{ tag }}</span>
+                    </div>
                 </div>
                 <iframe :src="activeCreation.link" class="strudel-iframe" allow="autoplay"></iframe>
             </div>
             <div v-else>
                 <h3 class="chapter-title">Creations</h3>
-                <ul class="creations-bullet-list">
-                    <li v-for="(creation, index) in creations" :key="creation.id">
-                        <a href="#" @click.prevent="openPreview(creation)" class="ao3-external-link">› Listen to
-                            Creation #{{ index + 1 }}</a>
+                <ul class="creations-list">
+                    <li v-for="(creation, index) in creations" :key="creation.id" class="creation-card">
+                        <div class="creation-card-header">
+                            <a href="#" @click.prevent="openPreview(creation)" class="ao3-external-link">
+                                › Listen to Creation #{{ index + 1 }}: {{ creation.title }}
+                            </a>
+                            <span class="creation-date">{{ creation.date }}</span>
+                        </div>
+                        <p class="creation-desc">{{ creation.description }}</p>
+                        <div v-if="creation.tags && creation.tags.length" class="tags-row">
+                            <span v-for="tag in creation.tags" :key="tag" class="small-tag">{{ tag }}</span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -119,7 +133,7 @@ const closePreview = () => {
 
 <style scoped>
 .ao3-work {
-    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #2a2a2a;
     line-height: 1.6;
 }
@@ -245,20 +259,57 @@ blockquote.userstuff {
     color: #cc0000;
 }
 
-.creations-bullet-list {
-    list-style-type: disc;
-    padding-left: 2rem;
+.creations-list {
+    list-style: none;
+    padding: 0;
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.creations-bullet-list li {
-    margin-bottom: 0.8rem;
+.creation-card {
+    background: #fafafa;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    padding: 0.9rem 1.1rem;
+}
+
+.creation-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.creation-date {
+    font-size: 0.82rem;
+    color: #666;
+}
+
+.creation-desc {
+    margin: 0.45rem 0 0;
+    font-size: 0.92rem;
+    color: #333;
+}
+
+.active-creation-meta {
+    background: #fafafa;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.active-creation-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
 }
 
 .tags-row {
-    margin: 1rem 0;
+    margin: 0.5rem 0 0;
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
 }
 
@@ -319,7 +370,7 @@ blockquote.userstuff {
     background: none;
     border: none;
     color: #990000;
-    font-family: 'Lucida Grande', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 0.9rem;
     font-weight: bold;
     cursor: url('/mouse2.cur'), pointer;

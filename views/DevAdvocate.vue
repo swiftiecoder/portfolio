@@ -4,27 +4,40 @@
     <div class="ao3-meta-box">
       <dl class="ao3-tags">
         <dt>Rating:</dt>
-        <dd><span class="rating-badge tag-pg">Production Ready</span></dd>
+        <dd><span class="rating-badge tag-pg">Enterprise Production</span></dd>
 
-        <dt>Role:</dt>
-        <dd><strong><span class="warning-tag">Developer Advocate @ Educative</span></strong></dd>
+        <dt>Roles:</dt>
+        <dd>
+          <strong><span class="warning-tag">Associate Software Engineer @ GoSaaS, Inc.</span></strong> (Sep 2026 – Present)<br />
+          <strong><span class="warning-tag">Developer Advocate @ Educative, Inc.</span></strong> (Jun 2025 – Jul 2026)
+        </dd>
 
         <dt>Technologies:</dt>
         <dd>
+          <a class="ao3-tag-link">Oracle Fusion AI Agent Studio</a>,
+          <a class="ao3-tag-link">Model Context Protocol (MCP)</a>,
+          <a class="ao3-tag-link">Oracle FusionClaw</a>,
+          <a class="ao3-tag-link">RAG Pipelines</a>,
           <a class="ao3-tag-link">Python</a>,
-          <a class="ao3-tag-link">Chrome Extensions</a>,
-          <a class="ao3-tag-link">Automation</a>
+          <a class="ao3-tag-link">Claude API</a>,
+          <a class="ao3-tag-link">HubSpot</a>
         </dd>
 
         <dt>Highlights:</dt>
         <dd>
-          <a class="ao3-tag-link">System Design</a>,
-          <a class="ao3-tag-link">Cloud Labs</a>,
-          <a class="ao3-tag-link">Trustpilot Turnaround</a>
+          <a class="ao3-tag-link">Oracle AI World 2026 Showcase</a>,
+          <a class="ao3-tag-link">3.4M+ LinkedIn Impressions</a>,
+          <a class="ao3-tag-link">30 Days of Code (595% Traffic Surge)</a>,
+          <a class="ao3-tag-link">Trustpilot 2.5★ → 4.1★</a>
         </dd>
 
-        <dt>Tenure:</dt>
-        <dd>June 2025 - Present</dd>
+        <dt>Stats:</dt>
+        <dd class="ao3-stats">
+          Impressions: <span>3.4M+</span>
+          Webinar Reach: <span>17,000+</span>
+          Campaign Signups: <span>~7,000</span>
+          Email Opens: <span>1.5M+</span>
+        </dd>
       </dl>
     </div>
 
@@ -32,7 +45,7 @@
     <div class="userstuff module">
       <h3 class="landmark heading" id="work">Summary:</h3>
       <blockquote class="userstuff">
-        <p>As a Developer Advocate at Educative, I bridge the gap between engineering and marketing to build tools, generate insights, and curate high-fidelity technical content.</p>
+        <p>From building production agentic AI workflows featured at <strong>Oracle AI World 2026</strong> as an Associate Software Engineer at GoSaaS, to scaling technical advocacy to <strong>3.4M+ LinkedIn impressions</strong> and spearheading <em>30 Days of Code</em> at Educative.</p>
       </blockquote>
     </div>
 
@@ -40,22 +53,24 @@
 
     <!-- Chapter Content -->
     <div class="userstuff chapter-content" id="chapter-1">
-      <h3 class="chapter-title">Chapter 1: The Automation Engine</h3>
-      <p>It started with a simple desire: stop doing repetitive tasks. That desire birthed an array of custom automation tools—including Python scripts and a custom Chrome Extension—that successfully clawed back roughly 20 hours of lost time every month.</p>
+      <h3 class="chapter-title">Chapter 1: Enterprise Agentic AI @ GoSaaS &amp; Oracle AI World 2026</h3>
+      <p>At GoSaaS, I co-developed an agentic <strong>Engineering Change Orders (ECO)</strong> application featured at <strong>Oracle AI World 2026</strong>. The system unifies live Oracle Fusion change queues, natural-language redline summaries, and automated engineering risk detection (catching skipped revisions and downstream work-order collisions), paired with <strong>Oracle FusionClaw</strong> autonomous multi-step workflows that triage urgent changes, draft approver follow-ups, and auto-generate leadership slide decks.</p>
+      <p>Alongside ECO workflows, I architect and harden enterprise AI agents for official pre-release submission to Oracle across core Fusion modules—financials, supply chain, HR, customer experience, and product data—inside <strong>Oracle Fusion AI Agent Studio</strong>. Every agent integrates database business objects, REST APIs, <strong>Model Context Protocol (MCP)</strong> servers, and document RAG pipelines while enforcing strict citation grounding, role-based access control (RBAC) inheritance, and prompt-injection resilience.</p>
 
-      <h3 class="chapter-title">Chapter 2: The Trustpilot Turnaround</h3>
-      <p>A major focus became reputation management. By analyzing customer sentiment and feedback patterns, I helped orchestrate a strategic turnaround that elevated our Trustpilot score from 2.5 to a solid 4.1 stars. These insights didn't just look good on paper; they directly guided the Product team's development roadmap.</p>
+      <h3 class="chapter-title">Chapter 2: Scaling DevRel &amp; 30 Days of Code @ Educative</h3>
+      <p>Previously at Educative, I scaled technical content and growth across LinkedIn, X, Instagram, and email lifecycles—generating <strong>3.4M+ LinkedIn impressions, 33K+ clicks, and 7,400+ new followers at a 5.9% CTR</strong>, while hosting <strong>8 live technical webinars reaching 17,000+ developers</strong>.</p>
+      <p>I co-led Educative's flagship <strong>30 Days of Code</strong> campaign to revitalize interactive coding challenges, onboarding <strong>~7,000 new participants</strong>, driving a <strong>595% surge in site sessions</strong>, and generating <strong>1.5M+ email opens</strong> at a <strong>&gt;25% open rate</strong>, alongside ghostwriting CEO thought leadership and producing technical videos across Cloud Labs and System Design.</p>
 
-      <h3 class="chapter-title">Chapter 3: Content Architecture</h3>
-      <p>Content creation needed to scale, so I architected an executive pipeline using Opal automation to source industry trends. This allowed me to ghostwrite technical thought leadership for the CEO, significantly amplifying page impressions and reader engagement.</p>
-      <p>Beyond writing, I produced high-fidelity technical demos for Cloud Labs and System Design, leading product marketing efforts across social and email campaigns. By shifting to persona-based technical content, we drove a 26.3% increase in LinkedIn page views and fostered better alignment between our Engineering and Marketing teams.</p>
+      <h3 class="chapter-title">Chapter 3: AI Analytics &amp; The Trustpilot Turnaround (2.5★ → 4.1★)</h3>
+      <p>To eliminate manual reporting bottlenecks, I engineered an AI-assisted social workflow, a team-wide <strong>HubSpot + Claude</strong> analytics dashboard, and a LinkedIn-monitoring Chrome Extension with Python scrapers—saving roughly <strong>20+ hours every month</strong>.</p>
+      <p>I also built an NLP-based customer sentiment pipeline to diagnose user pain points and guide the Engineering product roadmap, orchestrating a reputation turnaround that elevated Educative's Trustpilot rating from <strong>2.5 to 4.1 stars</strong>.</p>
     </div>
   </div>
 </template>
 
 <style scoped>
 .ao3-work {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #2a2a2a;
   line-height: 1.6;
 }
@@ -114,6 +129,16 @@
 .ao3-tag-link:hover {
   text-decoration: underline;
   color: #990000;
+}
+
+.ao3-stats {
+  color: #555;
+}
+
+.ao3-stats span {
+  color: #111;
+  font-weight: bold;
+  margin-right: 15px;
 }
 
 .module {

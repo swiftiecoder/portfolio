@@ -1,5 +1,30 @@
 <script setup>
-import * as THREE from 'three';
+import { ref, onMounted } from 'vue'
+import * as THREE from 'three'
+import { createWalnutWoodTexture } from '../utils/textureGenerator'
+
+const props = defineProps({
+  isNightMode: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const emit = defineEmits(['toggleNightMode'])
+
+const walnutTex = ref(null)
+
+onMounted(() => {
+  walnutTex.value = createWalnutWoodTexture(THREE)
+})
+
+const onLampEnter = () => {
+  document.body.style.cursor = 'pointer'
+}
+
+const onLampLeave = () => {
+  document.body.style.cursor = ''
+}
 
 const spots = [];
 const numSpots = 15;
@@ -44,37 +69,57 @@ while (spots.length < numSpots && attempts < 300) {
     <!-- Desk Wooden Surface -->
     <TresMesh :position="[0, -0.2, 0]" receive-shadow cast-shadow>
       <TresBoxGeometry :args="[10, 0.4, 6]" />
-      <TresMeshStandardMaterial color="#d4b595" roughness="0.6" />
+      <TresMeshStandardMaterial :map="walnutTex" color="#c89f78" roughness="0.55" />
     </TresMesh>
     
     <!-- Desk Legs -->
     <!-- Front Left -->
     <TresMesh :position="[-4.8, -2.7, 2.8]" cast-shadow receive-shadow>
       <TresCylinderGeometry :args="[0.1, 0.05, 4.6, 16]" />
-      <TresMeshStandardMaterial color="#8b5a2b" roughness="0.8" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
     </TresMesh>
     <!-- Front Right -->
     <TresMesh :position="[4.8, -2.7, 2.8]" cast-shadow receive-shadow>
       <TresCylinderGeometry :args="[0.1, 0.05, 4.6, 16]" />
-      <TresMeshStandardMaterial color="#8b5a2b" roughness="0.8" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
     </TresMesh>
     <!-- Back Left -->
     <TresMesh :position="[-4.8, -2.7, -2.8]" cast-shadow receive-shadow>
       <TresCylinderGeometry :args="[0.1, 0.05, 4.6, 16]" />
-      <TresMeshStandardMaterial color="#8b5a2b" roughness="0.8" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
     </TresMesh>
     <!-- Back Right -->
     <TresMesh :position="[4.8, -2.7, -2.8]" cast-shadow receive-shadow>
       <TresCylinderGeometry :args="[0.1, 0.05, 4.6, 16]" />
-      <TresMeshStandardMaterial color="#8b5a2b" roughness="0.8" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
     </TresMesh>
 
-    <!-- Desk Ambient Light -->
-    <TresAmbientLight :intensity="0.8" color="#ffffff" />
+    <!-- Wooden Baseboards along all 4 walls -->
+    <TresMesh :position="[0, -4.85, -14.92]" receive-shadow>
+      <TresBoxGeometry :args="[30, 0.3, 0.16]" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
+    </TresMesh>
+    <TresMesh :position="[0, -4.85, 14.92]" receive-shadow>
+      <TresBoxGeometry :args="[30, 0.3, 0.16]" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
+    </TresMesh>
+    <TresMesh :position="[-14.92, -4.85, 0]" receive-shadow>
+      <TresBoxGeometry :args="[0.16, 0.3, 30]" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
+    </TresMesh>
+    <TresMesh :position="[14.92, -4.85, 0]" receive-shadow>
+      <TresBoxGeometry :args="[0.16, 0.3, 30]" />
+      <TresMeshStandardMaterial color="#4A2E19" roughness="0.7" />
+    </TresMesh>
     
-    <!-- Literal Mushroom Desk Lamp -->
-    <TresGroup :position="[-3.5, -0.2, -2]">
-      <!-- Mushroom Stalk (Taller) -->
+    <!-- Literal Mushroom Desk Lamp (clickable Golden Hour / Midnight toggle) -->
+    <TresGroup
+      :position="[-3.8, 0.0, -2.1]"
+      @click.stop="emit('toggleNightMode')"
+      @pointer-enter="onLampEnter"
+      @pointer-leave="onLampLeave"
+    >
+      <!-- Mushroom Stalk (Taller, flush on y = 0.0) -->
       <TresMesh :position="[0, 0.75, 0]" cast-shadow>
          <TresCylinderGeometry :args="[0.12, 0.25, 1.5, 32]" />
          <TresMeshStandardMaterial color="#fdfaee" roughness="0.9" />
@@ -84,7 +129,12 @@ while (spots.length < numSpots && attempts < 300) {
       <TresGroup :position="[0, 1.5, 0]">
          <TresMesh cast-shadow>
            <TresSphereGeometry :args="[1.0, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
-           <TresMeshStandardMaterial color="#d32f2f" emissive="#e53935" :emissiveIntensity="0.6" roughness="0.5" />
+           <TresMeshStandardMaterial
+             color="#d32f2f"
+             :emissive="props.isNightMode ? '#ff8a65' : '#e53935'"
+             :emissiveIntensity="props.isNightMode ? 0.95 : 0.6"
+             roughness="0.5"
+           />
          </TresMesh>
          
          <!-- Mushroom Spots (Randomly placed flat circles) -->
@@ -101,17 +151,22 @@ while (spots.length < numSpots && attempts < 300) {
          <!-- Soft under-glow for the cap -->
          <TresMesh :rotation="[Math.PI / 2, 0, 0]">
             <TresCircleGeometry :args="[1.0, 32]" />
-            <TresMeshStandardMaterial color="#ffcdd2" emissive="#ffcdd2" :emissiveIntensity="0.8" />
+            <TresMeshStandardMaterial
+              :color="props.isNightMode ? '#ffb74d' : '#ffcdd2'"
+              :emissive="props.isNightMode ? '#ffb74d' : '#ffcdd2'"
+              :emissiveIntensity="props.isNightMode ? 1.2 : 0.8"
+              :side="2"
+            />
          </TresMesh>
       </TresGroup>
       
-      <!-- Mushroom Light Source (Intensified) -->
+      <!-- Mushroom Light Source -->
       <TresPointLight 
         :position="[0, 1.0, 0]" 
-        :intensity="20" 
+        :intensity="props.isNightMode ? 32 : 18" 
         :distance="18"
         cast-shadow 
-        color="#ffcdd2"
+        :color="props.isNightMode ? '#ffb74d' : '#ffcdd2'"
         :decay="1.5"
       />
     </TresGroup>

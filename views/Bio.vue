@@ -21,11 +21,11 @@
         </tr>
         <tr>
           <td class="mf-label">EDUCATION</td>
-          <td colspan="3">B.S. COMPUTER SCIENCE, LAHORE UNIVERSITY OF MANAGEMENT SCIENCES (LUMS) <br/> GRADUATED: SUMMER 2025</td>
+          <td colspan="3">B.S. COMPUTER SCIENCE, LAHORE UNIVERSITY OF MANAGEMENT SCIENCES (LUMS) <br/> GRADUATED: JUNE 2025</td>
         </tr>
         <tr>
           <td class="mf-label">ACADEMICS</td>
-          <td colspan="3">GPA: 3.80/4.00 (MAJOR: 3.87) | DEAN'S HONOR LIST | MERIT SCHOLARSHIP</td>
+          <td colspan="3">GPA: 3.80/4.00 (MAJOR: 3.87 / 95% EQUIV.) | AWARD OF HIGH DISTINCTION | DEAN'S HONOR LIST (2022–2025) | LUMS MERIT SCHOLARSHIP | RANKED 1ST IN IOT</td>
         </tr>
       </tbody>
     </table>
@@ -35,15 +35,15 @@
       <div class="mf-skills-grid">
         <div class="mf-skill-row">
           <span class="mf-skill-cat">LANGUAGES</span>
-          <span class="mf-skill-list">PYTHON, R, JAVA, JAVASCRIPT, TYPESCRIPT, C, C++, HTML5, CSS3, LATEX</span>
+          <span class="mf-skill-list">PYTHON, TYPESCRIPT, JAVASCRIPT, JAVA, C, C++, R, SQL, BASH, HASKELL, LATEX, STRUDEL</span>
         </div>
         <div class="mf-skill-row">
-          <span class="mf-skill-cat">FRAMEWORKS & LIB</span>
-          <span class="mf-skill-list">MERN STACK, REACT, NODE.JS, PANDAS, MATPLOTLIB, NLTK, SCI-KIT LEARN, HUGGING FACE</span>
+          <span class="mf-skill-cat">ML, NLP &amp; AI</span>
+          <span class="mf-skill-list">ORACLE FUSION AI AGENT STUDIO, MODEL CONTEXT PROTOCOL (MCP), RAG (PINECONE), LANGCHAIN, HUGGINGFACE (DISTILBERT, GEMMA), UNSLOTH (LORA/QLORA), BERTOPIC, DASK, SCIKIT-LEARN, PANDAS, WHISPER</span>
         </div>
         <div class="mf-skill-row">
-          <span class="mf-skill-cat">DB & TOOLS</span>
-          <span class="mf-skill-list">SQL, MONGODB, MATLAB, FIGMA, LUCIDCHART, GITHUB, CURSOR, ANTIGRAVITY, GIT, AGILE</span>
+          <span class="mf-skill-cat">WEB &amp; EMBEDDED</span>
+          <span class="mf-skill-list">ORACLE FUSIONCLAW, REACT.JS, NEXT.JS, VUE / NUXT, THREE.JS, NODE.JS, FASTAPI, MONGODB, DOCKER, ATMEGA328P &amp; ESP-32 FIRMWARE, GATT BLE</span>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
     <div class="mf-section">
       <div class="mf-section-title">SUBJECT SUMMARY</div>
       <p class="mf-text">
-        Subject's file indicates a keen computational curiosity, originally trained in data science and NLP at LUMS, and now navigating the developer ecosystem as a Developer Advocate at Educative. Intercepted logs reveal a consistent drive to build impactful, accessible technology, with frequent contributions to open-source communities and research initiatives.
+        Computer Science graduate from LUMS (Award of High Distinction) and published researcher applying NLP and computational methods to study music, participatory culture, and accessible health technologies. Currently engineering enterprise AI agents at GoSaaS, Inc. (showcased at Oracle AI World 2026), following developer advocacy at Educative (3.4M+ LinkedIn impressions) and empirical research at LUMS SysNet/EmNets and CSaLT labs.
       </p>
     </div>
 
@@ -67,24 +67,52 @@
         </thead>
         <tbody>
           <tr>
+            <td>ASSOC. SOFTWARE ENGINEER</td>
+            <td>GOSAAS, INC. (ORACLE AI PARTNERS)</td>
+            <td>SEP 26 - PRESENT</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="mf-subtext">Co-developed agentic Engineering Change Orders app featured at Oracle AI World 2026 with Oracle FusionClaw workflows; architecting &amp; hardening enterprise AI agents across Fusion SCM, PLM, HCM &amp; ERP in Oracle Fusion AI Agent Studio with MCP servers and RAG pipelines.</td>
+          </tr>
+
+          <tr>
+            <td>DEVELOPER ADVOCATE</td>
+            <td>EDUCATIVE, INC.</td>
+            <td>JUN 25 - JUL 26</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="mf-subtext">Generated 3.4M+ LinkedIn impressions, 33K+ clicks, &amp; 7,400+ followers (5.9% CTR) and reached 17,000+ developers across 8 webinars; spearheaded '30 Days of Code' (~7,000 new users, 595% traffic surge, 1.5M+ email opens); lifted Trustpilot from 2.5 to 4.1 stars via NLP sentiment analysis &amp; HubSpot/Claude tooling.</td>
+          </tr>
+
+          <tr>
+            <td>RESEARCH ASSISTANT</td>
+            <td>LUMS (EMBEDDED AI &amp; CSALT LABS)</td>
+            <td>JAN 24 - JUL 25</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="mf-subtext">Built Guardian Angel (arXiv:2602.08701, EWSN '24): $12.72 screenless ATmega328P wristband cutting HR MAE by 67%, complexity-routed multi-LLM WhatsApp agent (-56.57% cost, 63.33% blind preference), &amp; 96h 20-user deployment. Earlier at CSaLT (Gates Foundation Khpal Tabib): curated 100+ verified medical consultations &amp; compressed Gemma-7B to 50M (~0.7%) trainable QLoRA params.</td>
+          </tr>
+
+          <tr>
             <td>TEACHING ASSISTANT</td>
-            <td>LUMS (CS 100, SS 100, MGMT 348)</td>
+            <td>LUMS (MGMT 348, CS 100, SS 100)</td>
             <td>SEP 23 - DEC 24</td>
           </tr>
           <tr>
-            <td colspan="3" class="mf-subtext">Facilitated lab sessions, evaluated assignments, and guided project groups through complex problem sets.</td>
-          </tr>
-          
-          <tr>
-            <td>RESEARCH ASSISTANT</td>
-            <td>LUMS (CSALT & EMBEDDED AI LABS)</td>
-            <td>JAN 24 - JULY 25</td>
-          </tr>
-          <tr>
-            <td colspan="3" class="mf-subtext">Developed AI-driven healthcare solutions and NLP systems for low-resource languages, building early prototypes and architectures.</td>
+            <td colspan="3" class="mf-subtext">Redesigned MGMT 348 assessment rubrics driving a +27% rise in quiz scores &amp; +31% boost in participation; authored CS 100 labs &amp; mentored capstone teams; delivered 3 instructional research seminars in SS 100.</td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="mf-section">
+      <div class="mf-section-title">PUBLICATIONS &amp; CERTIFICATIONS</div>
+      <ul class="mf-file-list">
+        <li>&rsaquo; AHSAN, M. S. (MAR 2026) — "HOOKED ON A FEELING" — DIGITAL STUDIES / LE CHAMP NUMÉRIQUE 16(1) (DOI:10.16995/DSCN.23539)</li>
+        <li>&rsaquo; AHSAN, M. S. &amp; REHMAN, M. (OCT 2026) — "FINDERS, KEEPERS, VIEWERS, READERS" — FSNNA '26 (407,449 AO3 WORKS; DOI:10.13140/RG.2.2.33712.52481)</li>
+        <li>&rsaquo; AHSAN, M. S. ET AL. (FEB 2026 / EWSN '24) — "LLM-ENHANCED WEARABLES IN LMICS" — ARXIV:2602.08701</li>
+        <li>&rsaquo; ORACLE FUSION AI AGENT STUDIO CERTIFIED DEVELOPER PROFESSIONAL (REL 26-2) — ORACLE (OCT 2026)</li>
+      </ul>
     </div>
 
     <div class="mf-section">

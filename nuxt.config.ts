@@ -13,7 +13,13 @@ export default defineNuxtConfig({
       ],
       link: [
         // You can add global link tags here, like for favicons
-        { rel: 'icon', type: 'image/x-icon', href: '/sushicatfavicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/sushicatfavicon.ico' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&family=VT323&display=swap'
+        }
       ]
     }
   },
@@ -26,12 +32,11 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@pinia/nuxt',
     '@tresjs/nuxt'
   ],
   vite: {
     build: {
-      cssCodeSplit: false,
+      cssCodeSplit: true,
     },
   },
 })

@@ -1,62 +1,76 @@
 <script setup>
-import { shallowRef, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import * as THREE from 'three'
 
 const emits = defineEmits(['pageClick'])
 
-const resumeTex = shallowRef(null)
-const cvTex = shallowRef(null)
-
-onMounted(() => {
-  const loader = new THREE.TextureLoader()
-
-  resumeTex.value = loader.load('/shaharyar_resume_pages-to-jpg-0001.jpg')
-  resumeTex.value.colorSpace = THREE.SRGBColorSpace
-
-  cvTex.value = loader.load('/shaharyar_acad_cv_page-0001.jpg')
-  cvTex.value.colorSpace = THREE.SRGBColorSpace
-})
+const pageMaterials = ref({})
 
 const pagesData = [
-  { 
-    id: 'Resume', 
-    position: [-0.5, 0.015, 0.5], 
+  {
+    id: 'Resume',
+    position: [-0.5, 0.012, 0.5],
     rotation: [0, 0.2, 0]
   },
-  { 
-    id: 'AcademicCV', 
-    position: [0.8, 0.01, 1.2], 
+  {
+    id: 'AcademicCV',
+    position: [0.8, 0.018, 1.2],
     rotation: [0, -0.3, 0]
   }
 ]
 
-const pageGeo = new THREE.BoxGeometry(1.4, 0.005, 1.8)
+onMounted(() => {
+  const loader = new THREE.TextureLoader()
+
+  const buildPageMaterials = (texturePath) => {
+    const tex = loader.load(texturePath)
+    tex.colorSpace = THREE.SRGBColorSpace
+
+    const edgeMat = new THREE.MeshStandardMaterial({ color: '#e8e2d5', roughness: 0.9 })
+    const faceMat = new THREE.MeshStandardMaterial({
+      map: tex,
+      color: '#b5afa3',
+      roughness: 0.85
+    })
+
+    return [edgeMat, edgeMat, faceMat, edgeMat, edgeMat, edgeMat]
+  }
+
+  pageMaterials.value = {
+    Resume: buildPageMaterials('/resume_preview.webp'),
+    AcademicCV: buildPageMaterials('/acad_cv_preview.webp')
+  }
+})
 
 const handlePageClick = (id) => {
   emits('pageClick', id)
 }
+
+const onEnter = () => {
+  document.body.style.cursor = 'pointer'
+}
+
+const onLeave = () => {
+  document.body.style.cursor = ''
+}
 </script>
 
 <template>
-  <TresGroup v-if="resumeTex && cvTex">
-    <TresMesh 
-      v-for="page in pagesData" 
-      :key="page.id"
-      :position="page.position"
-      :rotation="page.rotation"
-      cast-shadow 
-      receive-shadow
-      @click="handlePageClick(page.id)"
-    >
-      <primitive :object="pageGeo" />
-      
-      <TresMeshStandardMaterial color="#EEEEEE" roughness="0.9" attach="material-0" />
-      <TresMeshStandardMaterial color="#EEEEEE" roughness="0.9" attach="material-1" />
-      <!-- Tinted the material color grey/black to darken the white paper texture and make text pop under the bright light -->
-      <TresMeshStandardMaterial :map="page.id === 'Resume' ? resumeTex : cvTex" color="#999999" roughness="0.9" attach="material-2" />
-      <TresMeshStandardMaterial color="#EEEEEE" roughness="0.9" attach="material-3" />
-      <TresMeshStandardMaterial color="#EEEEEE" roughness="0.9" attach="material-4" />
-      <TresMeshStandardMaterial color="#EEEEEE" roughness="0.9" attach="material-5" />
-    </TresMesh>
+  <TresGroup>
+    <template v-for="page in pagesData" :key="page.id">
+      <TresMesh
+        v-if="pageMaterials[page.id]"
+        :position="page.position"
+        :rotation="page.rotation"
+        :material="pageMaterials[page.id]"
+        cast-shadow
+        receive-shadow
+        @click.stop="handlePageClick(page.id)"
+        @pointer-enter="onEnter"
+        @pointer-leave="onLeave"
+      >
+        <TresBoxGeometry :args="[1.4, 0.012, 1.8]" />
+      </TresMesh>
+    </template>
   </TresGroup>
 </template>

@@ -1,39 +1,35 @@
 <script setup>
-import { shallowRef, ref, onMounted, onBeforeUnmount } from 'vue'
+import { shallowRef, onMounted, onBeforeUnmount } from 'vue'
 import * as THREE from 'three'
-import { Html } from '@tresjs/cientos'
 
 const emits = defineEmits(['cardClick'])
 
-// 4 Projects mapped to provided images
+// 4 Crown Jewels mapped to curated Tarot Arcana
 const cardData = [
-  { id: 'HTS', title: 'HTS', image: '/tarot/00-TheFool.webp' },
-  { id: 'PortalLLM', title: 'PortalLLM', image: '/tarot/05-TheHierophant.webp' },
-  { id: 'GuardianAngel', title: 'Guardian Angel', image: '/tarot/19-TheSun.webp' },
-  { id: 'MyDoctor', title: 'My Doctor', image: '/tarot/14-Temperance.webp' }
+  { id: 'DevAdvocate', title: 'Developer Advocacy', arcana: 'V · The Hierophant', image: '/tarot/05-TheHierophant.webp' },
+  { id: 'GuardianAngel', title: 'Guardian Angel', arcana: 'XIV · Temperance', image: '/tarot/14-Temperance.webp' },
+  { id: 'FSNNA', title: 'Fan Studies (AO3)', arcana: 'VI · The Lovers', image: '/tarot/06-TheLovers.webp' },
+  { id: 'HTS', title: 'Hook, Time & Singer', arcana: 'XIX · The Sun', image: '/tarot/19-TheSun.webp' }
 ]
 
-const randomOffsets = cardData.map(() => ({
-  x: (Math.random() - 0.5) * 0.3, // Reduced messiness slightly to keep them safer on table
-  z: (Math.random() - 0.5) * 0.3,
-  rot: (Math.random() - 0.5) * 0.3
-}))
-
-const tooltipPos = [0, 0.5, 0]
-const tooltipRot = [-Math.PI/2, 0, 0]
+const handOffsets = [
+  { x: -0.07, z: 0.04, rot: -0.06 },
+  { x: 0.04, z: -0.05, rot: 0.05 },
+  { x: -0.04, z: -0.03, rot: -0.04 },
+  { x: 0.06, z: 0.05, rot: 0.07 }
+]
 
 const cardRefs = shallowRef([])
 
 // Layout math for an arc spread
-const spreadRadius = 1.8 // Reduced radius so cards group closer together
-const spreadAngle = Math.PI / 3 // Tighter angle so edges don't fall off the desk
+const spreadRadius = 1.8
+const spreadAngle = Math.PI / 3
 
-// Precalculate base transforms so we don't recalculate math.sin every frame
 const baseTransforms = cardData.map((_, index) => {
   const t = cardData.length > 1 ? index / (cardData.length - 1) : 0.5
-  const angle = -spreadAngle/2 + (t * spreadAngle)
-  const mess = randomOffsets[index]
-  
+  const angle = -spreadAngle / 2 + t * spreadAngle
+  const mess = handOffsets[index]
+
   return {
     x: Math.sin(angle) * spreadRadius + mess.x,
     z: (1 - Math.cos(angle)) * spreadRadius - 1.2 + mess.z,
@@ -47,13 +43,25 @@ const cardFaceTextures = shallowRef([])
 // Animation state
 const hoveredCardIndex = shallowRef(null)
 const flippedCardIndex = shallowRef(null)
-const flipProgress = shallowRef(0) // 0 to 1 value for animation
+const flipProgress = shallowRef(0)
 let animationFrameId = null
 let targetFlipProgress = 0
 
-// Geometry and Materials (Made smaller as requested)
-const cardGeo = new THREE.BoxGeometry(0.8, 0.02, 1.4) 
-const edgeMaterial = new THREE.MeshStandardMaterial({ color: '#D4AF37', metalness: 0.8, roughness: 0.2 }) // Gold edges
+// Geometry and Materials
+const cardGeo = new THREE.BoxGeometry(0.8, 0.02, 1.4)
+const edgeMaterial = new THREE.MeshStandardMaterial({ color: '#D4AF37', metalness: 0.8, roughness: 0.2 })
+
+const onCardEnter = (index) => {
+  hoveredCardIndex.value = index
+  document.body.style.cursor = 'pointer'
+}
+
+const onCardLeave = (index) => {
+  if (hoveredCardIndex.value === index) {
+    hoveredCardIndex.value = null
+    document.body.style.cursor = ''
+  }
+}
 
 onMounted(() => {
   const loader = new THREE.TextureLoader()
@@ -175,9 +183,9 @@ const handleCardClick = (index) => {
 
         cast-shadow 
         receive-shadow
-        @pointer-enter="hoveredCardIndex = index"
-        @pointer-leave="hoveredCardIndex = hoveredCardIndex === index ? null : hoveredCardIndex"
-        @click="handleCardClick(index)"
+        @pointer-enter="onCardEnter(index)"
+        @pointer-leave="onCardLeave(index)"
+        @click.stop="handleCardClick(index)"
       >
         <primitive :object="cardGeo" />
         
@@ -192,45 +200,7 @@ const handleCardClick = (index) => {
         <!-- We override the top and bottom with textures -->
         <TresMeshStandardMaterial :map="cardFaceTextures[index]" roughness="0.5" metalness="0.1" attach="material-2" /> <!-- Face -->
         <TresMeshStandardMaterial :map="cardBackTex" roughness="0.4" metalness="0.3" attach="material-3" /> <!-- Back (pointing up initially since X rot is 0) -->
-
-        <!-- Hover Tooltip -->
-        <Html 
-          v-if="hoveredCardIndex === index && flippedCardIndex === null" 
-          transform 
-          :position="[0, 0.4, 0]" 
-          :rotation="tooltipRot"
-          center 
-          wrapper-class="tarot-tooltip"
-        >
-          <div class="deck-label">
-             {{ card.title }}
-          </div>
-        </Html>
       </TresMesh>
     </template>
   </TresGroup>
 </template>
-
-<style scoped>
-:deep(.tarot-tooltip) {
-  pointer-events: none;
-}
-.deck-label {
-  background: rgba(15, 10, 25, 0.9);
-  color: #D4AF37;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-family: serif;
-  font-style: italic;
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  border: 1px solid #D4AF37;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-  animation: floatIn 0.3s ease-out forwards;
-  white-space: nowrap;
-}
-@keyframes floatIn {
-  0% { transform: translateY(10px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-</style>

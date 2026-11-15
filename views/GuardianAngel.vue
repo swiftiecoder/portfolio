@@ -4,33 +4,35 @@
     <div class="ao3-meta-box">
       <dl class="ao3-tags">
         <dt>Rating:</dt>
-        <dd><span class="rating-badge tag-pg">Research Prototype</span></dd>
+        <dd><span class="rating-badge tag-pg">arXiv Preprint &amp; EWSN '24</span></dd>
 
         <dt>Archive Warning:</dt>
-        <dd><strong><span class="warning-tag">Major Hardware Complications Applied</span></strong></dd>
+        <dd><strong><span class="warning-tag">Sub-$13 Hardware &amp; Real-World Clinical Noise Applied</span></strong></dd>
 
-        <dt>Tech:</dt>
+        <dt>Tech &amp; Hardware:</dt>
         <dd>
-          <a class="ao3-tag-link">C</a>,
-          <a class="ao3-tag-link">Java</a>,
+          <a class="ao3-tag-link">ATmega328P</a>,
+          <a class="ao3-tag-link">MAX30102 &amp; ADXL345</a>,
+          <a class="ao3-tag-link">C / C++ Firmware</a>,
+          <a class="ao3-tag-link">Java (Android BLE)</a>,
           <a class="ao3-tag-link">Node.js</a>
         </dd>
 
-        <dt>Integrations:</dt>
+        <dt>AI &amp; Voice:</dt>
         <dd>
-          <a class="ao3-tag-link">ESP-32</a>,
-          <a class="ao3-tag-link">OpenAI / LangChain</a>,
-          <a class="ao3-tag-link">Android / WhatsApp API</a>
+          <a class="ao3-tag-link">GPT-4o-mini / o3-mini / o1 Router</a>,
+          <a class="ao3-tag-link">Pinecone Medical RAG</a>,
+          <a class="ao3-tag-link">OpenAI Whisper (Urdu, Punjabi, English)</a>,
+          <a class="ao3-tag-link">WhatsApp Bot</a>
         </dd>
 
         <dt>Additional Tags:</dt>
         <dd>
-          <a class="ao3-tag-link">Embedded Systems</a>,
-          <a class="ao3-tag-link">AI for Health</a>,
-          <a class="ao3-tag-link">Bluetooth Low Energy (BLE)</a>,
-          <a class="ao3-tag-link">Resource Constrained Environments</a>,
-          <a class="ao3-tag-link">Hardware Tinkering Angst</a>,
-          <a class="ao3-tag-link">Team Leadership</a>
+          <a class="ao3-tag-link">ICT4D / LMIC Health</a>,
+          <a class="ao3-tag-link">Signal Restoration</a>,
+          <a class="ao3-tag-link">Micro-Longitudinal Study</a>,
+          <a class="ao3-tag-link">PhysioNet Validation</a>,
+          <a class="ao3-tag-link">Senior Capstone Thesis</a>
         </dd>
 
         <dt>Link:</dt>
@@ -41,9 +43,10 @@
 
         <dt>Stats:</dt>
         <dd class="ao3-stats">
-          Published: <span>2024-05-18</span>
-          Chapters: <span>2/2</span>
-          Kudos: <span>104</span>
+          Published: <span>2026-02 (arXiv:2602.08701)</span>
+          BOM Cost: <span>$12.72</span>
+          Traces: <span>1,003 PhysioNet</span>
+          Field Study: <span>20 Users (96h · 4,644 Logs)</span>
         </dd>
       </dl>
     </div>
@@ -52,9 +55,7 @@
     <div class="userstuff module">
       <h3 class="landmark heading" id="work">Summary:</h3>
       <blockquote class="userstuff">
-        <p>Guardian Angel is a research project I worked on as a Research Assistant at the Embedded AI Lab, LUMS. The goal was to democratize healthcare and wellness by developing an affordable
-          smartwatch and backend system that could overcome economic and linguistic barriers, especially in
-          resource-constrained settings.</p>
+        <p>Built in the Embedded AI Lab (SysNet / EmNets) at LUMS, Guardian Angel (<em>"LLM-Enhanced Wearables for Comprehensible Health Guidance in LMICs"</em>) pairs a <strong>$12.72 screenless biometric wristband</strong> with a complexity-routed multilingual WhatsApp LLM agent to make vital-sign tracking genuinely usable for digitally low-literate populations. Featured as a poster at <strong>EWSN '24 (Abu Dhabi)</strong> and released on <a class="ao3-external-link" href="https://arxiv.org/abs/2602.08701" target="_blank" rel="noopener">arXiv:2602.08701</a>.</p>
       </blockquote>
     </div>
 
@@ -64,23 +65,34 @@
     <div class="userstuff chapter-content" id="chapter-1">
       <img class="work-image" src="@/assets/GuardianAngel/watch_image.jpg" alt="Guardian Angel Watch Prototype" />
 
-      <h3 class="chapter-title">Chapter 1: The Hardware Bridge</h3>
+      <h3 class="chapter-title">Chapter 1: $12.72 Screenless Hardware &amp; Waveform Restoration</h3>
 
-      <p>The constraints were challenging: build a smartwatch that actually works, but keep it affordable enough to be accessible in resource-limited settings. Armed with an ESP-32 and off-the-shelf sensors, I started building the initial proof-of-concept. Writing C code for a microcontroller with severe space constraints meant relentlessly sourcing lightweight libraries—including replacing an entire underlying oximeter library just to fix a single critical bug.</p>
+      <p>The constraints were unforgiving: build a wearable that actually works in low-income settings, yet keep bill-of-materials cost down to <strong>$12.72</strong>. Ditching expensive OLED screens, our team designed a screenless wristband around an <strong>ATmega328P MCU</strong>, MAX30102 PPG optical sensor, ADXL345 accelerometer, and thermistor wired with custom C/C++ duty-cycled firmware achieving <strong>&lt;500 μA sleep current</strong>.</p>
 
-      <p>Data transmission was the next bottleneck. To save energy on the device, I dug into GATT Bluetooth protocols, using BLE modules to securely ping data over to an Android app I had built in Java. The mobile app served as the bridge, structuring the raw sensor data into clean JSON and sending it off to the inference server.</p>
+      <p>An Android companion app in Java handles custom Bluetooth Low Energy (BLE) framing and a 3rd-order Butterworth bandpass filter before relaying waveform windows to our LLM interpreter. Evaluated across <strong>1,003 PhysioNet clinical traces</strong> (BIDMC and Cuff-Less BP), our pipeline cut <strong>heart-rate MAE by 67% (11.96 vs. 36.10 BPM)</strong> and <strong>SpO₂ MAE by 41.6%</strong>, while boosting valid sensor availability from <strong>47.26% to 100%</strong>.</p>
 
       <img class="work-image app-screenshot" src="@/assets/GuardianAngel/app-signup.jpg"
         alt="Guardian Angel App Signup Screen" />
-      <p class="image-caption">Guardian Angel App Signup Screen</p>
+      <p class="image-caption">Guardian Angel Android BLE Companion Bridge</p>
 
-      <h3 class="chapter-title">Chapter 2: The Embedded AI Architecture</h3>
+      <h3 class="chapter-title">Chapter 2: Complexity-Routed Multi-LLM Agent &amp; Multilingual Voice</h3>
 
-      <p>When rebuilding the project in the Embedded AI lab, the focus shifted to the backend. I designed the server stack in Node.js, hooking up OpenAI and LangChain JS to implement in-context learning mechanisms like RAG and chain-of-thought prompting.</p>
+      <p>Instead of dumping raw BPM graphs onto users, I built a Node.js inference server backed by <strong>Pinecone medical-literature RAG</strong> and a dynamic query-complexity router dispatching across <strong>GPT-4o-mini, o3-mini, and o1</strong>. Compared to an o1-only baseline across <strong>N = 150 blind human evaluations</strong>, our router cut LLM API costs by <strong>56.57%</strong> while earning a <strong>63.33% blind user preference</strong>.</p>
 
-      <p>This phase produced early chatbot prototypes (including a Telegram-based one that earned the highest grade in our course), integrating function-calling capabilities and custom cron jobs to automate health updates.</p>
+      <p>To eliminate literacy barriers entirely, WhatsApp voice messages are transcribed through an <strong>OpenAI Whisper</strong> pipeline supporting <strong>Urdu, Punjabi, and English</strong>—turning conversational voice notes into structured clinical telemetry checks and personalized guidance.</p>
 
-      <p>Ultimately, Guardian Angel was a masterclass in bridging embedded hardware, mobile development, and AI backends. More importantly, it was a lesson in building empathy into software: prioritizing users with low digital literacy and working within the very real constraints of cost and power to make healthcare a little more accessible.</p>
+      <h3 class="chapter-title">Chapter 3: 96-Hour Field Deployment (4,644 Interactions)</h3>
+
+      <p>Leading a 3-member student research team, I ran a <strong>96-hour micro-longitudinal in-the-wild deployment with 20 digitally low-literate participants</strong>, logging <strong>4,644 real-world interactions</strong> alongside pre/post surveys, semi-structured interviews, and thematic coding. The deployment yielded measurable gains in both participant health-data accessibility (<strong>+1.85 / 5.0 Likert</strong>) and daily heart-rate mindfulness (<strong>+1.70 / 5.0 Likert</strong>).</p>
+    </div>
+
+    <!-- Final Notes -->
+    <div class="userstuff module end-notes">
+      <h3 class="landmark heading">End Notes:</h3>
+      <blockquote class="userstuff">
+        <p>Read the full preprint and EWSN '24 poster proceedings:</p>
+        <p>&rsaquo; <a class="ao3-external-link" href="https://arxiv.org/abs/2602.08701" target="_blank" rel="noopener">Read the Preprint on arXiv (arXiv:2602.08701)</a></p>
+      </blockquote>
     </div>
 
   </div>
@@ -89,7 +101,7 @@
 <style scoped>
 /* Core AO3 CSS Reset for this component */
 .ao3-work {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #2a2a2a;
   line-height: 1.6;
 }
@@ -229,6 +241,17 @@ blockquote.userstuff {
 }
 
 /* Make it responsive */
+.ao3-external-link {
+  color: #990000;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: url('/mouse2.cur'), pointer;
+}
+
+.ao3-external-link:hover {
+  color: #cc0000;
+}
+
 @media (max-width: 600px) {
   .ao3-tags {
     grid-template-columns: 1fr;

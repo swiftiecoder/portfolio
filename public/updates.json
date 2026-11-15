@@ -1,20 +1,38 @@
 [
-    {
+  {
+    "id": 6,
+    "date": "2026-10-27",
+    "title": "Presented at FSNNA '26 & Featured at Oracle AI World 2026",
+    "content": "Presented my co-authored paper *'Finders, Keepers, Viewers, Readers'* at the Fan Studies Network North America (FSNNA) Conference—quantifying how 63 book-to-screen adaptations trigger a 115.7x median surge across 407,449 AO3 fanworks and up to +3.97-bit Shannon entropy in *Bridgerton* and *Heated Rivalry*. [View Poster DOI](https://doi.org/10.13140/RG.2.2.33712.52481)\n\nAlso saw our agentic Engineering Change Orders app with **Oracle FusionClaw** autonomous workflows featured at **Oracle AI World 2026**!"
+  },
+  {
+    "id": 5,
+    "date": "2026-10-07",
+    "title": "Joined GoSaaS & Earned Oracle Fusion AI Certification",
+    "content": "Started as an Associate Software Engineer at **GoSaaS, Inc.** in September, architecting and hardening enterprise AI agents across core Oracle Fusion modules using Oracle Fusion AI Agent Studio, MCP servers, and RAG pipelines—and earned my **Oracle Fusion AI Agent Studio Certified Developer Professional (Rel 26-2)** certification!"
+  },
+  {
+    "id": 4,
+    "date": "2026-07-31",
+    "title": "Wrapping Up Developer Advocacy at Educative",
+    "content": "Wrapped up an unforgettable chapter as Developer Advocate at Educative: scaled technical content to **3.4M+ LinkedIn impressions**, hosted 8 webinars reaching 17,000+ developers, co-led the **30 Days of Code** campaign (~7,000 new users, 595% traffic surge, 1.5M+ email opens), and lifted Trustpilot from 2.5 to 4.1 stars."
+  },
+  {
     "id": 3,
     "date": "2026-03-20",
-    "title": "Paper Published",
-    "content": "After a year of working on it, my paper, 'Hooked on a Feeling: A Computational Approach Towards Understanding Songwriting as Cultural Memory', has been accepted for publication at the *Digital Studies / Le champ numérique (DSCN)*. [Read it here](https://www.digitalstudies.org/article/id/23539/) "
+    "title": "Paper Published in Digital Studies / Le champ numérique",
+    "content": "After a year of work, my paper *'Hooked on a Feeling: A Computational Approach Towards Understanding Songwriting as Cultural Memory'* (N = 353 Grammy nominees, DistilBERT + TF-IDF) has been published in **Digital Studies / Le champ numérique, 16(1)**. [Read it here](https://doi.org/10.16995/dscn.23539)"
   },
   {
     "id": 2,
-    "date": "2026-03-23",
-    "title": "Preprint Published",
-    "content": "My senior project thesis, 'LLM-Enhanced Wearables for Comprehensible Health Guidance in LMICs', is now available as a preprint on arXiv. [Read it here](https://arxiv.org/abs/2602.08701)"
+    "date": "2026-02-23",
+    "title": "Guardian Angel Preprint Published on arXiv",
+    "content": "Our senior capstone paper *'LLM-Enhanced Wearables for Comprehensible Health Guidance in LMICs'* ($12.72 screenless wristband, 67% HR MAE reduction, 96h 20-user field study) is live on arXiv. [Read arXiv:2602.08701](https://arxiv.org/abs/2602.08701)"
   },
   {
     "id": 1,
     "date": "2026-02-23",
     "title": "Noticeboard Feature Created",
-    "content": "Working on this redesign to distract myself from the pain of having my right wisdom tooth removed. All I have to say about it is _**** ** ****** ****_. "
+    "content": "Working on this 3D study redesign to distract myself from the pain of having my right wisdom tooth removed. All I have to say about it is _**** ** ****** ****_."
   }
 ]

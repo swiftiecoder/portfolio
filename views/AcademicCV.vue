@@ -1,8 +1,3 @@
-<script setup>
-import { useWindowsStore } from '@/stores/windows'
-const windowsStore = useWindowsStore()
-</script>
-
 <template>
 <div class="ao3-work" style="display: flex; height: 100%; flex-direction: column">
     <div class="userstuff module">
@@ -25,7 +20,7 @@ const windowsStore = useWindowsStore()
 
 <style scoped>
 .ao3-work {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #2a2a2a;
   line-height: 1.6;
 }

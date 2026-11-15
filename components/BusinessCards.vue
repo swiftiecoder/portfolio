@@ -1,7 +1,6 @@
 <script setup>
-import { shallowRef, ref, onMounted } from 'vue'
+import { shallowRef, onMounted } from 'vue'
 import * as THREE from 'three'
-import { Html } from '@tresjs/cientos'
 
 const emits = defineEmits(['linkClick'])
 
@@ -100,7 +99,7 @@ const handleHover = (index) => {
 const handleLeave = (index) => {
   if (hoveredCardIndex.value === index) {
     hoveredCardIndex.value = null
-    document.body.style.cursor = 'auto'
+    document.body.style.cursor = ''
   }
 }
 
@@ -142,44 +141,6 @@ const openLink = (link) => {
       <TresMeshStandardMaterial :color="card.color" roughness="0.8" attach="material-3" />
       <TresMeshStandardMaterial :color="card.color" roughness="0.7" attach="material-4" />
       <TresMeshStandardMaterial :color="card.color" roughness="0.7" attach="material-5" />
-
-      <!-- Hover Tooltip -->
-      <Html 
-        v-if="hoveredCardIndex === i" 
-        transform 
-        :position="[0, 0.05, 0]" 
-        :rotation="[-Math.PI / 2, 0, 0]"
-        center 
-        wrapper-class="bcard-tooltip"
-      >
-        <div class="card-label">
-           {{ card.name }}
-        </div>
-      </Html>
     </TresMesh>
   </TresGroup>
 </template>
-
-<style scoped>
-:deep(.bcard-tooltip) {
-  pointer-events: none;
-}
-.card-label {
-  background: rgba(15, 10, 25, 0.9);
-  color: #fff;
-  padding: 6px 16px;
-  border-radius: 4px;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  border: 1px solid #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  animation: floatIn 0.2s ease-out forwards;
-  white-space: nowrap;
-}
-
-@keyframes floatIn {
-  0% { transform: translateY(10px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-</style>

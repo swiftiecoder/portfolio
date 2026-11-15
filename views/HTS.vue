@@ -4,50 +4,49 @@
     <div class="ao3-meta-box">
       <dl class="ao3-tags">
         <dt>Rating:</dt>
-        <dd><span class="rating-badge tag-pg">Production Ready</span></dd>
+        <dd><span class="rating-badge tag-pg">Peer-Reviewed Journal Article</span></dd>
 
         <dt>Archive Warning:</dt>
-        <dd><strong><span class="warning-tag">Choose Not To Use Regular Expressions Properly</span></strong></dd>
+        <dd><strong><span class="warning-tag">Multimodal Emotional Dissonance Detected Across 7 Decades</span></strong></dd>
+
+        <dt>Venue:</dt>
+        <dd>
+          <a class="ao3-tag-link" href="https://doi.org/10.16995/dscn.23539" target="_blank" rel="noopener">
+            Digital Studies / Le champ numérique, 16(1) (Open Library of Humanities)
+          </a>
+        </dd>
 
         <dt>Tech:</dt>
         <dd>
           <a class="ao3-tag-link">Python</a>,
-          <a class="ao3-tag-link">Data Science</a>,
-          <a class="ao3-tag-link">Music Analytics</a>
+          <a class="ao3-tag-link">DistilBERT</a>,
+          <a class="ao3-tag-link">TF-IDF</a>,
+          <a class="ao3-tag-link">Dask</a>
         </dd>
 
-        <dt>Integrations:</dt>
+        <dt>Integrations &amp; Libraries:</dt>
         <dd>
-          <a class="ao3-tag-link">Python & Natural Language Toolkit (NLTK)</a>,
-          <a class="ao3-tag-link">Spotify API / Billboard Charts</a>
-        </dd>
-
-        <dt>Libraries:</dt>
-        <dd>
-          <a class="ao3-tag-link">Pandas</a>,
-          <a class="ao3-tag-link">Matplotlib</a>,
-          <a class="ao3-tag-link">BeautifulSoup</a>
+          <a class="ao3-tag-link">NLTK &amp; VADER</a>,
+          <a class="ao3-tag-link">Spotify Web API</a>,
+          <a class="ao3-tag-link">Genius Lyrics API</a>,
+          <a class="ao3-tag-link">Pandas &amp; Matplotlib</a>
         </dd>
 
         <dt>Additional Tags:</dt>
         <dd>
-          <a class="ao3-tag-link">Sentiment Analysis</a>,
-          <a class="ao3-tag-link">Web Scraping</a>,
-          <a class="ao3-tag-link">Historical Analysis</a>,
-          <a class="ao3-tag-link">Over-analyzing pop music</a>,
-          <a class="ao3-tag-link">Angst (but it's just the 2010s charts)</a>,
-          <a class="ao3-tag-link">Data Cleaning Hell</a>
+          <a class="ao3-tag-link">Computational Musicology</a>,
+          <a class="ao3-tag-link">Cultural Memory</a>,
+          <a class="ao3-tag-link">Affective Inversion</a>,
+          <a class="ao3-tag-link">Grammy Nominees (1960–2025)</a>,
+          <a class="ao3-tag-link">Over-analyzing pop music</a>
         </dd>
-
-        <dt>Language:</dt>
-        <dd>Python 3</dd>
 
         <dt>Stats:</dt>
         <dd class="ao3-stats">
-          Published: <span>2023-05-12</span>
-          Words: <span>1,200</span>
-          Commits: <span>42</span>
-          Hits: <span>903</span>
+          Published: <span>2026-03</span>
+          Corpus: <span>N = 353 Songs</span>
+          Span: <span>65 Years (1960–2025)</span>
+          DOI: <span>10.16995/dscn.23539</span>
         </dd>
       </dl>
     </div>
@@ -56,14 +55,12 @@
     <div class="userstuff module">
       <h3 class="landmark heading" id="work">Summary:</h3>
       <blockquote class="userstuff">
-        <p>Songs are more than just catchy tunes—they're cultural time capsules. In this project, I analyzed Grammy
-          "Song of the Year" nominees from the 1960s to the 2020s to uncover how lyrics reflect shifts in language,
-          emotion, and society.</p>
+        <p>Songs are more than catchy tunes—they are empirical records of cultural memory. Published in <em>Digital Studies / Le champ numérique</em> (Vol. 16(1), March 2026), this study models <strong>353 Grammy "Song of the Year" nominees across 65 years (1960–2025)</strong> using fine-tuned DistilBERT, TF-IDF, and Spotify acoustic features to trace a macro-level affective inversion between sound and lyrics.</p>
       </blockquote>
 
-      <h3 class="landmark heading" id="work">Notes:</h3>
+      <h3 class="landmark heading">Notes:</h3>
       <blockquote class="userstuff">
-        <p>(See the end of the work for links to the repository and playlist.)</p>
+        <p>(See the End Notes for the peer-reviewed journal article DOI, dataset playlist, and source repository.)</p>
       </blockquote>
     </div>
 
@@ -71,22 +68,22 @@
 
     <!-- Chapter Content -->
     <div class="userstuff chapter-content" id="chapter-1">
-      <h3 class="chapter-title">Chapter 1: Data Gathering</h3>
+      <h3 class="chapter-title">Chapter 1: Distributed Scraping &amp; 65 Years of Corpus Assembly</h3>
 
-      <p>To understand fifty years of pop culture, I needed data. A lot of it. I started by scraping a comprehensive list of Grammy "Song of the Year" nominees from the 1960s to the 2020s using Python and BeautifulSoup. This meant pulling song metadata from Wikipedia, then leveraging the Genius and Spotify APIs to fetch lyrics and musical features.</p>
-      <p>Dealing with inconsistent artist names and missing data required writing custom cleaning scripts and performing manual verification. I stripped out annotations, normalized the data structure, and ensured each song entry was ready for analysis with features like danceability and valence attached.</p>
+      <p>To trace 65 years of emotional culture in Western songwriting, I engineered a distributed Python pipeline using <strong>BeautifulSoup and Dask</strong> to compile a curated corpus of <strong>353 Grammy "Song of the Year" nominees (1960–2025)</strong>, uniting historical Wikipedia metadata with Genius lyrics and Spotify acoustic telemetry.</p>
+      <p>Resolving decades of shifting artist credits, live annotations, and API edge cases required custom normalization pipelines and manual verification—yielding a multi-decade dataset matching textual verse with audio features like danceability, musical valence, energy, and tempo.</p>
 
-      <h3 class="chapter-title">Chapter 2: Analyzing Sentiment</h3>
+      <h3 class="chapter-title">Chapter 2: DistilBERT, TF-IDF &amp; Acoustic Telemetry</h3>
 
-      <p>With the dataset cleaned, I used Python libraries (NLTK, TextBlob) to compute sentiment scores for each song. I analyzed linguistic features such as lexical diversity and the frequency of repeated phrases, tracking how often key themes (like "time" and "fame") appeared across decades.</p>
+      <p>With the corpus standardized, I applied <strong>fine-tuned DistilBERT</strong>, <strong>VADER/NLTK sentiment scoring</strong>, and <strong>TF-IDF thematic modeling</strong> to measure longitudinal emotional shifts, lexical richness, and recurring cultural motifs across seven decades.</p>
 
-      <p>I then cross-referenced these lyrical insights with Spotify's musical attributes (danceability, valence, energy). This comparison revealed fascinating mismatches between how songs sound and what their lyrics actually express.</p>
+      <p>Cross-referencing NLP predictions against Spotify's musical attributes uncovered a striking structural divergence between how modern pop songs sound and what their lyrics actually articulate.</p>
 
-      <h3 class="chapter-title">Chapter 3: The Findings</h3>
+      <h3 class="chapter-title">Chapter 3: Affective Inversion &amp; Multimodal Dissonance</h3>
 
-      <p><strong>80s optimism vs. 2010s cynicism:</strong> Sentiment analysis highlighted that 1980s Grammy-nominated songs were notably positive, reflecting a sense of hope and aspiration. In stark contrast, songs from the 2010s and 2020s show a marked shift toward negativity and cynicism, perhaps echoing broader cultural anxieties.</p>
+      <p><strong>Macro-Level Affective Inversion:</strong> Quantified sentiment trajectories reveal that 1980s nominees skewed notably optimistic and aspirational, whereas songs from the 2010s and 2020s shifted sharply toward vulnerability, irony, and cynicism.</p>
 
-      <p><strong>Emotional Dissonance:</strong> While tracks have progressively become more danceable, their musical positivity is often lower than the sentiment of the lyrics. This creates a growing emotional dissonance in popular music: even if a song sounds happy and energetic, its words may tell a much more somber story.</p>
+      <p><strong>Multimodal Dissonance:</strong> Even as chart tracks grew steadily higher in sonic danceability and tempo, musical and lyrical emotional polarity drifted apart—demonstrating a statistically significant multimodal dissonance supported by close-reading case studies.</p>
     </div>
 
     <!-- Final Notes -->
@@ -109,7 +106,7 @@
 <style scoped>
 /* Core AO3 CSS Reset for this component */
 .ao3-work {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #2a2a2a;
   line-height: 1.6;
 }
