@@ -37,7 +37,6 @@ const cards = [
   }
 ]
 
-const cardGeo = new THREE.BoxGeometry(0.75, 0.005, 0.42)
 
 const createCardTexture = (card) => {
   return new Promise((resolve) => {
@@ -131,7 +130,7 @@ const openLink = (link) => {
       @pointer-leave="handleLeave(i)"
       @click="openLink(card.link)"
     >
-      <primitive :object="cardGeo" />
+      <TresBoxGeometry :args="[0.75, 0.005, 0.42]" />
       
       <!-- Materials for the 6 sides of a BoxGeometry: right, left, top, bottom, front, back -->
       <TresMeshStandardMaterial :color="card.color" roughness="0.7" attach="material-0" />

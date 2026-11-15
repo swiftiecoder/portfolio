@@ -498,7 +498,7 @@ const drawFallbackCanopyMask = (ctx, size) => {
  * - dappledShadowTex: soft blurred transparent shadow overlay for blinds
  */
 export const createTreeCanopyTextures = (THREE, sourceImage = null) => {
-  const size = 1024
+  const size = 512
 
   // 1. Rasterize source silhouette
   const srcCanvas = document.createElement('canvas')

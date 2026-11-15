@@ -19,7 +19,10 @@ const handOffsets = [
   { x: 0.06, z: 0.05, rot: 0.07 }
 ]
 
-const cardRefs = shallowRef([])
+const props = defineProps({ position: { type: Array, default: () => [3, 0.05, 1] } })
+
+// Non-reactive: avoids reactive ref mutations during render flush
+const cardRefs = []
 
 // Layout math for an arc spread
 const spreadRadius = 1.8
@@ -48,8 +51,6 @@ let animationFrameId = null
 let targetFlipProgress = 0
 
 // Geometry and Materials
-const cardGeo = new THREE.BoxGeometry(0.8, 0.02, 1.4)
-const edgeMaterial = new THREE.MeshStandardMaterial({ color: '#D4AF37', metalness: 0.8, roughness: 0.2 })
 
 const onCardEnter = (index) => {
   hoveredCardIndex.value = index
@@ -92,8 +93,8 @@ const startAnimationLoop = () => {
     }
     
     // Update meshes directly for performance instead of through Vue template bindings
-    if (cardRefs.value && cardRefs.value.length > 0) {
-      cardRefs.value.forEach((mesh, index) => {
+    if (cardRefs.length > 0) {
+      cardRefs.forEach((mesh, index) => {
         if (!mesh) return
         
         const base = baseTransforms[index]
@@ -160,6 +161,7 @@ const startAnimationLoop = () => {
 
 onBeforeUnmount(() => {
   if (animationFrameId) cancelAnimationFrame(animationFrameId)
+  cardRefs.length = 0
 })
 
 const handleCardClick = (index) => {
@@ -174,12 +176,12 @@ const handleCardClick = (index) => {
 </script>
 
 <template>
-  <TresGroup>
+  <TresGroup :position="props.position">
     <template v-if="cardFaceTextures.length > 0 && cardBackTex">
       <TresMesh 
         v-for="(card, index) in cardData" 
         :key="card.id"
-        ref="cardRefs"
+        :ref="(el) => { if (el) cardRefs[index] = el }"
 
         cast-shadow 
         receive-shadow
@@ -187,15 +189,15 @@ const handleCardClick = (index) => {
         @pointer-leave="onCardLeave(index)"
         @click.stop="handleCardClick(index)"
       >
-        <primitive :object="cardGeo" />
+        <TresBoxGeometry :args="[0.8, 0.02, 1.4]" />
         
         <!-- BoxGeometry materials array order: right, left, top, bottom, front, back -->
-        <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-0" /> <!-- right -->
-        <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-1" /> <!-- left -->
+        <TresMeshStandardMaterial color="#D4AF37" :metalness="0.8" :roughness="0.2" attach="material-0" /> <!-- right -->
+        <TresMeshStandardMaterial color="#D4AF37" :metalness="0.8" :roughness="0.2" attach="material-1" /> <!-- left -->
         <TresMeshStandardMaterial :map="cardFaceTextures[index]" roughness="0.5" metalness="0.1" attach="material-2" /> <!-- top (face) -->
         <TresMeshStandardMaterial :map="cardBackTex" roughness="0.4" metalness="0.3" attach="material-3" /> <!-- bottom (back, pointing up initially since X rot is Math.PI) -->
-        <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-4" /> <!-- front -->
-        <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-5" /> <!-- back -->
+        <TresMeshStandardMaterial color="#D4AF37" :metalness="0.8" :roughness="0.2" attach="material-4" /> <!-- front -->
+        <TresMeshStandardMaterial color="#D4AF37" :metalness="0.8" :roughness="0.2" attach="material-5" /> <!-- back -->
       </TresMesh>
     </template>
   </TresGroup>
