@@ -192,14 +192,10 @@ const handleCardClick = (index) => {
         <!-- BoxGeometry materials array order: right, left, top, bottom, front, back -->
         <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-0" /> <!-- right -->
         <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-1" /> <!-- left -->
-        <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-2" /> <!-- top (face) -->
-        <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-3" /> <!-- bottom (back) -->
+        <TresMeshStandardMaterial :map="cardFaceTextures[index]" roughness="0.5" metalness="0.1" attach="material-2" /> <!-- top (face) -->
+        <TresMeshStandardMaterial :map="cardBackTex" roughness="0.4" metalness="0.3" attach="material-3" /> <!-- bottom (back, pointing up initially since X rot is Math.PI) -->
         <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-4" /> <!-- front -->
         <TresMeshStandardMaterial :color="edgeMaterial.color" :metalness="0.8" :roughness="0.2" attach="material-5" /> <!-- back -->
-        
-        <!-- We override the top and bottom with textures -->
-        <TresMeshStandardMaterial :map="cardFaceTextures[index]" roughness="0.5" metalness="0.1" attach="material-2" /> <!-- Face -->
-        <TresMeshStandardMaterial :map="cardBackTex" roughness="0.4" metalness="0.3" attach="material-3" /> <!-- Back (pointing up initially since X rot is 0) -->
       </TresMesh>
     </template>
   </TresGroup>

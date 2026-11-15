@@ -146,14 +146,20 @@ const isLoading = shallowRef(true)
 const loadingProgress = shallowRef(0)
 const isAssetsLoaded = shallowRef(false)
 const isShadersCompiled = shallowRef(false)
+let readyFallbackTimer = null
 
 const unregisterLoadingManager = () => {
   THREE.DefaultLoadingManager.onStart = undefined
   THREE.DefaultLoadingManager.onLoad = undefined
   THREE.DefaultLoadingManager.onProgress = undefined
+  THREE.DefaultLoadingManager.onError = undefined
 }
 
 const finishLoading = () => {
+  if (readyFallbackTimer) {
+    clearTimeout(readyFallbackTimer)
+    readyFallbackTimer = null
+  }
   isLoading.value = false
   unregisterLoadingManager()
 }
@@ -484,6 +490,18 @@ onMounted(() => {
     loadingProgress.value = Math.max(loadingProgress.value, progress)
   }
 
+  THREE.DefaultLoadingManager.onError = () => {
+    isAssetsLoaded.value = true
+    checkReadyState()
+  }
+
+  readyFallbackTimer = setTimeout(() => {
+    isAssetsLoaded.value = true
+    isShadersCompiled.value = true
+    loadingProgress.value = 100
+    checkReadyState()
+  }, 5000)
+
   const loader = new THREE.TextureLoader()
   rugTex.value = loader.load('/persian_rug.webp')
   rugTex.value.colorSpace = THREE.SRGBColorSpace
@@ -534,6 +552,10 @@ onBeforeUnmount(() => {
   cancelAnimationFrame(animationFrameId)
   cancelSwoop()
   if (headphonesRafId) cancelAnimationFrame(headphonesRafId)
+  if (readyFallbackTimer) {
+    clearTimeout(readyFallbackTimer)
+    readyFallbackTimer = null
+  }
   unregisterLoadingManager()
   window.removeEventListener('keydown', handleKeyDown)
   window.removeEventListener('resize', updateViewport)
@@ -585,7 +607,8 @@ const projectTitles = {
       </template>
     </ClientOnly>
 
-    <div id="tres-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+    <ClientOnly>
+      <div id="tres-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
       <TresCanvas shadows :shadow-map-type="1" :clear-color="isNightMode ? '#070b18' : '#fdf6e3'" window-size
         @ready="onTresReady">
         <TresPerspectiveCamera ref="cameraRef" :fov="cameraFov" :position="cameraPosition"
@@ -900,6 +923,7 @@ const projectTitles = {
         </div>
       </div>
     </div>
+    </ClientOnly>
 
     <!-- Discover Mode UI (Fantastical & Rustic Theme) -->
     <div class="discover-ui">
