@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, shallowRef, watch, onMounted } from 'vue'
 import * as THREE from 'three'
 import { createWalnutWoodTexture } from '../utils/textureGenerator'
 
@@ -13,6 +13,35 @@ const props = defineProps({
 const emit = defineEmits(['toggleNightMode'])
 
 const walnutTex = ref(null)
+const capMatRef = shallowRef(null)
+const underglowMatRef = shallowRef(null)
+const lampLightRef = shallowRef(null)
+
+const applyLampNightMode = () => {
+  const night = props.isNightMode
+  const capMat = capMatRef.value?.value || capMatRef.value?.instance || capMatRef.value
+  if (capMat) {
+    capMat.emissive?.set(night ? '#ff8a65' : '#e53935')
+    capMat.emissiveIntensity = night ? 0.95 : 0.6
+  }
+  const underglowMat = underglowMatRef.value?.value || underglowMatRef.value?.instance || underglowMatRef.value
+  if (underglowMat) {
+    const col = night ? '#ffb74d' : '#ffcdd2'
+    underglowMat.color?.set(col)
+    underglowMat.emissive?.set(col)
+    underglowMat.emissiveIntensity = night ? 1.2 : 0.8
+  }
+  const light = lampLightRef.value?.value || lampLightRef.value?.instance || lampLightRef.value
+  if (light) {
+    light.intensity = night ? 32 : 18
+    light.color?.set(night ? '#ffb74d' : '#ffcdd2')
+  }
+}
+
+watch([() => props.isNightMode, capMatRef, underglowMatRef, lampLightRef], applyLampNightMode, {
+  flush: 'post',
+  immediate: true
+})
 
 onMounted(() => {
   walnutTex.value = createWalnutWoodTexture(THREE)
@@ -130,9 +159,10 @@ while (spots.length < numSpots && attempts < 300) {
          <TresMesh cast-shadow>
            <TresSphereGeometry :args="[1.0, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
            <TresMeshStandardMaterial
+             ref="capMatRef"
              color="#d32f2f"
-             :emissive="props.isNightMode ? '#ff8a65' : '#e53935'"
-             :emissiveIntensity="props.isNightMode ? 0.95 : 0.6"
+             emissive="#e53935"
+             :emissiveIntensity="0.6"
              roughness="0.5"
            />
          </TresMesh>
@@ -152,9 +182,10 @@ while (spots.length < numSpots && attempts < 300) {
          <TresMesh :rotation="[Math.PI / 2, 0, 0]">
             <TresCircleGeometry :args="[1.0, 32]" />
             <TresMeshStandardMaterial
-              :color="props.isNightMode ? '#ffb74d' : '#ffcdd2'"
-              :emissive="props.isNightMode ? '#ffb74d' : '#ffcdd2'"
-              :emissiveIntensity="props.isNightMode ? 1.2 : 0.8"
+              ref="underglowMatRef"
+              color="#ffcdd2"
+              emissive="#ffcdd2"
+              :emissiveIntensity="0.8"
               :side="2"
             />
          </TresMesh>
@@ -162,11 +193,12 @@ while (spots.length < numSpots && attempts < 300) {
       
       <!-- Mushroom Light Source -->
       <TresPointLight 
+        ref="lampLightRef"
         :position="[0, 1.0, 0]" 
-        :intensity="props.isNightMode ? 32 : 18" 
+        :intensity="18" 
         :distance="18"
         cast-shadow 
-        :color="props.isNightMode ? '#ffb74d' : '#ffcdd2'"
+        color="#ffcdd2"
         :decay="1.5"
       />
     </TresGroup>

@@ -89,7 +89,67 @@ const cameraRef = shallowRef(null)
 const isDiscoverMode = ref(false)
 
 const isNightMode = ref(false)
+let tresRenderer = null
+const ambientLightRef = shallowRef(null)
+const keyLightRef = shallowRef(null)
+const fillLightRef = shallowRef(null)
+const outdoorMatRef = shallowRef(null)
+const windowGlassMatRef = shallowRef(null)
+const blindSlatMaterials = []
+
+const unwrapTres = (r) => r?.value || r?.instance || r
+
+const applyNightMode = () => {
+  const night = isNightMode.value
+  tresRenderer?.setClearColor?.(night ? '#070b18' : '#fdf6e3')
+
+  const ambient = unwrapTres(ambientLightRef.value)
+  if (ambient) {
+    ambient.intensity = night ? 0.38 : 1.35
+    ambient.color?.set(night ? '#24344d' : '#ffffff')
+  }
+
+  const keyLight = unwrapTres(keyLightRef.value)
+  if (keyLight) {
+    keyLight.intensity = night ? 0.55 : 3.4
+    keyLight.color?.set(night ? '#7ea8e0' : '#FFF1D0')
+  }
+
+  const fillLight = unwrapTres(fillLightRef.value)
+  if (fillLight) {
+    fillLight.intensity = night ? 0.35 : 1.4
+    fillLight.color?.set(night ? '#415a77' : '#E6F4F1')
+  }
+
+  const outdoorMat = unwrapTres(outdoorMatRef.value)
+  const targetOutdoor = night ? outdoorNightTex.value : outdoorDayTex.value
+  if (outdoorMat && targetOutdoor && outdoorMat.map !== targetOutdoor) {
+    outdoorMat.map = targetOutdoor
+    outdoorMat.needsUpdate = true
+  }
+
+  const glassMat = unwrapTres(windowGlassMatRef.value)
+  if (glassMat) {
+    glassMat.color?.set(night ? '#9ec5ff' : '#fff8e7')
+    glassMat.opacity = night ? 0.07 : 0.11
+  }
+
+  for (const entry of blindSlatMaterials) {
+    const slatMat = unwrapTres(entry)
+    if (slatMat) {
+      slatMat.emissive?.set(night ? '#1a2436' : '#8c5828')
+      slatMat.emissiveIntensity = night ? 0.08 : 0.18
+    }
+  }
+
+  const shadowMat = unwrapTres(shadowMaterialRef.value)
+  if (shadowMat) {
+    shadowMat.opacity = night ? 0.45 : 0.75
+  }
+}
+
 watch([canopyMaterialRef, shadowMaterialRef, isNightMode], applyCanopyTextures, { flush: 'post', immediate: true })
+watch([isNightMode, ambientLightRef, keyLightRef, fillLightRef, outdoorMatRef, windowGlassMatRef, shadowMaterialRef], applyNightMode, { flush: 'post', immediate: true })
 const toggleNightMode = () => {
   isNightMode.value = !isNightMode.value
 }
@@ -474,6 +534,8 @@ const onTresReady = ({ renderer, scene, camera }) => {
   const _renderer = renderer.value || renderer
   const _scene = scene.value || scene
   const _camera = camera.value || camera
+  tresRenderer = _renderer?.instance || _renderer
+  applyNightMode()
 
   if (_renderer && typeof _renderer.compile === 'function') {
     // Pre-compile all shaders for the current scene to prevent post-load freezing
@@ -628,7 +690,7 @@ const projectTitles = {
 
     <ClientOnly>
       <div id="tres-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-      <TresCanvas shadows :shadow-map-type="1" :clear-color="isNightMode ? '#070b18' : '#fdf6e3'" window-size
+      <TresCanvas shadows :shadow-map-type="1" clear-color="#fdf6e3" window-size
         @ready="onTresReady">
         <TresPerspectiveCamera ref="cameraRef" :fov="cameraFov" :position="cameraPosition"
           :look-at="defaultControlsTarget" />
@@ -638,15 +700,15 @@ const projectTitles = {
           @start="cancelSwoop" />
 
         <!-- Golden Hour / Midnight Overall Lighting -->
-        <TresAmbientLight :intensity="isNightMode ? 0.38 : 1.35" :color="isNightMode ? '#24344d' : '#ffffff'" />
+        <TresAmbientLight ref="ambientLightRef" :intensity="1.35" color="#ffffff" />
 
         <!-- Window Sunlight / Moonlight (Casting Blinds Shadows) -->
-        <TresDirectionalLight :position="[-12, 12, 5]" :intensity="isNightMode ? 0.55 : 3.4" cast-shadow
-          :color="isNightMode ? '#7ea8e0' : '#FFF1D0'" :shadow-mapSize-width="2048" :shadow-mapSize-height="2048"
+        <TresDirectionalLight ref="keyLightRef" :position="[-12, 12, 5]" :intensity="3.4" cast-shadow
+          color="#FFF1D0" :shadow-mapSize-width="2048" :shadow-mapSize-height="2048"
           :shadow-camera-left="-15" :shadow-camera-right="15" :shadow-camera-top="15" :shadow-camera-bottom="-15"
           :shadow-camera-near="1" :shadow-camera-far="40" :shadow-bias="-0.0005" />
-        <TresDirectionalLight :position="[10, 10, -10]" :intensity="isNightMode ? 0.35 : 1.4"
-          :color="isNightMode ? '#415a77' : '#E6F4F1'" />
+        <TresDirectionalLight ref="fillLightRef" :position="[10, 10, -10]" :intensity="1.4"
+          color="#E6F4F1" />
 
         <!-- Right Wall LUMS Flag -->
         <TresGroup :position="[14.9, 2.8, -4.5]" :rotation="[0, -Math.PI / 2, 0]">
@@ -698,7 +760,7 @@ const projectTitles = {
           <!-- 2. Outdoor Sky & Distant Hills/Garden Landscape Backdrop -->
           <TresMesh :position="[0, 0, -0.04]">
             <TresPlaneGeometry :args="[11.5, 7.5]" />
-            <TresMeshBasicMaterial :map="isNightMode ? outdoorNightTex : outdoorDayTex" />
+            <TresMeshBasicMaterial ref="outdoorMatRef" :map="outdoorDayTex" />
           </TresMesh>
 
           <!-- 3. Outdoor Swaying Tree Canopy Silhouette -->
@@ -715,9 +777,10 @@ const projectTitles = {
           <TresMesh :position="[0, 0, 0.04]">
             <TresPlaneGeometry :args="[11.4, 7.4]" />
             <TresMeshStandardMaterial
-              :color="isNightMode ? '#9ec5ff' : '#fff8e7'"
+              ref="windowGlassMatRef"
+              color="#fff8e7"
               :transparent="true"
-              :opacity="isNightMode ? 0.07 : 0.11"
+              :opacity="0.11"
               :roughness="0.08"
               :metalness="0.15"
               :depth-write="false"
@@ -806,10 +869,11 @@ const projectTitles = {
             >
               <TresBoxGeometry :args="[11.2, 0.018, 0.22]" />
               <TresMeshStandardMaterial
+                :ref="(el) => { if (el) blindSlatMaterials[i - 1] = el }"
                 :map="blindWoodTex"
                 color="#DDA772"
-                :emissive="isNightMode ? '#1a2436' : '#8c5828'"
-                :emissiveIntensity="isNightMode ? 0.08 : 0.18"
+                emissive="#8c5828"
+                :emissiveIntensity="0.18"
                 roughness="0.45"
               />
             </TresMesh>
@@ -884,7 +948,7 @@ const projectTitles = {
             <TresMeshBasicMaterial
               ref="shadowMaterialRef"
               :transparent="true"
-              :opacity="isNightMode ? 0.45 : 0.75"
+              :opacity="0.75"
               :depth-write="false"
             />
           </TresMesh>

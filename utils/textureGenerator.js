@@ -155,24 +155,32 @@ export const createCertificateTexture = (THREE, { title, issuer, date, id } = {}
 
   // Word-wrapped bold title
   ctx.fillStyle = '#2C1E16'
-  ctx.font = 'bold 26px "Cormorant Garamond", Georgia, serif'
-  const words = (title || 'Academic & Technical Certification').split(' ')
-  const lines = []
-  let currentLine = ''
-  for (const word of words) {
-    const testLine = currentLine ? `${currentLine} ${word}` : word
-    if (ctx.measureText(testLine).width > 380 && currentLine) {
-      lines.push(currentLine)
-      currentLine = word
-    } else {
-      currentLine = testLine
+  const wrapTitle = (fontSize) => {
+    ctx.font = `bold ${fontSize}px "Cormorant Garamond", Georgia, serif`
+    const words = (title || 'Academic & Technical Certification').split(' ')
+    const wrapped = []
+    let current = ''
+    for (const word of words) {
+      const testLine = current ? `${current} ${word}` : word
+      if (ctx.measureText(testLine).width > 380 && current) {
+        wrapped.push(current)
+        current = word
+      } else {
+        current = testLine
+      }
     }
+    if (current) wrapped.push(current)
+    return wrapped
   }
-  if (currentLine) lines.push(currentLine)
 
-  const lineHeight = 32
-  const startY = lines.length <= 2 ? 156 : 138
-  lines.slice(0, 3).forEach((line, idx) => {
+  let lines = wrapTitle(26)
+  let lineHeight = 32
+  if (lines.length > 3) {
+    lines = wrapTitle(22)
+    lineHeight = 27
+  }
+  const startY = lines.length <= 2 ? 156 : lines.length === 3 ? 138 : 128
+  lines.slice(0, 4).forEach((line, idx) => {
     ctx.fillText(line, 256, startY + idx * lineHeight)
   })
 

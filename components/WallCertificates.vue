@@ -9,34 +9,34 @@ const certificates = [
   {
     id: 0,
     pos: [-7.8, 1.0, 0.01],
-    title: 'Oracle Fusion AI Agent Studio Foundations Associate (Rel 26-2)',
-    issuer: 'Oracle University',
-    date: '2026',
+    title: 'Oracle Fusion AI Agent Studio Certified Developer Professional (Rel 26-2)',
+    issuer: 'Oracle',
+    date: 'Oct 2026',
     code: 'ORA-AI-26'
   },
   {
     id: 1,
     pos: [-7.8, -1.0, 0.01],
-    title: 'Meta Front-End Developer Specialization',
-    issuer: 'Meta · Coursera',
-    date: 'Specialization',
-    code: 'META-FE'
+    title: 'Mastering Natural Language Processing',
+    issuer: 'Educative',
+    date: '2025–2026',
+    code: 'EDU-NLP'
   },
   {
     id: 2,
     pos: [7.8, 1.0, 0.01],
-    title: 'Google Project Management Specialization',
-    issuer: 'Google · Coursera',
-    date: 'Specialization',
-    code: 'GOOG-PM'
+    title: 'Building Multi-Agentic AI Workflows Using Amazon Bedrock',
+    issuer: 'Educative',
+    date: '2025–2026',
+    code: 'EDU-BEDROCK'
   },
   {
     id: 3,
     pos: [7.8, -1.0, 0.01],
-    title: 'AWS Cloud Technical Essentials',
-    issuer: 'Amazon Web Services',
-    date: 'Verified Certificate',
-    code: 'AWS-CTE'
+    title: 'MCP Fundamentals for Building AI Agents',
+    issuer: 'Educative',
+    date: '2025–2026',
+    code: 'EDU-MCP'
   }
 ]
 
@@ -107,7 +107,12 @@ const handleLeave = () => {
       </TresMesh>
 
       <!-- Glass Reflection Overlay -->
-      <TresMesh :position="[0, 0, 0.072]">
+      <TresMesh
+        :position="[0, 0, 0.072]"
+        @click.stop="openCertifications"
+        @pointer-enter="handleHover"
+        @pointer-leave="handleLeave"
+      >
         <TresPlaneGeometry :args="[1.85, 1.35]" />
         <TresMeshPhysicalMaterial
           color="#ffffff"
