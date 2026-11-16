@@ -54,7 +54,18 @@ onMounted(() => {
 })
 
 const openCertifications = () => {
-  window.open(CERT_LINK, '_blank', 'noopener,noreferrer')
+  const win = window.open(CERT_LINK, '_blank')
+  if (win) {
+    win.opener = null
+    return
+  }
+  const a = document.createElement('a')
+  a.href = CERT_LINK
+  a.target = '_blank'
+  a.rel = 'noopener noreferrer'
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
 }
 
 const handleHover = () => {
@@ -74,8 +85,8 @@ const handleLeave = () => {
         cast-shadow
         receive-shadow
         @click.stop="openCertifications"
-        @pointer-enter="handleHover(i)"
-        @pointer-leave="handleLeave(i)"
+        @pointerenter="handleHover"
+        @pointerleave="handleLeave"
       >
         <TresBoxGeometry :args="[2.2, 1.7, 0.10]" />
         <TresMeshStandardMaterial
@@ -85,7 +96,12 @@ const handleLeave = () => {
       </TresMesh>
 
       <!-- Visible Gold Inner Mat (sits cleanly in front of frame front z=0.05) -->
-      <TresMesh :position="[0, 0, 0.055]">
+      <TresMesh
+        :position="[0, 0, 0.055]"
+        @click.stop="openCertifications"
+        @pointerenter="handleHover"
+        @pointerleave="handleLeave"
+      >
         <TresBoxGeometry :args="[2.0, 1.5, 0.015]" />
         <TresMeshStandardMaterial
           color="#c9a84c"
@@ -99,8 +115,8 @@ const handleLeave = () => {
         v-if="certTextures[i]"
         :position="[0, 0, 0.068]"
         @click.stop="openCertifications"
-        @pointer-enter="handleHover(i)"
-        @pointer-leave="handleLeave(i)"
+        @pointerenter="handleHover"
+        @pointerleave="handleLeave"
       >
         <TresPlaneGeometry :args="[1.75, 1.25]" />
         <TresMeshStandardMaterial :map="certTextures[i]" roughness="0.85" :side="2" />
@@ -110,8 +126,8 @@ const handleLeave = () => {
       <TresMesh
         :position="[0, 0, 0.072]"
         @click.stop="openCertifications"
-        @pointer-enter="handleHover"
-        @pointer-leave="handleLeave"
+        @pointerenter="handleHover"
+        @pointerleave="handleLeave"
       >
         <TresPlaneGeometry :args="[1.85, 1.35]" />
         <TresMeshPhysicalMaterial

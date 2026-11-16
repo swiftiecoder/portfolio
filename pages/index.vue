@@ -47,7 +47,7 @@ const blindWoodTex = shallowRef(null)
 
 const applyCanopyTextures = () => {
   const canopyMat = canopyMaterialRef.value?.value || canopyMaterialRef.value?.instance || canopyMaterialRef.value
-  const targetCanopy = isNightMode.value ? canopyNightTex.value : canopyDayTex.value
+  const targetCanopy = isNight ? canopyNightTex.value : canopyDayTex.value
   if (canopyMat && targetCanopy && canopyMat.map !== targetCanopy) {
     canopyMat.map = targetCanopy
     canopyMat.needsUpdate = true
@@ -88,8 +88,10 @@ const cameraRef = shallowRef(null)
 
 const isDiscoverMode = ref(false)
 
-const isNightMode = ref(false)
+let isNight = false
 let tresRenderer = null
+const canvasContainerRef = shallowRef(null)
+const deskSceneRef = shallowRef(null)
 const ambientLightRef = shallowRef(null)
 const keyLightRef = shallowRef(null)
 const fillLightRef = shallowRef(null)
@@ -100,7 +102,9 @@ const blindSlatMaterials = []
 const unwrapTres = (r) => r?.value || r?.instance || r
 
 const applyNightMode = () => {
-  const night = isNightMode.value
+  const night = isNight
+  canvasContainerRef.value?.classList.toggle('night-active', night)
+  deskSceneRef.value?.setNightMode?.(night)
   tresRenderer?.setClearColor?.(night ? '#070b18' : '#fdf6e3')
 
   const ambient = unwrapTres(ambientLightRef.value)
@@ -148,10 +152,12 @@ const applyNightMode = () => {
   }
 }
 
-watch([canopyMaterialRef, shadowMaterialRef, isNightMode], applyCanopyTextures, { flush: 'post', immediate: true })
-watch([isNightMode, ambientLightRef, keyLightRef, fillLightRef, outdoorMatRef, windowGlassMatRef, shadowMaterialRef], applyNightMode, { flush: 'post', immediate: true })
+watch([canopyMaterialRef, shadowMaterialRef], applyCanopyTextures, { flush: 'post', immediate: true })
+watch([ambientLightRef, keyLightRef, fillLightRef, outdoorMatRef, windowGlassMatRef, shadowMaterialRef], applyNightMode, { flush: 'post', immediate: true })
 const toggleNightMode = () => {
-  isNightMode.value = !isNightMode.value
+  isNight = !isNight
+  applyNightMode()
+  applyCanopyTextures()
 }
 
 // Responsive camera framing
@@ -676,7 +682,7 @@ const projectTitles = {
 </script>
 
 <template>
-  <div class="canvas-container" :class="{ 'night-active': isNightMode }">
+  <div ref="canvasContainerRef" class="canvas-container">
     <!-- Loading Screen: client-only to avoid SSR hydration mismatch -->
     <ClientOnly>
       <TypewriterLoading v-if="isLoading" :progress="loadingProgress" :is-ready="isAssetsLoaded && isShadersCompiled"
@@ -969,7 +975,7 @@ const projectTitles = {
         <!-- Desk Structure details (legs) so it doesn't float -->
         <!-- Legs are handled in DeskScene, but we might need to add them there if not present. Assuming DeskScene has just surface for now, we will add leg stubs in DeskScene later -->
 
-        <DeskScene :is-night-mode="isNightMode" @toggleNightMode="toggleNightMode" />
+        <DeskScene ref="deskSceneRef" @toggleNightMode="toggleNightMode" />
         <DeskDecorations @itemClick="handleCardClick" />
         <AcousticGuitar />
         <TresGroup ref="headphonesGroupRef"

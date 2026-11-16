@@ -1,14 +1,7 @@
 <script setup>
-import { ref, shallowRef, watch, onMounted } from 'vue'
+import { ref, shallowRef, onMounted } from 'vue'
 import * as THREE from 'three'
 import { createWalnutWoodTexture } from '../utils/textureGenerator'
-
-const props = defineProps({
-  isNightMode: {
-    type: Boolean,
-    default: false
-  }
-})
 
 const emit = defineEmits(['toggleNightMode'])
 
@@ -17,8 +10,7 @@ const capMatRef = shallowRef(null)
 const underglowMatRef = shallowRef(null)
 const lampLightRef = shallowRef(null)
 
-const applyLampNightMode = () => {
-  const night = props.isNightMode
+const setNightMode = (night) => {
   const capMat = capMatRef.value?.value || capMatRef.value?.instance || capMatRef.value
   if (capMat) {
     capMat.emissive?.set(night ? '#ff8a65' : '#e53935')
@@ -38,10 +30,7 @@ const applyLampNightMode = () => {
   }
 }
 
-watch([() => props.isNightMode, capMatRef, underglowMatRef, lampLightRef], applyLampNightMode, {
-  flush: 'post',
-  immediate: true
-})
+defineExpose({ setNightMode })
 
 onMounted(() => {
   walnutTex.value = createWalnutWoodTexture(THREE)
@@ -53,6 +42,10 @@ const onLampEnter = () => {
 
 const onLampLeave = () => {
   document.body.style.cursor = ''
+}
+
+const onLampClick = () => {
+  emit('toggleNightMode')
 }
 
 const spots = [];
@@ -142,21 +135,27 @@ while (spots.length < numSpots && attempts < 300) {
     </TresMesh>
     
     <!-- Literal Mushroom Desk Lamp (clickable Golden Hour / Midnight toggle) -->
-    <TresGroup
-      :position="[-3.8, 0.0, -2.1]"
-      @click.stop="emit('toggleNightMode')"
-      @pointer-enter="onLampEnter"
-      @pointer-leave="onLampLeave"
-    >
+    <TresGroup :position="[-3.8, 0.0, -2.1]">
       <!-- Mushroom Stalk (Taller, flush on y = 0.0) -->
-      <TresMesh :position="[0, 0.75, 0]" cast-shadow>
+      <TresMesh
+        :position="[0, 0.75, 0]"
+        cast-shadow
+        @click="onLampClick"
+        @pointerenter="onLampEnter"
+        @pointerleave="onLampLeave"
+      >
          <TresCylinderGeometry :args="[0.12, 0.25, 1.5, 32]" />
          <TresMeshStandardMaterial color="#fdfaee" roughness="0.9" />
       </TresMesh>
       
       <!-- Mushroom Cap -->
       <TresGroup :position="[0, 1.5, 0]">
-         <TresMesh cast-shadow>
+         <TresMesh
+           cast-shadow
+           @click="onLampClick"
+           @pointerenter="onLampEnter"
+           @pointerleave="onLampLeave"
+         >
            <TresSphereGeometry :args="[1.0, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]" />
            <TresMeshStandardMaterial
              ref="capMatRef"
@@ -173,13 +172,21 @@ while (spots.length < numSpots && attempts < 300) {
            :key="`spot-${index}`"
            :position="spot.position"
            :rotation="spot.rotation"
+           @click="onLampClick"
+           @pointerenter="onLampEnter"
+           @pointerleave="onLampLeave"
          >
            <TresCircleGeometry :args="[spot.radius, 16]" />
            <TresMeshBasicMaterial color="#ffffff" :side="2" />
          </TresMesh>
          
          <!-- Soft under-glow for the cap -->
-         <TresMesh :rotation="[Math.PI / 2, 0, 0]">
+         <TresMesh
+           :rotation="[Math.PI / 2, 0, 0]"
+           @click="onLampClick"
+           @pointerenter="onLampEnter"
+           @pointerleave="onLampLeave"
+         >
             <TresCircleGeometry :args="[1.0, 32]" />
             <TresMeshStandardMaterial
               ref="underglowMatRef"
